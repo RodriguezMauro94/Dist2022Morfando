@@ -9,7 +9,9 @@ class RestaurantProvider {
         }
 
         private val restaurants = listOf(
-            RestaurantModel("Ristorante Italiano", "Pasta")
+            RestaurantModel("Ristorante Italiano", "Pasta"),
+            RestaurantModel("El japonés", "Sushi"),
+            RestaurantModel("NY Slice", "Pizza")
         )
     }
 }
