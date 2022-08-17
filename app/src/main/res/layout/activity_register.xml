@@ -7,7 +7,7 @@
     android:layout_margin="15dp">
 
     <ImageView
-        android:id="@+id/login_img"
+        android:id="@+id/register_img"
         android:contentDescription="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
@@ -15,26 +15,33 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/login_landing"
+        android:id="@+id/register_landing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/login_img"
-        android:text="@string/login_landing" />
+        app:layout_constraintTop_toBottomOf="@id/register_img"
+        android:text="@string/register_landing" />
 
     <Button
-        android:id="@+id/login_google"
+        android:id="@+id/register_google"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="Continuar con Google"
-        app:layout_constraintTop_toBottomOf="@id/login_landing" />
+        app:layout_constraintTop_toBottomOf="@id/register_landing" />
 
     <Button
-        android:id="@+id/login_email"
+        android:id="@+id/register_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Continuar con email"
-        app:layout_constraintTop_toBottomOf="@id/login_google" />
+        app:layout_constraintTop_toBottomOf="@id/register_google" />
+
+    <Button
+        android:id="@+id/register_restaurant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Ingresar como comercio" />
 </androidx.constraintlayout.widget.ConstraintLayout>

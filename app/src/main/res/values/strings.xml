@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Morfando</string>
-    <string name="login_landing">Ingresa para descrubrir una nueva experiencia</string>
+    <string name="register_landing">Ingresa para descrubrir una nueva experiencia</string>
 </resources>
