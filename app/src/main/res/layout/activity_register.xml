@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/register_img"
         android:text="@string/register_landing" />
 
@@ -29,14 +30,6 @@
         android:layout_marginTop="15dp"
         android:text="Continuar con Google"
         app:layout_constraintTop_toBottomOf="@id/register_landing" />
-
-    <Button
-        android:id="@+id/register_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Continuar con email"
-        app:layout_constraintTop_toBottomOf="@id/register_google" />
 
     <Button
         android:id="@+id/register_restaurant"

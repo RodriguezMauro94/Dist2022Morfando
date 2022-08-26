@@ -8,7 +8,7 @@ import com.uade.dist.morfando.data.model.RestaurantProvider
 import com.uade.dist.morfando.domain.GetRestaurantsUseCase
 import kotlinx.coroutines.launch
 
-class MainViewModel: ViewModel() {
+class LoginViewModel: ViewModel() {
     var getRestaurantsUseCase = GetRestaurantsUseCase()
     val restaurantModel = MutableLiveData<RestaurantModel>()
 
