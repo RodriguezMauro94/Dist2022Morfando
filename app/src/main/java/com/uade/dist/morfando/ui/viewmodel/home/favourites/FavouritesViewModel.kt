@@ -1,13 +1,12 @@
-package com.uade.dist.morfando.ui.view.home.search
+package com.uade.dist.morfando.ui.viewmodel.home.favourites
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SearchViewModel : ViewModel() {
-
+class FavouritesViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
-        value = "This is search Fragment"
+        value = "This is favourites Fragment"
     }
     val text: LiveData<String> = _text
 }

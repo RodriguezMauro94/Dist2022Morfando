@@ -1,4 +1,4 @@
-package com.uade.dist.morfando.ui.view.home.categories
+package com.uade.dist.morfando.ui.viewmodel.home.categories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

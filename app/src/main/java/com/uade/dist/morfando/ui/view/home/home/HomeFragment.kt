@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.uade.dist.morfando.databinding.FragmentHomeBinding
+import com.uade.dist.morfando.ui.viewmodel.home.home.HomeViewModel
 
 class HomeFragment : Fragment() {
 
