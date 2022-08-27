@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
+import com.uade.dist.morfando.ui.view.home.HomeActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

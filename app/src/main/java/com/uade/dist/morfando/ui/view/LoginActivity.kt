@@ -8,6 +8,7 @@ import com.uade.dist.morfando.R
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.databinding.ActivityLoginBinding
+import com.uade.dist.morfando.ui.view.home.HomeActivity
 import com.uade.dist.morfando.ui.viewmodel.LoginViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

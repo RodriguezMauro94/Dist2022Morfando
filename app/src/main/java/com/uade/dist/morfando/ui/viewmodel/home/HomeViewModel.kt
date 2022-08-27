@@ -1,4 +1,4 @@
-package com.uade.dist.morfando.ui.viewmodel
+package com.uade.dist.morfando.ui.viewmodel.home
 
 import androidx.lifecycle.ViewModel
 

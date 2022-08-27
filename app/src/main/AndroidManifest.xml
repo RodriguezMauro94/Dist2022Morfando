@@ -33,7 +33,7 @@
             android:name=".ui.view.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.HomeActivity"
+            android:name=".ui.view.home.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.MapActivity"

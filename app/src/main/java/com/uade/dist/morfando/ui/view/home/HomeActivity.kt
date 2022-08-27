@@ -1,4 +1,4 @@
-package com.uade.dist.morfando.ui.view
+package com.uade.dist.morfando.ui.view.home
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,7 +27,10 @@ class HomeActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_home,
+                R.id.navigation_search,
+                R.id.navigation_categories,
+                R.id.navigation_favourites
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

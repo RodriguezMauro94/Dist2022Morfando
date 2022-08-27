@@ -1,13 +1,13 @@
-package com.uade.dist.morfando.ui.view.ui.home
+package com.uade.dist.morfando.ui.view.home.categories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class CategoriesViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "This is categories Fragment"
     }
     val text: LiveData<String> = _text
 }
