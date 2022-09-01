@@ -23,6 +23,12 @@
         <item name="itemTextColor">@color/white</item>
         <item name="itemRippleColor">@color/secondary</item>
     </style>
+    <style name="MorfandoTextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:layout_marginEnd">@dimen/button_margin</item>
+        <item name="android:layout_marginStart">@dimen/button_margin</item>
+
+    </style>
     <style name="MorfandoButtonTransparentBorderless" parent="TextAppearance.AppCompat.Widget.Button.Borderless.Colored">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/button_text_size</item>
