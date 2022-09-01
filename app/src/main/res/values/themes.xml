@@ -37,8 +37,8 @@
     </style>
     <style name="MorfandoButtonSecondary" parent="MorfandoButtonBase">
         <item name="android:textColor">@color/white</item>
-        <item name="backgroundTint">@android:color/holo_red_dark</item>
-        <item name="strokeColor">@android:color/holo_red_dark</item>
+        <item name="backgroundTint">@color/red</item>
+        <item name="strokeColor">@color/red</item>
     </style>
     <style name="MorfandoButtonBase">
         <item name="android:textColor">@color/black</item>
