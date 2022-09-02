@@ -22,6 +22,7 @@
         <item name="itemIconTint">@color/white</item>
         <item name="itemTextColor">@color/white</item>
         <item name="itemRippleColor">@color/secondary</item>
+        <item name="labelVisibilityMode">labeled</item>
     </style>
     <style name="MorfandoTextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/green</item>
