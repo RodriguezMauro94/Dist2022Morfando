@@ -67,4 +67,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/other" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_outlined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text"
+        style="@style/MorfandoTextInput">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextOutlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/MorfandoTextInputEditText"
+            android:hint="Placeholder"/>
+    </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
