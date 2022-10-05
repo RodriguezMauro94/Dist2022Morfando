@@ -28,59 +28,13 @@
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/base"
+        android:id="@+id/login_google"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="guardar"
-        style="@style/MorfandoButtonBase"
+        android:text="@string/login_google"
+        style="@style/MorfandoButtonTransparentOutlined"
+        android:drawableStart="@drawable/ic_favorites_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/landing" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/delete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="eliminar"
-        style="@style/MorfandoButtonSecondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/base" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/other"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="otro"
-        style="@style/MorfandoButtonTransparentBorderless"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delete" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="text button"
-        style="@style/MorfandoTextButton"
-        android:gravity="start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/other" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_layout_outlined"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        style="@style/MorfandoTextInput">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextOutlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/MorfandoTextInputEditText"
-            android:hint="Placeholder"/>
-    </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
