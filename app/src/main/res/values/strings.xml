@@ -9,4 +9,10 @@
     <string name="login_landing">Ingresa para descubrir una nueva experiencia</string>
     <string name="login_owner">Ingresar como dueño de restaurante</string>
     <string name="generic_error">"Algo salió mal, vuelve a intentarlo en unos instantes"</string>
+    <string name="owner_login_title">Ingresa</string>
+    <string name="owner_login_email">Correo electrónico</string>
+    <string name="owner_login_password">Contraseña</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="login_owner_button">Ingresar</string>
+    <string name="owner_register_button">Registrarse</string>
 </resources>

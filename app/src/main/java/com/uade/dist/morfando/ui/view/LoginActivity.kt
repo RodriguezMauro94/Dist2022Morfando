@@ -16,6 +16,9 @@ import com.uade.dist.morfando.databinding.ActivityLoginBinding
 import com.uade.dist.morfando.ui.view.home.HomeActivity
 import com.uade.dist.morfando.ui.viewmodel.LoginViewModel
 
+const val GOOGLE_SIGN_IN_REQUEST_CODE = 1000
+const val OWNER_LOGIN_REQUEST_CODE = 2000
+
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel: LoginViewModel by viewModels()
@@ -36,18 +39,27 @@ class LoginActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
 
         binding.loginGoogle.setOnClickListener {
-            signIn()
+            googleSignIn()
+        }
+
+        binding.loginOwner.setOnClickListener {
+            ownerLogin()
         }
     }
 
-    private fun signIn() {
+    private fun ownerLogin() {
+        val intent = Intent(this, OwnerLoginActivity::class.java)
+        this.startActivityForResult(intent, OWNER_LOGIN_REQUEST_CODE)
+    }
+
+    private fun googleSignIn() {
         val intent = googleSignInClient.signInIntent
-        this.startActivityForResult(intent, 1000)
+        this.startActivityForResult(intent, GOOGLE_SIGN_IN_REQUEST_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1000) {
+        if (requestCode == GOOGLE_SIGN_IN_REQUEST_CODE) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 if (task.isComplete && !task.isSuccessful) {
