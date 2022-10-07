@@ -12,14 +12,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
-import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.databinding.ActivityLoginBinding
 import com.uade.dist.morfando.ui.view.home.HomeActivity
 import com.uade.dist.morfando.ui.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val homeViewModel: LoginViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var googleSignInOptions: GoogleSignInOptions
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -29,8 +28,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-
-        homeViewModel.onCreate()
 
         googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             //TODO .requestIdToken(getString(R.string.server_client_id))
@@ -64,17 +61,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginSuccess(account: GoogleSignInAccount?) {
         account?.run {
-            /*
-            Log.d("account- displayName", this.displayName!!)
-            Log.d("account- familyName", this.familyName!!)
-            Log.d("account- givenName", this.givenName!!)
-            Log.d("account- email", this.email!!)
-            Log.d("account- id", this.id!!)
-            Log.d("account- id", this.idToken!!) // TODO enviar id a backend y validarlo https://developers.google.com/identity/sign-in/android/backend-auth
-            */
-
             val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
-            sharedPreferences.edit().putString(SHARED_PREFERENCES_TOKEN, "1234").apply() //FIXME enviar idToken
+            loginViewModel.loginSuccess(sharedPreferences)
             startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
             finish()
         }
