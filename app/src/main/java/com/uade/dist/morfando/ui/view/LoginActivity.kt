@@ -72,6 +72,8 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Toast.makeText(this, getString(R.string.generic_error), Toast.LENGTH_LONG).show()
             }
+        } else if (requestCode == OWNER_LOGIN_REQUEST_CODE) {
+            // TODO obtener el model del user y pasarlo al viewModel, lanzar la home
         }
     }
 

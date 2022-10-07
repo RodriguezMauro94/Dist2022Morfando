@@ -36,6 +36,9 @@
             android:name=".ui.view.OwnerLoginActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.view.OwnerRegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.home.HomeActivity"
             android:exported="false" />
         <activity
