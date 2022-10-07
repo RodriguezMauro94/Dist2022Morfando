@@ -5,36 +5,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.view.LoginActivity">
-    <TextView
-        android:id="@+id/login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login re piola 100% real no fake"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:paddingBottom="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/landing"
+    <ImageView
+        android:id="@+id/login_logo"
+        android:layout_width="80dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="@dimen/base_margin"
+        android:layout_marginTop="@dimen/base_margin"
+        android:src="@drawable/logo_morfando"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/login_landing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        style="@style/MorfandoButtonTransparentOutlined"
+        android:layout_marginTop="35dp"
+        android:paddingStart="@dimen/base_margin"
+        android:paddingEnd="@dimen/base_margin"
+        android:paddingBottom="25dp"
+        android:text="@string/login_landing"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        app:layout_constraintTop_toBottomOf="@id/login_logo" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_google"
+        style="@style/MorfandoButtonTransparentOutlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login_google"
-        style="@style/MorfandoButtonTransparentOutlined"
+        android:layout_marginTop="25dp"
         android:drawableStart="@drawable/ic_favorites_24"
+        android:text="@string/login_google"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/landing" />
+        app:layout_constraintTop_toBottomOf="@+id/login_landing" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_owner"
+        style="@style/MorfandoButtonTransparentBorderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/base_margin"
+        android:text="@string/login_owner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
