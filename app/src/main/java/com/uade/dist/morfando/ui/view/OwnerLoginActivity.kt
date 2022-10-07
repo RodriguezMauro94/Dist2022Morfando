@@ -31,7 +31,8 @@ class OwnerLoginActivity: AppCompatActivity() {
         }
 
         binding.ownerForgotPassword.setOnClickListener {
-            // TODO
+            val intent = Intent(this, OwnerForgotPasswordActivity::class.java)
+            this.startActivity(intent)
         }
     }
 

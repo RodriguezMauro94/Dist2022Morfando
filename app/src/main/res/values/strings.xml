@@ -17,4 +17,7 @@
     <string name="login_owner_button">Ingresar</string>
     <string name="owner_register_button">Registrarse</string>
     <string name="owner_register_title">Convertite en un miembro de morfando</string>
+    <string name="owner_forgot_password_title">Ingresa el correo que utilizaste para registrarte</string>
+    <string name="owner_forgot_password_landing">Te enviaremos un correo electrónico para recuperar tu contraseña</string>
+    <string name="owner_forgot_password_button">Recuperar contraseña</string>
 </resources>
