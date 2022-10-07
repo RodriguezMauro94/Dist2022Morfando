@@ -50,11 +50,15 @@ class LoginActivity : AppCompatActivity() {
         if (requestCode == 1000) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                val result = task.getResult(ApiException::class.java)
-
-                loginSuccess(result)
+                if (task.isComplete && !task.isSuccessful) {
+                    // User canceled the login
+                    return
+                } else {
+                    val result = task.getResult(ApiException::class.java)
+                    loginSuccess(result)
+                }
             } catch (e: Exception) {
-                Toast.makeText(this, "Algo salió mal, vuelve a intentarlo en unos instantes", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.generic_error), Toast.LENGTH_LONG).show()
             }
         }
     }

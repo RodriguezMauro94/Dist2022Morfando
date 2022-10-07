@@ -8,4 +8,5 @@
     <string name="login_google">Continuar con google</string>
     <string name="login_landing">Ingresa para descubrir una nueva experiencia</string>
     <string name="login_owner">Ingresar como dueño de restaurante</string>
+    <string name="generic_error">"Algo salió mal, vuelve a intentarlo en unos instantes"</string>
 </resources>
