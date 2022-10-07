@@ -17,7 +17,7 @@ class OwnerRegisterActivity: AppCompatActivity() {
         binding = ActivityOwnerRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.title = getString(R.string.owner_register_title)
-        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.register.setOnClickListener {
             // TODO

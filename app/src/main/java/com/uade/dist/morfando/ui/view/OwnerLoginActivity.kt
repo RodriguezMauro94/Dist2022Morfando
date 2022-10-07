@@ -20,7 +20,7 @@ class OwnerLoginActivity: AppCompatActivity() {
         binding = ActivityOwnerLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.title = getString(R.string.owner_login_title)
-        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.login.setOnClickListener {
             // TODO

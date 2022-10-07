@@ -16,5 +16,5 @@
     <string name="forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="login_owner_button">Ingresar</string>
     <string name="owner_register_button">Registrarse</string>
-    <string name="owner_register_title">Ingresa</string>
+    <string name="owner_register_title">Convertite en un miembro de morfando</string>
 </resources>
