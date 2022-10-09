@@ -20,4 +20,7 @@
     <string name="owner_forgot_password_title">Ingresa el correo que utilizaste para registrarte</string>
     <string name="owner_forgot_password_landing">Te enviaremos un correo electrónico para recuperar tu contraseña</string>
     <string name="owner_forgot_password_button">Recuperar contraseña</string>
+    <string name="geo_landing">Para poder disfrutar de morfando te pedimos acceder a tu ubicación!</string>
+    <string name="geo_request_button">Permitir compartir ubicación</string>
+    <string name="geo_not_now">Ahora no</string>
 </resources>

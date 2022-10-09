@@ -13,7 +13,6 @@ import com.google.android.gms.common.api.ApiException
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.databinding.ActivityLoginBinding
-import com.uade.dist.morfando.ui.view.home.HomeActivity
 import com.uade.dist.morfando.ui.viewmodel.LoginViewModel
 
 const val GOOGLE_SIGN_IN_REQUEST_CODE = 1000
@@ -81,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
         account?.run {
             val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
             loginViewModel.loginSuccess(sharedPreferences)
-            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+            startActivity(Intent(this@LoginActivity, RequestGeoPermissionActivity::class.java))
             finish()
         }
     }
