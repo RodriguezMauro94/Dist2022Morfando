@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.common.api.ApiException
@@ -20,7 +22,6 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
     private lateinit var binding: ActivityRequestGeoPermissionBinding
     lateinit var locationRequest: LocationRequest
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    //private val ownerRegisterViewModel: OwnerRegisterViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Morfando)
@@ -29,11 +30,22 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        
+
+        val permissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            if (permissions.containsKey(Manifest.permission.ACCESS_FINE_LOCATION) && permissions.getValue(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                checkGPS()
+            } else if (permissions.containsKey(Manifest.permission.ACCESS_COARSE_LOCATION) && permissions.getValue(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                checkGPS()
+            } else {
+                Toast.makeText(this, "permiso denegado", Toast.LENGTH_LONG).show()
+            }
+        }
 
         binding.geoRequest.setOnClickListener {
             // check self permission
-            checkLocationPermission()
+            checkLocationPermission(permissionRequest)
 
             /*
             startActivity(Intent(this@LoginActivity, RequestGeoPermissionActivity::class.java))
@@ -46,13 +58,15 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
         }
     }
 
-    private fun checkLocationPermission() {
+    private fun checkLocationPermission(permissionRequest: ActivityResultLauncher<Array<String>>) {
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // permission already granted
             checkGPS()
         } else {
-            // permission denied
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 100)
+            // permission not granted
+            permissionRequest.launch(arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION))
         }
     }
 
