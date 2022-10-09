@@ -1,6 +1,7 @@
 package com.uade.dist.morfando.ui.view
 
 import android.Manifest
+import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -15,6 +16,7 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.databinding.ActivityRequestGeoPermissionBinding
+import com.uade.dist.morfando.ui.view.home.HomeActivity
 import java.io.IOException
 import java.util.*
 
@@ -34,23 +36,20 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
         val permissionRequest = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
-            if (permissions.containsKey(Manifest.permission.ACCESS_FINE_LOCATION) && permissions.getValue(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                checkGPS()
-            } else if (permissions.containsKey(Manifest.permission.ACCESS_COARSE_LOCATION) && permissions.getValue(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                checkGPS()
-            } else {
-                Toast.makeText(this, "permiso denegado", Toast.LENGTH_LONG).show()
+            when {
+                permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION, permissions) || permissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION, permissions) -> {
+                    checkGPS()
+                    goToHome()
+                }
+                else -> {
+                    // FIXME hacer algo
+                    Toast.makeText(this, "permiso denegado", Toast.LENGTH_LONG).show()
+                }
             }
         }
 
         binding.geoRequest.setOnClickListener {
-            // check self permission
             checkLocationPermission(permissionRequest)
-
-            /*
-            startActivity(Intent(this@LoginActivity, RequestGeoPermissionActivity::class.java))
-            finish()
-             */
         }
 
         binding.geoNotNow.setOnClickListener {
@@ -58,7 +57,16 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
         }
     }
 
+    private fun permissionGranted(permission: String, permissions: Map<String, @JvmSuppressWildcards Boolean>)
+        = permissions.containsKey(permission) && permissions.getValue(permission)
+
+    private fun goToHome() {
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
+    }
+
     private fun checkLocationPermission(permissionRequest: ActivityResultLauncher<Array<String>>) {
+        // FIXME falta chequear si clavó "No volver a preguntar"
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // permission already granted
             checkGPS()
