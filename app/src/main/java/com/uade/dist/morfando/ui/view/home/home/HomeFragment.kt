@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.chip.ChipGroup
+import com.uade.dist.morfando.core.addChip
 import com.uade.dist.morfando.databinding.FragmentHomeBinding
 import com.uade.dist.morfando.ui.viewmodel.home.home.HomeViewModel
 
@@ -24,7 +27,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -33,7 +36,30 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        homeViewModel.chips.observe(viewLifecycleOwner) {
+            binding.chipsGroup.removeAllViews()
+            addChips(it, binding.chipsGroup, homeViewModel)
+        }
+
+        homeViewModel.chipClicked.observe(viewLifecycleOwner) {
+            Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
+        }
+
+
         return root
+    }
+
+    private fun addChips(
+        chips: Map<String, Int>,
+        chipsGroup: ChipGroup,
+        homeViewModel: HomeViewModel
+    ) {
+        chips.forEach {
+            chipsGroup.addChip(requireContext(), it.key, getString(it.value)) { chipTapped ->
+                homeViewModel.chipTapped(chipTapped)
+            }
+        }
     }
 
     override fun onDestroyView() {

@@ -23,4 +23,9 @@
     <string name="geo_landing">Para poder disfrutar de morfando te pedimos acceder a tu ubicación!</string>
     <string name="geo_request_button">Permitir compartir ubicación</string>
     <string name="geo_not_now">Ahora no</string>
+    <string name="chip_trending">Tendencia</string>
+    <string name="chip_classic">Clásicos</string>
+    <string name="chip_near">Cercanos</string>
+    <string name="chip_cheap">Baratos</string>
+    <string name="chip_expensive">Caros</string>
 </resources>
