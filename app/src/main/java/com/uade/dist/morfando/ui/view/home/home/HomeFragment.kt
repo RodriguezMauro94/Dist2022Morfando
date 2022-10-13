@@ -43,9 +43,9 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.chipClicked.observe(viewLifecycleOwner) {
+            //TODO ir al search con el valor correspondiente para la busqueda
             Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
         }
-
 
         return root
     }
