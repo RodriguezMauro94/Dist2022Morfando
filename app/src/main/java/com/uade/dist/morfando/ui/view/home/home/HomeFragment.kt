@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.chip.ChipGroup
-import com.uade.dist.morfando.core.addChip
+import com.uade.dist.morfando.core.addChips
 import com.uade.dist.morfando.databinding.FragmentHomeBinding
 import com.uade.dist.morfando.ui.viewmodel.home.home.HomeViewModel
 
@@ -55,10 +55,8 @@ class HomeFragment : Fragment() {
         chipsGroup: ChipGroup,
         homeViewModel: HomeViewModel
     ) {
-        chips.forEach {
-            chipsGroup.addChip(requireContext(), it.key, getString(it.value)) { chipTapped ->
-                homeViewModel.chipTapped(chipTapped)
-            }
+        chipsGroup.addChips(requireContext(), chips) { chipTapped ->
+            homeViewModel.chipTapped(chipTapped)
         }
     }
 
