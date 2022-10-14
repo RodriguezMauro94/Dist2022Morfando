@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/black">
+
+    <ImageView
+        android:id="@+id/restaurant_image"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/logo_morfando"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/restaurant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:text="Sushi tushi"
+        android:layout_marginTop="@dimen/base_margin"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_image"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/restaurant_rating_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_name"
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView
+            android:id="@+id/restaurant_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            tools:text="RATING" />
+        <TextView
+            android:id="@+id/restaurant_rating_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            tools:text="5.0"
+            android:layout_marginStart="@dimen/base_margin"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/restaurant_price_type_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_layout"
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView
+            android:id="@+id/restaurant_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            tools:text="$$$-$$$$" />
+        <TextView
+            android:id="@+id/restaurant_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:drawableStartCompat="@drawable/ic_dot_12"
+            android:drawablePadding="5dp"
+            tools:text="5.0"
+            android:layout_marginStart="@dimen/base_margin"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/restaurant_neighborhood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        app:drawableStartCompat="@drawable/ic_geo_12"
+        android:drawablePadding="5dp"
+        tools:text="Palermo"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_price_type_layout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
