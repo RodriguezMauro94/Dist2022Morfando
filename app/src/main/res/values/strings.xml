@@ -28,4 +28,6 @@
     <string name="chip_near">Cercanos</string>
     <string name="chip_cheap">Baratos</string>
     <string name="chip_expensive">Caros</string>
+    <string name="home_near_restaurants">Restaurantes cercanos</string>
+    <string name="home_near_restaurants_subtitle">Lo mejor de lo mejor cerca tuyo</string>
 </resources>

@@ -8,18 +8,22 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.ChipGroup
 import com.uade.dist.morfando.core.addChips
+import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.FragmentHomeBinding
+import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
 import com.uade.dist.morfando.ui.viewmodel.home.home.HomeViewModel
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
 
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    lateinit var restaurantsNearAdapter: RestaurantsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +51,18 @@ class HomeFragment : Fragment() {
             Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
         }
 
+        val restaurants = listOf(
+            RestaurantModel("sushi tushi", "japonesa"),
+            RestaurantModel("burger tushi", "americana"),
+            RestaurantModel("La parrilla del tano", "asado")
+        )
+
+        val restaurantsNearList = binding.homeNearRestaurants
+        val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        restaurantsNearList.layoutManager = horizontalLayoutManager
+        restaurantsNearAdapter = RestaurantsAdapter(requireContext(), restaurants, this)
+        restaurantsNearList.adapter = restaurantsNearAdapter
+
         return root
     }
 
@@ -63,5 +79,10 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(view: View, position: Int) {
+        // TODO ir a VIP del restaurant
+        Toast.makeText(requireContext(), "clickeado: " + restaurantsNearAdapter.getRestaurant(position), Toast.LENGTH_LONG).show()
     }
 }

@@ -75,12 +75,7 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="MorfandoRatingBar" parent="Theme.MaterialComponents.DayNight">
-        <item name="colorControlActivated">@color/green</item>
-        <item name="colorControlNormal">@color/secondary_dark</item>
-    </style>
-
-    <style name="MorfandoRatingBar2" parent="Widget.AppCompat.RatingBar">
+    <style name="MorfandoRatingBar" parent="Widget.AppCompat.RatingBar">
         <item name="android:progressDrawable">@drawable/morfando_rating_bar</item>
         <item name="minHeight">24dip</item>
         <item name="maxHeight">24dip</item>

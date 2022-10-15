@@ -5,13 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/black">
+    android:background="@color/black"
+    android:padding="@dimen/base_margin">
 
     <ImageView
         android:id="@+id/restaurant_image"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        tools:src="@drawable/logo_morfando"
+        android:src="@drawable/logo_morfando"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +48,7 @@
             tools:rating="2"
             android:progressTint="@color/green"
             android:progressBackgroundTint="@color/secondary_dark"
-            style="@style/MorfandoRatingBar2"/>
+            style="@style/MorfandoRatingBar"/>
 
         <TextView
             android:id="@+id/restaurant_rating_value"
