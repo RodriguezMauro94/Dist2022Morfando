@@ -28,13 +28,15 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val restaurant = restaurants[position] // TODO llenar los cosos de data
+        val restaurant = restaurants[position]
         holder.restaurantName.text = restaurant.name
         holder.restaurantType.text = restaurant.speciality
-        holder.restaurantPrice.text = "$$$-$$$$"
-        holder.restaurantRating.rating = 2.5F
-        holder.restaurantRatingValue.text = "3.0"
-        holder.restaurantNeighborhood.text = "Palermo"
+        holder.restaurantPrice.text = restaurant.price
+        holder.restaurantRating.rating = restaurant.rating.toFloat()
+        holder.restaurantRatingValue.text = restaurant.rating.toString()
+        holder.restaurantNeighborhood.text = restaurant.neighborhood
+
+        //TODO cargar imagen
     }
 
     override fun getItemCount(): Int = restaurants.size
