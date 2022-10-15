@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.data.model.RestaurantModel
 
@@ -35,8 +36,7 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>(
         holder.restaurantRating.rating = restaurant.rating.toFloat()
         holder.restaurantRatingValue.text = restaurant.rating.toString()
         holder.restaurantNeighborhood.text = restaurant.neighborhood
-
-        //TODO cargar imagen
+        Picasso.get().load(restaurant.image).into(holder.restaurantImage);
     }
 
     override fun getItemCount(): Int = restaurants.size

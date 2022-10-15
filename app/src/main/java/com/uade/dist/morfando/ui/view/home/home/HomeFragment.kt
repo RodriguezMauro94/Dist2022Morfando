@@ -52,9 +52,9 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         }
 
         val restaurants = listOf(
-            RestaurantModel("sushi tushi", "japonesa", "$$-$$$", 3.toLong(), "Palermo", "foto"),
-            RestaurantModel("burger tushi", "americana", "$$$-$$$$", 1.toLong(), "Recoleta", "foto"),
-            RestaurantModel("La parrilla del tano", "asado", "$-$$", 4.toLong(), "Avellaneda", "foto")
+            RestaurantModel("sushi tushi", "japonesa", "$$-$$$", 3.toLong(), "Palermo", "https://i.imgur.com/GB7lTPH.jpeg"),
+            RestaurantModel("burger tushi", "americana", "$$$-$$$$", 1.toLong(), "Recoleta", "https://i.imgur.com/OK1u0FO.jpeg"),
+            RestaurantModel("La parrilla del tano", "asado", "$-$$", 4.toLong(), "Avellaneda", "https://i.imgur.com/I0jGVwt.jpeg")
         )
 
         val restaurantsNearList = binding.homeNearRestaurants
