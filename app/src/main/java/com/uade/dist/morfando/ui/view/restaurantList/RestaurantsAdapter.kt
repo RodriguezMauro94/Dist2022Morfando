@@ -36,7 +36,10 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>(
         holder.restaurantRating.rating = restaurant.rating.toFloat()
         holder.restaurantRatingValue.text = restaurant.rating.toString()
         holder.restaurantNeighborhood.text = restaurant.neighborhood
-        Picasso.get().load(restaurant.image).into(holder.restaurantImage);
+        Picasso.get()
+            .load(restaurant.image)
+            .placeholder(R.drawable.logo_morfando)
+            .into(holder.restaurantImage)
     }
 
     override fun getItemCount(): Int = restaurants.size
