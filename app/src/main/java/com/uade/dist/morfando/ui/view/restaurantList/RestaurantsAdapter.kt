@@ -29,17 +29,18 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val restaurant = restaurants[position]
-        holder.restaurantName.text = restaurant.name
-        holder.restaurantType.text = restaurant.speciality
-        holder.restaurantPrice.text = restaurant.price
-        holder.restaurantRating.rating = restaurant.rating.toFloat()
-        holder.restaurantRatingValue.text = restaurant.rating.toString()
-        holder.restaurantNeighborhood.text = restaurant.neighborhood
-        Picasso.get()
-            .load(restaurant.image)
-            .placeholder(R.drawable.logo_morfando)
-            .into(holder.restaurantImage)
+        restaurants[position].apply {
+            holder.restaurantName.text = name
+            holder.restaurantType.text = speciality
+            holder.restaurantPrice.text = price
+            holder.restaurantRating.rating = rating.toFloat()
+            holder.restaurantRatingValue.text = rating.toString()
+            holder.restaurantNeighborhood.text = neighborhood
+            Picasso.get()
+                .load(image)
+                .placeholder(R.drawable.logo_morfando)
+                .into(holder.restaurantImage)
+        }
     }
 
     override fun getItemCount(): Int = restaurants.size
