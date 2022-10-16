@@ -24,6 +24,9 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
     // onDestroyView.
     private val binding get() = _binding!!
     lateinit var restaurantsNearAdapter: RestaurantsAdapter
+    lateinit var restaurantsCheapAdapter: RestaurantsAdapter
+    lateinit var restaurantsTrendingAdapter: RestaurantsAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,6 +60,18 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         restaurantsNearList.layoutManager = horizontalLayoutManager
         restaurantsNearAdapter = RestaurantsAdapter(requireContext(), restaurants, this)
         restaurantsNearList.adapter = restaurantsNearAdapter
+
+        val restaurantsCheapList = binding.homeCheapRestaurants
+        val cheapHorizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        restaurantsCheapList.layoutManager = cheapHorizontalLayoutManager
+        restaurantsCheapAdapter = RestaurantsAdapter(requireContext(), restaurants, this)
+        restaurantsCheapList.adapter = restaurantsCheapAdapter
+
+        val restaurantsTrendingList = binding.homeTrendingRestaurants
+        val trendingHorizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        restaurantsTrendingList.layoutManager = trendingHorizontalLayoutManager
+        restaurantsTrendingAdapter = RestaurantsAdapter(requireContext(), restaurants, this)
+        restaurantsTrendingList.adapter = restaurantsTrendingAdapter
 
         return root
     }

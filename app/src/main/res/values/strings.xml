@@ -30,4 +30,8 @@
     <string name="chip_expensive">Caros</string>
     <string name="home_near_restaurants">Restaurantes cercanos</string>
     <string name="home_near_restaurants_subtitle">Lo mejor de lo mejor cerca tuyo</string>
+    <string name="home_cheap_restaurants_title">Restaurantes baratos</string>
+    <string name="home_cheap_restaurants_subtitle">Donde podés sacar a tus amigos pero si vas con tu pareja te dejan</string>
+    <string name="home_trending_restaurants_title">Restaurantes de moda</string>
+    <string name="home_trending_restaurants_subtitle">Lugares que teniendo muchas recomendaciones</string>
 </resources>
