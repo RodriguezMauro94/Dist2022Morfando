@@ -81,8 +81,8 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         _binding = null
     }
 
-    override fun onItemClick(view: View, position: Int) {
+    override fun onItemClick(restaurant: RestaurantModel) {
         // TODO ir a VIP del restaurant
-        Toast.makeText(requireContext(), "clickeado: " + restaurantsNearAdapter.getRestaurant(position), Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), "clickeado: " + restaurant.name, Toast.LENGTH_LONG).show()
     }
 }

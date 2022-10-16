@@ -25,7 +25,7 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = inflater.inflate(R.layout.item_restaurant_vertical, parent, false)
-        return ViewHolder(view, clickListener)
+        return ViewHolder(view, restaurants, clickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -44,9 +44,7 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>(
 
     override fun getItemCount(): Int = restaurants.size
 
-    fun getRestaurant(position: Int) = restaurants[position]
-
-    class ViewHolder(restaurantView: View, val clickListener: ItemClickListener) : RecyclerView.ViewHolder(restaurantView), View.OnClickListener {
+    class ViewHolder(restaurantView: View, val restaurants: List<RestaurantModel>, val clickListener: ItemClickListener) : RecyclerView.ViewHolder(restaurantView), View.OnClickListener {
         val view: View = restaurantView
         val restaurantImage: ImageView = view.findViewById(R.id.restaurant_image)
         val restaurantName: TextView = view.findViewById(R.id.restaurant_name)
@@ -61,11 +59,11 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>(
         }
 
         override fun onClick(view: View) {
-            clickListener.onItemClick(view, adapterPosition)
+            clickListener.onItemClick(restaurants[adapterPosition])
         }
     }
 
     interface ItemClickListener {
-        fun onItemClick(view: View, position: Int)
+        fun onItemClick(restaurant: RestaurantModel)
     }
 }
