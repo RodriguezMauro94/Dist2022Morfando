@@ -44,7 +44,7 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>(
 
     override fun getItemCount(): Int = restaurants.size
 
-    class ViewHolder(restaurantView: View, val restaurants: List<RestaurantModel>, val clickListener: ItemClickListener) : RecyclerView.ViewHolder(restaurantView), View.OnClickListener {
+    class ViewHolder(restaurantView: View, private val restaurants: List<RestaurantModel>, private val clickListener: ItemClickListener) : RecyclerView.ViewHolder(restaurantView), View.OnClickListener {
         val view: View = restaurantView
         val restaurantImage: ImageView = view.findViewById(R.id.restaurant_image)
         val restaurantName: TextView = view.findViewById(R.id.restaurant_name)
