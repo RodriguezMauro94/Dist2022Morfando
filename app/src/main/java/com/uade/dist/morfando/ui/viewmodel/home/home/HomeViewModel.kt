@@ -12,11 +12,6 @@ class HomeViewModel : ViewModel() {
         chipClicked.value = _chips.value?.get(chip)
     }
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
-
     private val _chips = MutableLiveData<Map<String, Int>>().apply {
         value = mapOf(
             Pair("trending", R.string.chip_trending),

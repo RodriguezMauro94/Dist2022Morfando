@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Morfando</string>
     <string name="register_landing">Ingresa para descrubrir una nueva experiencia</string>
-    <string name="title_home">Explorar</string>
+    <string name="title_home">@string/app_name</string>
     <string name="title_search">Buscar</string>
     <string name="title_categories">Categorías</string>
     <string name="title_favourites">Favoritos</string>

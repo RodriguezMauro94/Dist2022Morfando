@@ -36,11 +36,6 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-
         homeViewModel.chips.observe(viewLifecycleOwner) {
             binding.chipsGroup.removeAllViews()
             addChips(it, binding.chipsGroup, homeViewModel)
