@@ -23,9 +23,9 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    lateinit var restaurantsNearAdapter: RestaurantsAdapter
-    lateinit var restaurantsCheapAdapter: RestaurantsAdapter
-    lateinit var restaurantsTrendingAdapter: RestaurantsAdapter
+    private lateinit var restaurantsNearAdapter: RestaurantsAdapter
+    private lateinit var restaurantsCheapAdapter: RestaurantsAdapter
+    private lateinit var restaurantsTrendingAdapter: RestaurantsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
