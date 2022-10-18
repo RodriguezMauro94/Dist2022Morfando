@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.uade.dist.morfando.core.addChips
 import com.uade.dist.morfando.data.model.RestaurantModel
@@ -53,25 +54,22 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             RestaurantModel("La parrilla del tano", "asado", "$-$$", 4.toLong(), "Avellaneda", "https://i.imgur.com/I0jGVwt.jpeg")
         )
 
-        val restaurantsNearList = binding.homeNearRestaurants
-        val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        restaurantsNearList.layoutManager = horizontalLayoutManager
         restaurantsNearAdapter = RestaurantsAdapter(requireContext(), restaurants, this)
-        restaurantsNearList.adapter = restaurantsNearAdapter
+        bindList(binding.homeNearRestaurants, restaurantsNearAdapter)
 
-        val restaurantsCheapList = binding.homeCheapRestaurants
-        val cheapHorizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        restaurantsCheapList.layoutManager = cheapHorizontalLayoutManager
         restaurantsCheapAdapter = RestaurantsAdapter(requireContext(), restaurants, this)
-        restaurantsCheapList.adapter = restaurantsCheapAdapter
+        bindList(binding.homeCheapRestaurants, restaurantsCheapAdapter)
 
-        val restaurantsTrendingList = binding.homeTrendingRestaurants
-        val trendingHorizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        restaurantsTrendingList.layoutManager = trendingHorizontalLayoutManager
         restaurantsTrendingAdapter = RestaurantsAdapter(requireContext(), restaurants, this)
-        restaurantsTrendingList.adapter = restaurantsTrendingAdapter
+        bindList(binding.homeTrendingRestaurants, restaurantsTrendingAdapter)
 
         return root
+    }
+
+    private fun bindList(recyclerView: RecyclerView, adapter: RestaurantsAdapter) {
+        val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager = horizontalLayoutManager
+        recyclerView.adapter = adapter
     }
 
     private fun addChips(
