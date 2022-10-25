@@ -1,6 +1,5 @@
 package com.uade.dist.morfando.ui.view.restaurantList
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,23 +11,21 @@ import com.squareup.picasso.Picasso
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.data.model.RestaurantModel
 
-class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>() {
+class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.RestaurantsViewHolder>() {
     private lateinit var clickListener: ItemClickListener
-    private lateinit var restaurants: List<RestaurantModel>
-    private lateinit var inflater: LayoutInflater
+    private var restaurants = mutableListOf<RestaurantModel>()
 
-    constructor(context: Context, restaurants: List<RestaurantModel>, clickListener: ItemClickListener): this() {
-        this.inflater = LayoutInflater.from(context)
-        this.restaurants = restaurants
+    constructor(clickListener: ItemClickListener): this() {
         this.clickListener = clickListener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantsViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_restaurant_vertical, parent, false)
-        return ViewHolder(view, restaurants, clickListener)
+        return RestaurantsViewHolder(view, restaurants, clickListener)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RestaurantsViewHolder, position: Int) {
         restaurants[position].apply {
             holder.restaurantName.text = name
             holder.restaurantType.text = speciality
@@ -45,7 +42,12 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>(
 
     override fun getItemCount(): Int = restaurants.size
 
-    class ViewHolder(restaurantView: View, private val restaurants: List<RestaurantModel>, private val clickListener: ItemClickListener) : RecyclerView.ViewHolder(restaurantView), View.OnClickListener {
+    fun setRestaurants(restaurants: List<RestaurantModel>) {
+        this.restaurants = restaurants.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    class RestaurantsViewHolder(restaurantView: View, private val restaurants: List<RestaurantModel>, private val clickListener: ItemClickListener) : RecyclerView.ViewHolder(restaurantView), View.OnClickListener {
         val view: View = restaurantView
         val restaurantImage: ImageView = view.findViewById(R.id.restaurant_image)
         val restaurantName: TextView = view.findViewById(R.id.restaurant_name)

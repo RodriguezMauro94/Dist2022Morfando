@@ -54,14 +54,22 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             RestaurantModel("La parrilla del tano", "asado", "$-$$", 4.toLong(), "Avellaneda", "https://i.imgur.com/I0jGVwt.jpeg")
         )
 
-        restaurantsNearAdapter = RestaurantsAdapter(requireContext(), restaurants, this)
+        restaurantsNearAdapter = RestaurantsAdapter(
+            this
+        )
         bindList(binding.homeNearRestaurants, restaurantsNearAdapter)
+        homeViewModel.getNearRestaurants()
+        homeViewModel.nearRestaurants.observe(viewLifecycleOwner) {
+            restaurantsNearAdapter.setRestaurants(it)
+        }
 
-        restaurantsCheapAdapter = RestaurantsAdapter(requireContext(), restaurants, this)
+        restaurantsCheapAdapter = RestaurantsAdapter(this)
         bindList(binding.homeCheapRestaurants, restaurantsCheapAdapter)
+        restaurantsCheapAdapter.setRestaurants(restaurants)
 
-        restaurantsTrendingAdapter = RestaurantsAdapter(requireContext(), restaurants, this)
+        restaurantsTrendingAdapter = RestaurantsAdapter(this)
         bindList(binding.homeTrendingRestaurants, restaurantsTrendingAdapter)
+        restaurantsTrendingAdapter.setRestaurants(restaurants)
 
         return root
     }

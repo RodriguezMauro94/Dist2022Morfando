@@ -3,9 +3,14 @@ package com.uade.dist.morfando.ui.viewmodel.home.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.data.model.RestaurantModel
+import com.uade.dist.morfando.domain.GetRestaurantsUseCase
+import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
+    val getRestaurantsUseCase = GetRestaurantsUseCase()
     val chipClicked = MutableLiveData<Int>()
 
     fun chipTapped(chip: String) {
@@ -22,4 +27,14 @@ class HomeViewModel : ViewModel() {
         )
     }
     val chips: LiveData<Map<String, Int>> = _chips
+
+    val nearRestaurants = MutableLiveData<List<RestaurantModel>>()
+    fun getNearRestaurants() {
+        viewModelScope.launch {
+            // TODO show skeleton
+            getRestaurantsUseCase().apply {
+                nearRestaurants.value = this
+            }
+        }
+    }
 }
