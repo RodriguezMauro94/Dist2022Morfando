@@ -14,7 +14,7 @@ class HomeViewModel : ViewModel() {
     val chipClicked = MutableLiveData<Int>()
 
     fun chipTapped(chip: String) {
-        chipClicked.value = _chips.value?.get(chip)
+        chipClicked.postValue(_chips.value?.get(chip))
     }
 
     private val _chips = MutableLiveData<Map<String, Int>>().apply {
@@ -33,7 +33,7 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             // TODO show skeleton
             getRestaurantsUseCase().apply {
-                nearRestaurants.value = this
+                nearRestaurants.postValue(this)
             }
         }
     }
