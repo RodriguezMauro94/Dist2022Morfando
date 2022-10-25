@@ -11,32 +11,49 @@ import com.squareup.picasso.Picasso
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.data.model.RestaurantModel
 
-class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.RestaurantsViewHolder>() {
+class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.RestaurantsViewHolderBase>() {
     private lateinit var clickListener: ItemClickListener
+    private var viewMode: RestaurantViewMode = RestaurantViewMode.MINIFIED
     private var restaurants = mutableListOf<RestaurantModel>()
 
-    constructor(clickListener: ItemClickListener): this() {
+    constructor(clickListener: ItemClickListener, viewMode: RestaurantViewMode): this() {
         this.clickListener = clickListener
+        this.viewMode = viewMode
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantsViewHolderBase {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_restaurant_vertical, parent, false)
-        return RestaurantsViewHolder(view, restaurants, clickListener)
+        return when (viewMode) {
+            RestaurantViewMode.VERTICAL -> {
+                val view = inflater.inflate(R.layout.item_restaurant_vertical, parent, false)
+                RestaurantsViewHolder(view, restaurants, clickListener)
+            }
+            RestaurantViewMode.HORIZONTAL -> {
+                val view = inflater.inflate(R.layout.item_restaurant_horizontal, parent, false)
+                RestaurantsViewHolder(view, restaurants, clickListener)
+            }
+            RestaurantViewMode.MINIFIED -> {
+                val view = inflater.inflate(R.layout.item_restaurant_minified, parent, false)
+                RestaurantsViewHolderBase(view, restaurants, clickListener)
+            }
+        }
     }
 
-    override fun onBindViewHolder(holder: RestaurantsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RestaurantsViewHolderBase, position: Int) {
         restaurants[position].apply {
             holder.restaurantName.text = name
-            holder.restaurantType.text = speciality
-            holder.restaurantPrice.text = price
-            holder.restaurantRating.rating = rating.toFloat()
-            holder.restaurantRatingValue.text = rating.toString()
-            holder.restaurantNeighborhood.text = neighborhood
-            Picasso.get()
-                .load(image)
-                .placeholder(R.drawable.logo_morfando)
-                .into(holder.restaurantImage)
+
+            if (holder is RestaurantsViewHolder) {
+                holder.restaurantType.text = speciality
+                holder.restaurantPrice.text = price
+                holder.restaurantRating.rating = rating.toFloat()
+                holder.restaurantRatingValue.text = rating.toString()
+                holder.restaurantNeighborhood.text = neighborhood
+                Picasso.get()
+                    .load(image)
+                    .placeholder(R.drawable.logo_morfando)
+                    .into(holder.restaurantImage)
+            }
         }
     }
 
@@ -47,15 +64,26 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.RestaurantsV
         notifyDataSetChanged()
     }
 
-    class RestaurantsViewHolder(restaurantView: View, private val restaurants: List<RestaurantModel>, private val clickListener: ItemClickListener) : RecyclerView.ViewHolder(restaurantView), View.OnClickListener {
-        val view: View = restaurantView
+    class RestaurantsViewHolder(restaurantView: View, private val restaurants: List<RestaurantModel>, private val clickListener: ItemClickListener) : RestaurantsViewHolderBase(restaurantView, restaurants, clickListener) {
         val restaurantImage: ImageView = view.findViewById(R.id.restaurant_image)
-        val restaurantName: TextView = view.findViewById(R.id.restaurant_name)
         val restaurantRating: RatingBar = view.findViewById(R.id.restaurant_rating)
         val restaurantRatingValue: TextView = view.findViewById(R.id.restaurant_rating_value)
         val restaurantPrice: TextView = view.findViewById(R.id.restaurant_price)
         val restaurantType: TextView = view.findViewById(R.id.restaurant_type)
         var restaurantNeighborhood: TextView = view.findViewById(R.id.restaurant_neighborhood)
+
+        init {
+            view.setOnClickListener(this)
+        }
+
+        override fun onClick(view: View) {
+            clickListener.onItemClick(restaurants[adapterPosition])
+        }
+    }
+
+    open class RestaurantsViewHolderBase(restaurantView: View, private val restaurants: List<RestaurantModel>, private val clickListener: ItemClickListener) : RecyclerView.ViewHolder(restaurantView), View.OnClickListener {
+        val view: View = restaurantView
+        val restaurantName: TextView = view.findViewById(R.id.restaurant_name)
 
         init {
             view.setOnClickListener(this)

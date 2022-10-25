@@ -13,6 +13,7 @@ import com.google.android.material.chip.ChipGroup
 import com.uade.dist.morfando.core.addChips
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.FragmentHomeBinding
+import com.uade.dist.morfando.ui.view.restaurantList.RestaurantViewMode
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
 import com.uade.dist.morfando.ui.viewmodel.home.home.HomeViewModel
 
@@ -55,7 +56,8 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         )
 
         restaurantsNearAdapter = RestaurantsAdapter(
-            this
+            this,
+            RestaurantViewMode.HORIZONTAL
         )
         bindList(binding.homeNearRestaurants, restaurantsNearAdapter)
         homeViewModel.getNearRestaurants()
@@ -63,11 +65,11 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             restaurantsNearAdapter.setRestaurants(it)
         }
 
-        restaurantsCheapAdapter = RestaurantsAdapter(this)
+        restaurantsCheapAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
         bindList(binding.homeCheapRestaurants, restaurantsCheapAdapter)
         restaurantsCheapAdapter.setRestaurants(restaurants)
 
-        restaurantsTrendingAdapter = RestaurantsAdapter(this)
+        restaurantsTrendingAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
         bindList(binding.homeTrendingRestaurants, restaurantsTrendingAdapter)
         restaurantsTrendingAdapter.setRestaurants(restaurants)
 
