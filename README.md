@@ -38,13 +38,13 @@ Abrir `gradle.build` en Android Studio y ejecutar la app en un emulator or direc
 
 
 ## Developers
-*TL
-    *MAZZEO CHRISTIAN ALEJANDRO
-    *TIMERMAN JOAQUIN
-*Devs
-    *Rodrigues Mauro
-    *Escujuri Cristian
-    *Benito Franco
+* TL
+    * MAZZEO CHRISTIAN ALEJANDRO
+    * TIMERMAN JOAQUIN
+* Devs
+    * Rodrigues Mauro
+    * Escujuri Cristian
+    * Benito Franco
 
 ## Contacto
 
