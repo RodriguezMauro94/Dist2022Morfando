@@ -20,7 +20,6 @@ Morfando es una app mobile dirigida a cubrir el espacio que dejo Guía Olio año
 * Kotlin
 * Figma
 * Material Design 2
-* 
 
 ## Set up
 
@@ -39,10 +38,10 @@ Abrir `gradle.build` en Android Studio y ejecutar la app en un emulator or direc
 
 
 ## Developers
-*TL:
+*TL
     *MAZZEO CHRISTIAN ALEJANDRO
     *TIMERMAN JOAQUIN
-*Devs:
+*Devs
     *Rodrigues Mauro
     *Escujuri Cristian
     *Benito Franco
