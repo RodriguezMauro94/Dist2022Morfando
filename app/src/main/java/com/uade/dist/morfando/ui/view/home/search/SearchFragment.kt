@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.uade.dist.morfando.R
 import com.uade.dist.morfando.databinding.FragmentSearchBinding
 import com.uade.dist.morfando.ui.viewmodel.home.search.SearchViewModel
 
@@ -23,17 +25,25 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(SearchViewModel::class.java)
+        val searchViewModel =
+            ViewModelProvider(this)[SearchViewModel::class.java]
+
+        setUpActionBar()
 
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSearch
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
+        /*val textView: TextView = binding.textSearch
+        searchViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
-        }
+        }*/
         return root
+    }
+
+    private fun setUpActionBar() {
+        (requireActivity() as? AppCompatActivity)?.supportActionBar?.apply {
+            setDisplayShowHomeEnabled(false)
+        }
     }
 
     override fun onDestroyView() {

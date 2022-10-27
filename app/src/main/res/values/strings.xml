@@ -2,7 +2,7 @@
     <string name="app_name">Morfando</string>
     <string name="register_landing">Ingresa para descrubrir una nueva experiencia</string>
     <string name="title_home">@string/app_name</string>
-    <string name="title_search">Buscar</string>
+    <string name="title_search">Buscador</string>
     <string name="title_categories">Categorías</string>
     <string name="title_favourites">Favoritos</string>
     <string name="login_google">Continuar con google</string>
@@ -34,4 +34,6 @@
     <string name="home_cheap_restaurants_subtitle">Donde podés sacar a tus amigos pero si vas con tu pareja te dejan</string>
     <string name="home_trending_restaurants_title">Restaurantes de moda</string>
     <string name="home_trending_restaurants_subtitle">Lugares que teniendo muchas recomendaciones</string>
+    <string name="search_text_hint">¿Qué buscamos hoy?</string>
+    <string name="search_filter_hint">Filtrar</string>
 </resources>
