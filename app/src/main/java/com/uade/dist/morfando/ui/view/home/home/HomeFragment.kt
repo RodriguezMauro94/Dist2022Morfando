@@ -1,15 +1,17 @@
 package com.uade.dist.morfando.ui.view.home.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
+import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.addChips
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.FragmentHomeBinding
@@ -36,6 +38,9 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         val homeViewModel =
             ViewModelProvider(this)[HomeViewModel::class.java]
 
+        setUpActionBar()
+        setUpMenu()
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -45,7 +50,7 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         }
 
         homeViewModel.chipClicked.observe(viewLifecycleOwner) {
-            //TODO ir al search con el valor correspondiente para la busqueda
+            // TODO ir al search con el valor correspondiente para la busqueda
             Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
         }
 
@@ -74,6 +79,32 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         restaurantsTrendingAdapter.setRestaurants(restaurants)
 
         return root
+    }
+
+    private fun setUpActionBar() {
+        (requireActivity() as? AppCompatActivity)?.supportActionBar?.apply {
+            setDisplayShowHomeEnabled(true)
+            setIcon(R.drawable.logo_home)
+        }
+    }
+
+    private fun setUpMenu() {
+        val menuHost = requireActivity()
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.home_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                if (menuItem.itemId == R.id.action_account) {
+                    //TODO go to account
+                    Toast.makeText(context, "Account", Toast.LENGTH_SHORT).show()
+                }
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun bindList(recyclerView: RecyclerView, adapter: RestaurantsAdapter) {
