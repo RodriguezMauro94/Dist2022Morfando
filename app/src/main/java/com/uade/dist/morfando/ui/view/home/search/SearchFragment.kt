@@ -32,6 +32,10 @@ class SearchFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
 
         setUpActionBar()
 
+        arguments?.getSerializable("options")?.let {
+            searchViewModel.filteredOptions.postValue(it as SearchFilterOptions)
+        }
+
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
