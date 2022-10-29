@@ -4,19 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.FragmentFavouritesBinding
+import com.uade.dist.morfando.ui.view.restaurantList.RestaurantViewMode
+import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
 import com.uade.dist.morfando.ui.viewmodel.home.favourites.FavouritesViewModel
 
-class FavouritesFragment : Fragment() {
-
+class FavouritesFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
     private var _binding: FragmentFavouritesBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var restaurantsAdapter: RestaurantsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,20 +27,42 @@ class FavouritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val favouritesViewModel =
-            ViewModelProvider(this).get(FavouritesViewModel::class.java)
+            ViewModelProvider(this)[FavouritesViewModel::class.java]
+
+        setUpActionBar()
 
         _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textFavourites
-        favouritesViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        restaurantsAdapter = RestaurantsAdapter(this, RestaurantViewMode.VERTICAL)
+        bindList(binding.favouritesRestaurants, restaurantsAdapter)
+        favouritesViewModel.getRestaurants()
+        favouritesViewModel.favouritesRestaurants.observe(viewLifecycleOwner) {
+            restaurantsAdapter.setRestaurants(it)
         }
+
         return root
+    }
+
+    private fun bindList(recyclerView: RecyclerView, adapter: RestaurantsAdapter) {
+        val verticalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = verticalLayoutManager
+        recyclerView.adapter = adapter
+    }
+
+    private fun setUpActionBar() {
+        (requireActivity() as? AppCompatActivity)?.supportActionBar?.apply {
+            setDisplayShowHomeEnabled(false)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(restaurant: RestaurantModel) {
+        // TODO ir a VIP del restaurant
+        Toast.makeText(requireContext(), "clickeado: " + restaurant.name, Toast.LENGTH_SHORT).show()
     }
 }

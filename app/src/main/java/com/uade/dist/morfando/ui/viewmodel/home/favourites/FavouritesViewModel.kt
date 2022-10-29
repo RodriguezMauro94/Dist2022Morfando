@@ -1,12 +1,22 @@
 package com.uade.dist.morfando.ui.viewmodel.home.favourites
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.uade.dist.morfando.data.model.RestaurantModel
+import com.uade.dist.morfando.domain.GetRestaurantsUseCase
+import kotlinx.coroutines.launch
 
 class FavouritesViewModel : ViewModel() {
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is favourites Fragment"
+    val getRestaurantsUseCase = GetRestaurantsUseCase()
+
+    val favouritesRestaurants = MutableLiveData<List<RestaurantModel>>()
+    fun getRestaurants() {
+        viewModelScope.launch {
+            // TODO show skeleton
+            getRestaurantsUseCase().apply {
+                favouritesRestaurants.postValue(this)
+            }
+        }
     }
-    val text: LiveData<String> = _text
 }
