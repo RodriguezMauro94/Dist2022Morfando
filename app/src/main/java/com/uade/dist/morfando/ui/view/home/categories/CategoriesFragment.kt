@@ -4,18 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.AdapterView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.uade.dist.morfando.databinding.FragmentCategoriesBinding
-import com.uade.dist.morfando.ui.viewmodel.home.categories.CategoriesViewModel
 
 class CategoriesFragment : Fragment() {
-
     private var _binding: FragmentCategoriesBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -23,17 +19,29 @@ class CategoriesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(CategoriesViewModel::class.java)
+
+        setUpActionBar()
 
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textCategories
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        val categoriesAdapter = CategoriesAdapter(requireContext())
+        binding.categoriesGrid.adapter = categoriesAdapter
+
+        binding.categoriesGrid.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+            // TODO ir a search con la categoria seleccionada
+            Toast.makeText(
+                requireContext(), " selected ${categories[position].id}",
+                Toast.LENGTH_SHORT
+            ).show()
         }
         return root
+    }
+
+    private fun setUpActionBar() {
+        (requireActivity() as? AppCompatActivity)?.supportActionBar?.apply {
+            setDisplayShowHomeEnabled(false)
+        }
     }
 
     override fun onDestroyView() {
