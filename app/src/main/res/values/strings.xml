@@ -36,4 +36,19 @@
     <string name="home_trending_restaurants_subtitle">Lugares que teniendo muchas recomendaciones</string>
     <string name="search_text_hint">¿Qué buscamos hoy?</string>
     <string name="search_filter_hint">Filtrar</string>
+    <string name="search_filters_open_now">Abierto ahora</string>
+    <string name="search_filters_price_range">Rango de precios</string>
+    <string name="search_filters_rating_range">Rango de calificaciones</string>
+    <string name="price_range_first">$</string>
+    <string name="price_range_second">$$</string>
+    <string name="price_range_third">$$$</string>
+    <string name="price_range_fourth">$$$$</string>
+    <string name="rating_range_one">♥</string>
+    <string name="rating_range_two">♥♥</string>
+    <string name="rating_range_three">♥♥♥</string>
+    <string name="rating_range_four">♥♥♥♥</string>
+    <string name="search_filters_distance">Distancia</string>
+    <string name="search_filters_speciality">Tipo de comida</string>
+    <string name="search_filters_accept">Mostrar</string>
+    <string name="search_filters_clear">Limpiar filtros</string>
 </resources>

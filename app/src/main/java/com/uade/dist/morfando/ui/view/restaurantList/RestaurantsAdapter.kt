@@ -44,8 +44,8 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.RestaurantsV
             holder.restaurantName.text = name
 
             if (holder is RestaurantsViewHolder) {
-                holder.restaurantType.text = speciality
-                holder.restaurantPrice.text = price
+                holder.restaurantType.text = cookingType
+                holder.restaurantPrice.text = priceRange
                 holder.restaurantRating.rating = rating.toFloat()
                 holder.restaurantRatingValue.text = rating.toString()
                 holder.restaurantNeighborhood.text = neighborhood
