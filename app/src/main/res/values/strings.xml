@@ -47,6 +47,14 @@
     <string name="rating_range_two">♥♥</string>
     <string name="rating_range_three">♥♥♥</string>
     <string name="rating_range_four">♥♥♥♥</string>
+    <string name="cooking_type_meat">Carne</string>
+    <string name="cooking_type_chicken">Pollo</string>
+    <string name="cooking_type_pasta">Pasta</string>
+    <string name="cooking_type_pizza">Pizza</string>
+    <string name="cooking_type_salad">Ensalada</string>
+    <string name="cooking_type_sushi">Sushi</string>
+    <string name="cooking_type_empanada">Empanada</string>
+    <string name="cooking_type_tacos">Tacos</string>
     <string name="search_filters_distance">Distancia</string>
     <string name="search_filters_speciality">Tipo de comida</string>
     <string name="search_filters_accept">Mostrar</string>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/design_bottom_sheet"
     android:layout_width="match_parent"
@@ -28,13 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:singleSelection="true"
         app:selectionRequired="true" >
-        <com.google.android.material.chip.Chip
-            android:id="@+id/search_filters_open_now"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:checkedIconEnabled="true"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="@string/search_filters_open_now" />
     </com.google.android.material.chip.ChipGroup>
 
     <TextView
@@ -57,34 +49,6 @@
         app:selectionRequired="true"
         app:layout_constraintTop_toBottomOf="@id/search_filters_price_range_title"
         app:layout_constraintStart_toStartOf="parent">
-        <com.google.android.material.chip.Chip
-            android:id="@+id/search_filters_price_range_first"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            app:checkedIconEnabled="true"
-            android:text="@string/price_range_first" />
-        <com.google.android.material.chip.Chip
-            android:id="@+id/search_filters_price_range_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            app:checkedIconEnabled="true"
-            android:text="@string/price_range_second" />
-        <com.google.android.material.chip.Chip
-            android:id="@+id/search_filters_price_range_third"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            app:checkedIconEnabled="true"
-            android:text="@string/price_range_third" />
-        <com.google.android.material.chip.Chip
-            android:id="@+id/search_filters_price_range_fourth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            app:checkedIconEnabled="true"
-            android:text="@string/price_range_fourth" />
     </com.google.android.material.chip.ChipGroup>
 
     <TextView
@@ -106,34 +70,6 @@
         app:layout_constraintTop_toBottomOf="@id/search_filters_rating_range_title"
         app:layout_constraintStart_toStartOf="parent"
         app:singleSelection="true">
-        <com.google.android.material.chip.Chip
-            android:id="@+id/search_filters_rating_range_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            app:checkedIconEnabled="true"
-            android:text="@string/rating_range_one" />
-        <com.google.android.material.chip.Chip
-            android:id="@+id/search_filters_rating_range_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            app:checkedIconEnabled="true"
-            android:text="@string/rating_range_two" />
-        <com.google.android.material.chip.Chip
-            android:id="@+id/search_filters_rating_range_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            app:checkedIconEnabled="true"
-            android:text="@string/rating_range_three" />
-        <com.google.android.material.chip.Chip
-            android:id="@+id/search_filters_rating_range_four"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            app:checkedIconEnabled="true"
-            android:text="@string/rating_range_four" />
     </com.google.android.material.chip.ChipGroup>
 
     <TextView
@@ -149,7 +85,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/search_filters_speciality_group"
+        android:id="@+id/search_filters_cooking_type_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/search_filters_cooking_type_title"
@@ -166,7 +102,7 @@
         android:text="@string/search_filters_distance"
         style="@style/MorfandoTextInputEditText"
         android:layout_marginTop="@dimen/base_margin"
-        app:layout_constraintTop_toBottomOf="@id/search_filters_speciality_group"
+        app:layout_constraintTop_toBottomOf="@id/search_filters_cooking_type_group"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.slider.Slider

@@ -1,6 +1,7 @@
 package com.uade.dist.morfando.ui.view.home.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,23 +37,16 @@ class SearchFragment : Fragment() {
         childFragmentManager.setFragmentResultListener(
             SEARCH_FILTER_OPTIONS_RESULT_KEY,
             viewLifecycleOwner
-        ) { key, bundle ->
+        ) { _, bundle ->
             // TODO hacer llamada a la base
-            val result = bundle.getSerializable("bundleKey")
-            Toast.makeText(requireContext(), "Resultado de filtrado", Toast.LENGTH_LONG).show()
+            val result = bundle.getSerializable("result")
+            Log.d("result", result.toString())
         }
 
         binding.searchFilter.setOnClickListener {
-           /* SearchFilterBottomSheetFragment.newInstance(Bundle()).apply {
-                show(parentFragmentManager, tag)
-            }*/
             val filterBottomSheet = SearchFilterBottomSheetFragment()
             filterBottomSheet.show(childFragmentManager, filterBottomSheet.tag)
-
-
         }
-
-
 
         return root
     }
