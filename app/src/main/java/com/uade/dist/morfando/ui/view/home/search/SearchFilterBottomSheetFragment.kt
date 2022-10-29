@@ -17,6 +17,7 @@ import java.io.Serializable
 class SearchFilterBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: BottomSheetSearchFilterBinding? = null
     private val binding get() = _binding!!
+    private val options = SearchFilterOptions()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +39,13 @@ class SearchFilterBottomSheetFragment : BottomSheetDialogFragment() {
             )
             dismiss()
         }
+
+        binding.searchFiltersDistanceSlider.addOnChangeListener { _, value, _ ->
+            binding.searchFiltersDistanceValue.text = "${value.toInt()} Km."
+            options.distance = value.toInt()
+        }
+
+
     }
 
     @SuppressLint("RestrictedApi")
@@ -56,9 +64,9 @@ class SearchFilterBottomSheetFragment : BottomSheetDialogFragment() {
 const val SEARCH_FILTER_OPTIONS_RESULT_KEY = "searchFilterOptionsResult"
 
 data class SearchFilterOptions(
-    val openNow: Boolean? = false,
-    val priceRange: Int? = 1,
-    val ratingRange: Int? = 1,
-    val cookingType: String? = null,
-    val distance: Int? = 5
+    var openNow: Boolean? = false,
+    var priceRange: Int? = 1,
+    var ratingRange: Int? = 1,
+    var cookingType: String? = null,
+    var distance: Int? = 5
 ): Serializable

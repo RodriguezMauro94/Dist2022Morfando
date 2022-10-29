@@ -51,4 +51,5 @@
     <string name="search_filters_speciality">Tipo de comida</string>
     <string name="search_filters_accept">Mostrar</string>
     <string name="search_filters_clear">Limpiar filtros</string>
+    <string name="search_filters_distance_value">5 Km.</string>
 </resources>
