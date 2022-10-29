@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/design_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@color/primary"
+    android:background="@color/primary"
     android:padding="@dimen/base_margin">
 
     <TextView
@@ -23,7 +24,6 @@
         android:id="@+id/search_filters_open_now"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textIsSelectable="true"
         android:text="@string/search_filters_open_now"
         app:layout_constraintTop_toBottomOf="@id/search_filters_open_now_title"
         app:layout_constraintStart_toStartOf="parent" />
@@ -173,21 +173,25 @@
 
     <Button
         android:id="@+id/search_filters_clear"
+        style="@style/MorfandoButtonTransparentBorderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search_filters_clear"
         android:textSize="12sp"
-        style="@style/MorfandoButtonTransparentBorderless"
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/search_filters_distance_slider" />
 
     <Button
         android:id="@+id/search_filters_accept"
+        style="@style/MorfandoButtonBase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search_filters_accept"
         android:textSize="12sp"
-        style="@style/MorfandoButtonBase"
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/search_filters_distance_slider" />
 </androidx.constraintlayout.widget.ConstraintLayout>

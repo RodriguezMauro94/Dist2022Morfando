@@ -20,11 +20,7 @@ import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
 import com.uade.dist.morfando.ui.viewmodel.home.home.HomeViewModel
 
 class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
-
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var restaurantsNearAdapter: RestaurantsAdapter
     private lateinit var restaurantsCheapAdapter: RestaurantsAdapter
