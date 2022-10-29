@@ -24,3 +24,20 @@ fun ChipGroup.addChip(context: Context, key: String, label: String, callback: (k
     }
 }
 
+fun ChipGroup.addCheckedChips(context: Context, chips: Map<String, Int>) {
+    chips.forEach {
+        this.addCheckedChip(context, it.key, context.getString(it.value))
+    }
+}
+
+fun ChipGroup.addCheckedChip(context: Context, key: String, label: String) {
+    Chip(context).apply {
+        id = View.generateViewId()
+        text = label
+        isClickable = true
+        isCheckedIconVisible = true
+        isCheckable = true
+        tag = key
+        addView(this)
+    }
+}

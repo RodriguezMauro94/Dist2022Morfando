@@ -10,7 +10,9 @@ import android.widget.FrameLayout
 import androidx.core.os.bundleOf
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.ChipGroup
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.core.addCheckedChips
 import com.uade.dist.morfando.databinding.BottomSheetSearchFilterBinding
 import java.io.Serializable
 
@@ -40,12 +42,32 @@ class SearchFilterBottomSheetFragment : BottomSheetDialogFragment() {
             dismiss()
         }
 
+        addChips(
+            mapOf(
+                Pair("trending", R.string.chip_trending),
+                Pair("classic", R.string.chip_classic),
+                Pair("near", R.string.chip_near),
+                Pair("cheap", R.string.chip_cheap),
+                Pair("expensive", R.string.chip_expensive)
+            ),
+            binding.searchFiltersSpecialityGroup
+        )
+
+        binding.searchFiltersSpecialityGroup.setOnCheckedStateChangeListener { _, checkedIds ->
+            print("checkedIds " + checkedIds)
+        }
+
         binding.searchFiltersDistanceSlider.addOnChangeListener { _, value, _ ->
             binding.searchFiltersDistanceValue.text = "${value.toInt()} Km."
             options.distance = value.toInt()
         }
+    }
 
-
+    private fun addChips(
+        chips: Map<String, Int>,
+        chipsGroup: ChipGroup
+    ) {
+        chipsGroup.addCheckedChips(requireContext(), chips)
     }
 
     @SuppressLint("RestrictedApi")

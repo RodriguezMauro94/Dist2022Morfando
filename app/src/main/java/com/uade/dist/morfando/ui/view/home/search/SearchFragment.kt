@@ -42,8 +42,6 @@ class SearchFragment : Fragment() {
             Toast.makeText(requireContext(), "Resultado de filtrado", Toast.LENGTH_LONG).show()
         }
 
-
-
         binding.searchFilter.setOnClickListener {
            /* SearchFilterBottomSheetFragment.newInstance(Bundle()).apply {
                 show(parentFragmentManager, tag)
