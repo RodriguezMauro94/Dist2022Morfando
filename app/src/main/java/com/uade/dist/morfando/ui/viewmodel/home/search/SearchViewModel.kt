@@ -1,26 +1,11 @@
 package com.uade.dist.morfando.ui.viewmodel.home.search
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.uade.dist.morfando.R
+import com.uade.dist.morfando.ui.view.home.search.SearchFilterOptions
 
 class SearchViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is search Fragment"
+    val filteredOptions = MutableLiveData<SearchFilterOptions>().apply {
+        value = SearchFilterOptions()
     }
-    val text: LiveData<String> = _text
-
-
-    private val _chips = MutableLiveData<Map<String, Int>>().apply {
-        value = mapOf(
-            Pair("trending", R.string.chip_trending),
-            Pair("classic", R.string.chip_classic),
-            Pair("near", R.string.chip_near),
-            Pair("cheap", R.string.chip_cheap),
-            Pair("expensive", R.string.chip_expensive)
-        )
-    }
-    val chips: LiveData<Map<String, Int>> = _chips
 }

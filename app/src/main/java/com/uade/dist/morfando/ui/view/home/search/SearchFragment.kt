@@ -29,22 +29,20 @@ class SearchFragment : Fragment() {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        /*val textView: TextView = binding.textSearch
-        searchViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
-
         childFragmentManager.setFragmentResultListener(
             SEARCH_FILTER_OPTIONS_RESULT_KEY,
             viewLifecycleOwner
         ) { _, bundle ->
-            // TODO hacer llamada a la base
             val result = bundle.getSerializable("result")
-            Log.d("result", result.toString())
+            searchViewModel.filteredOptions.postValue(result as SearchFilterOptions)
+        }
+
+        searchViewModel.filteredOptions.observe(viewLifecycleOwner) {
+            // TODO hacer llamada a la base
         }
 
         binding.searchFilter.setOnClickListener {
-            val filterBottomSheet = SearchFilterBottomSheetFragment()
+            val filterBottomSheet = SearchFilterBottomSheetFragment(searchViewModel.filteredOptions.value)
             filterBottomSheet.show(childFragmentManager, filterBottomSheet.tag)
         }
 

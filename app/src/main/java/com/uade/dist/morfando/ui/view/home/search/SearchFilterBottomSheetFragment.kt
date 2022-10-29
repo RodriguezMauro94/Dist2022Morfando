@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.os.bundleOf
+import androidx.core.view.children
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
@@ -17,10 +18,10 @@ import com.uade.dist.morfando.core.addCheckedChips
 import com.uade.dist.morfando.databinding.BottomSheetSearchFilterBinding
 import java.io.Serializable
 
-class SearchFilterBottomSheetFragment : BottomSheetDialogFragment() {
+class SearchFilterBottomSheetFragment(private val defaultOptions: SearchFilterOptions?) : BottomSheetDialogFragment() {
     private var _binding: BottomSheetSearchFilterBinding? = null
     private val binding get() = _binding!!
-    private val options = SearchFilterOptions()
+    private lateinit var options: SearchFilterOptions
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +34,8 @@ class SearchFilterBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        options = defaultOptions ?: SearchFilterOptions()
 
         binding.searchFiltersAccept.setOnClickListener {
             parentFragmentManager.setFragmentResult(
@@ -47,29 +50,75 @@ class SearchFilterBottomSheetFragment : BottomSheetDialogFragment() {
         addRatingRangeChips()
         addCookingTypeChips()
 
-        binding.searchFiltersOpenNowGroup.setOnCheckedStateChangeListener { _, _ ->
-            options.openNow = true
+        binding.searchFiltersOpenNowGroup.setOnCheckedStateChangeListener { group, _ ->
+            if (group.checkedChipId != -1) {
+                options.openNow = true
+            }
         }
 
         binding.searchFiltersCookingTypeGroup.setOnCheckedStateChangeListener { group, _ ->
-            val checkedValue = group.findViewById<Chip>(group.checkedChipId).tag as String
-            options.cookingType = checkedValue
+            if (group.checkedChipId != -1) {
+                val checkedValue = group.findViewById<Chip>(group.checkedChipId).tag as String
+                options.cookingType = checkedValue
+            }
         }
 
         binding.searchFiltersPriceRangeGroup.setOnCheckedStateChangeListener { group, _ ->
-            val checkedValue = group.findViewById<Chip>(group.checkedChipId).tag as String
-            options.priceRange = checkedValue.toInt()
+            if (group.checkedChipId != -1) {
+                val checkedValue = group.findViewById<Chip>(group.checkedChipId).tag as String
+                options.priceRange = checkedValue.toInt()
+            }
         }
 
         binding.searchFiltersRatingRangeGroup.setOnCheckedStateChangeListener { group, _ ->
-            val checkedValue = group.findViewById<Chip>(group.checkedChipId).tag as String
-            options.ratingRange = checkedValue.toInt()
+            if (group.checkedChipId != -1) {
+                val checkedValue = group.findViewById<Chip>(group.checkedChipId).tag as String
+                options.ratingRange = checkedValue.toInt()
+            }
         }
 
         binding.searchFiltersDistanceSlider.addOnChangeListener { _, value, _ ->
             binding.searchFiltersDistanceValue.text = "${value.toInt()} Km."
             options.distance = value.toInt()
         }
+
+        binding.searchFiltersClear.setOnClickListener {
+            options = SearchFilterOptions()
+            setDefaultValues(options)
+        }
+
+        setDefaultValues(options)
+    }
+
+    private fun setDefaultValues(options: SearchFilterOptions) {
+        val openNowGroup = binding.searchFiltersOpenNowGroup
+        openNowGroup.clearCheck()
+        (openNowGroup.getChildAt(0) as Chip).isChecked = options.openNow
+
+        val priceRangeGroup = binding.searchFiltersPriceRangeGroup
+        priceRangeGroup.clearCheck()
+        if (options.priceRange != null) {
+            (priceRangeGroup.getChildAt(options.priceRange!! - 1) as Chip).isChecked = true
+        }
+
+        val ratingRangeGroup = binding.searchFiltersRatingRangeGroup
+        ratingRangeGroup.clearCheck()
+        if (options.ratingRange != null) {
+            (ratingRangeGroup.getChildAt(options.ratingRange!! - 1) as Chip).isChecked = true
+        }
+
+        val cookingTypeGroup = binding.searchFiltersCookingTypeGroup
+        cookingTypeGroup.clearCheck()
+        if (options.cookingType != null) {
+            for (child in cookingTypeGroup.children) {
+                if (child.tag as String == options.cookingType) {
+                    (child as Chip).isChecked = true
+                    continue
+                }
+            }
+        }
+
+        binding.searchFiltersDistanceSlider.value = options.distance.toFloat()
     }
 
     private fun addOpenNowChips() {
@@ -144,9 +193,9 @@ class SearchFilterBottomSheetFragment : BottomSheetDialogFragment() {
 const val SEARCH_FILTER_OPTIONS_RESULT_KEY = "searchFilterOptionsResult"
 
 data class SearchFilterOptions(
-    var openNow: Boolean? = false,
-    var priceRange: Int? = 1,
-    var ratingRange: Int? = 1,
+    var openNow: Boolean = false,
+    var priceRange: Int? = null,
+    var ratingRange: Int? = null,
     var cookingType: String? = null,
-    var distance: Int? = 5
+    var distance: Int = 5
 ): Serializable
