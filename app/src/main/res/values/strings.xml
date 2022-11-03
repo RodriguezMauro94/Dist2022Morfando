@@ -67,4 +67,20 @@
     <string name="rating_submit_title">Aportar</string>
     <string name="rating_submit_button_text">Escribir reseña</string>
     <string name="ratings_title">Reseñas</string>
+    <string name="add_restaurant">Agregar Restaurante</string>
+    <string name="restaurant_name">Nombre del restaurante</string>
+    <string name="restaurant_street">Calle</string>
+    <string name="restaurant_street_number">Numero</string>
+    <string name="restaurant_neighborhood">Barrio</string>
+    <string name="restaurant_province">Provincia</string>
+    <string name="restaurant_save_button">Guardar</string>
+    <string name="restaurant_delete_button">Eliminar restaurante</string>
+    <string name="restaurant_close_button">Cerrar temporalmente</string>
+    <string name="restaurant_country">Pais</string>
+    <string name="plate_name">Nombre del item</string>
+    <string name="plate_price">Precio del item</string>
+    <string name="plate_description">Descripcion del item</string>
+    <string name="plate_add_button">Agregar</string>
+    <string name="plate_delete_button">Eliminar item</string>
+
 </resources>
