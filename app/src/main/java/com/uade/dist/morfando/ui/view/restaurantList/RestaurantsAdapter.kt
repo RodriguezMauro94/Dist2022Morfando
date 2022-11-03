@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.core.toPriceRange
 import com.uade.dist.morfando.data.model.RestaurantModel
 
 class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.RestaurantsViewHolderBase>() {
@@ -45,7 +46,7 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.RestaurantsV
 
             if (holder is RestaurantsViewHolder) {
                 holder.restaurantType.text = cookingType
-                holder.restaurantPrice.text = priceRange
+                holder.restaurantPrice.text = priceRange.toPriceRange()
                 holder.restaurantRating.rating = rating.toFloat()
                 holder.restaurantRatingValue.text = rating.toString()
                 holder.restaurantNeighborhood.text = neighborhood

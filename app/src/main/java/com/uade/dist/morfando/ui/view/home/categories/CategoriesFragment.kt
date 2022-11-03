@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
 import com.uade.dist.morfando.databinding.FragmentCategoriesBinding
-import com.uade.dist.morfando.ui.view.home.search.SearchFilterOptions
 
 class CategoriesFragment : Fragment() {
     private var _binding: FragmentCategoriesBinding? = null
@@ -35,7 +34,7 @@ class CategoriesFragment : Fragment() {
         binding.categoriesGrid.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             requireActivity().findNavController(R.id.nav_host_fragment_activity_home).navigate(
                 R.id.navigation_search,
-                bundleOf("options" to SearchFilterOptions(cookingType = categories[position].id))
+                bundleOf("options" to SearchFilterOptionsModel(cookingType = categories[position].id))
             )
         }
         return root

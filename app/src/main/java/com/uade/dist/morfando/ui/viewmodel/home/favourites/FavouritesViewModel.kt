@@ -14,7 +14,7 @@ class FavouritesViewModel : ViewModel() {
     fun getRestaurants() {
         viewModelScope.launch {
             // TODO show skeleton
-            getRestaurantsUseCase().apply {
+            getRestaurantsUseCase.getAllRestaurants().apply {
                 favouritesRestaurants.postValue(this)
             }
         }

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uade.dist.morfando.data.model.RestaurantModel
+import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
 import com.uade.dist.morfando.databinding.FragmentSearchBinding
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantViewMode
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
@@ -33,7 +34,7 @@ class SearchFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         setUpActionBar()
 
         arguments?.getSerializable("options")?.let {
-            searchViewModel.filteredOptions.postValue(it as SearchFilterOptions)
+            searchViewModel.filteredOptions.postValue(it as SearchFilterOptionsModel)
         }
 
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
@@ -44,7 +45,7 @@ class SearchFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             viewLifecycleOwner
         ) { _, bundle ->
             val result = bundle.getSerializable("result")
-            searchViewModel.filteredOptions.postValue(result as SearchFilterOptions)
+            searchViewModel.filteredOptions.postValue(result as SearchFilterOptionsModel)
         }
 
         searchViewModel.filteredOptions.observe(viewLifecycleOwner) {

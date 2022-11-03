@@ -15,13 +15,13 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.addCheckedChips
+import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
 import com.uade.dist.morfando.databinding.BottomSheetSearchFilterBinding
-import java.io.Serializable
 
-class SearchFilterBottomSheetFragment(private val defaultOptions: SearchFilterOptions?) : BottomSheetDialogFragment() {
+class SearchFilterBottomSheetFragment(private val defaultOptions: SearchFilterOptionsModel?) : BottomSheetDialogFragment() {
     private var _binding: BottomSheetSearchFilterBinding? = null
     private val binding get() = _binding!!
-    private lateinit var options: SearchFilterOptions
+    private lateinit var options: SearchFilterOptionsModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +35,7 @@ class SearchFilterBottomSheetFragment(private val defaultOptions: SearchFilterOp
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        options = defaultOptions ?: SearchFilterOptions()
+        options = defaultOptions ?: SearchFilterOptionsModel()
 
         binding.searchFiltersAccept.setOnClickListener {
             parentFragmentManager.setFragmentResult(
@@ -83,14 +83,14 @@ class SearchFilterBottomSheetFragment(private val defaultOptions: SearchFilterOp
         }
 
         binding.searchFiltersClear.setOnClickListener {
-            options = SearchFilterOptions()
+            options = SearchFilterOptionsModel()
             setDefaultValues(options)
         }
 
         setDefaultValues(options)
     }
 
-    private fun setDefaultValues(options: SearchFilterOptions) {
+    private fun setDefaultValues(options: SearchFilterOptionsModel) {
         val openNowGroup = binding.searchFiltersOpenNowGroup
         openNowGroup.clearCheck()
         (openNowGroup.getChildAt(0) as Chip).isChecked = options.openNow
@@ -191,11 +191,3 @@ class SearchFilterBottomSheetFragment(private val defaultOptions: SearchFilterOp
 }
 
 const val SEARCH_FILTER_OPTIONS_RESULT_KEY = "searchFilterOptionsResult"
-
-data class SearchFilterOptions(
-    var openNow: Boolean = false,
-    var priceRange: Int? = null,
-    var ratingRange: Int? = null,
-    var cookingType: String? = null,
-    var distance: Int = 5
-): Serializable

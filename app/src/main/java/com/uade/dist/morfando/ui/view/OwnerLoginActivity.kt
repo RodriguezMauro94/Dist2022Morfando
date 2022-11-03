@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.databinding.ActivityOwnerLoginBinding
 import com.uade.dist.morfando.ui.viewmodel.OwnerLoginViewModel
@@ -23,11 +24,28 @@ class OwnerLoginActivity: AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.login.setOnClickListener {
-            // TODO
+            ownerLoginViewModel.authenticate()
         }
 
         binding.register.setOnClickListener {
             ownerRegister()
+        }
+
+        binding.editTextEmail.addTextChangedListener {
+            ownerLoginViewModel.email.postValue(it.toString())
+        }
+
+        binding.editTextPassword.addTextChangedListener {
+            ownerLoginViewModel.password.postValue(it.toString())
+        }
+
+        ownerLoginViewModel.session.observe(this) { session ->
+            if (session != null) {
+                val intent = Intent()
+                intent.putExtra("session", session)
+                setResult(OWNER_LOGIN_REQUEST_CODE, intent)
+                finish()
+            }
         }
 
         binding.ownerForgotPassword.setOnClickListener {

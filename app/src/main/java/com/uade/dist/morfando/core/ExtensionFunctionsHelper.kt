@@ -41,3 +41,12 @@ fun ChipGroup.addCheckedChip(context: Context, key: String, label: String) {
         addView(this)
     }
 }
+
+fun Int.toPriceRange(): String {
+    return when (this) {
+        1 -> "$-$$"
+        2 -> "$$-$$$"
+        3 -> "$$$-$$$$"
+        else -> "$$$$-$$$$$"
+    }
+}

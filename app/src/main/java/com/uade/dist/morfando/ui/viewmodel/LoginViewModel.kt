@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 
 class LoginViewModel: ViewModel() {
-    fun loginSuccess(sharedPreferences: SharedPreferences){
+    fun loginSuccess(sharedPreferences: SharedPreferences, id: String){
         /*
             Log.d("account- displayName", this.displayName!!)
             Log.d("account- familyName", this.familyName!!)

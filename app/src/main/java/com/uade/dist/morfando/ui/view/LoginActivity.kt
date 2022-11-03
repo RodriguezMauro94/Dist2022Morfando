@@ -12,6 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.databinding.ActivityLoginBinding
 import com.uade.dist.morfando.ui.viewmodel.LoginViewModel
 
@@ -66,22 +67,26 @@ class LoginActivity : AppCompatActivity() {
                     return
                 } else {
                     val result = task.getResult(ApiException::class.java)
-                    loginSuccess(result)
+                    result?.apply {
+                        //FIXME loginSuccess(this.id!!)
+                        loginSuccess("1234")
+                    }
                 }
             } catch (e: Exception) {
                 Toast.makeText(this, getString(R.string.generic_error), Toast.LENGTH_LONG).show()
             }
         } else if (requestCode == OWNER_LOGIN_REQUEST_CODE) {
-            // TODO obtener el model del user y pasarlo al viewModel, lanzar la home
+            data?.apply {
+                val result = this.getSerializableExtra("session") as SessionModel
+                loginSuccess(result.session)
+            }
         }
     }
 
-    private fun loginSuccess(account: GoogleSignInAccount?) {
-        account?.run {
-            val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
-            loginViewModel.loginSuccess(sharedPreferences)
-            startActivity(Intent(this@LoginActivity, RequestGeoPermissionActivity::class.java))
-            finish()
-        }
+    private fun loginSuccess(id: String) {
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        loginViewModel.loginSuccess(sharedPreferences, id)
+        startActivity(Intent(this@LoginActivity, RequestGeoPermissionActivity::class.java))
+        finish()
     }
 }

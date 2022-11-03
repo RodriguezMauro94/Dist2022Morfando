@@ -4,15 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.data.model.RestaurantModel
+import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
 import com.uade.dist.morfando.domain.GetRestaurantsUseCase
-import com.uade.dist.morfando.ui.view.home.search.SearchFilterOptions
 import kotlinx.coroutines.launch
 
 class SearchViewModel : ViewModel() {
-    val getRestaurantsUseCase = GetRestaurantsUseCase()
+    private val getRestaurantsUseCase = GetRestaurantsUseCase()
 
-    val filteredOptions = MutableLiveData<SearchFilterOptions>().apply {
-        value = SearchFilterOptions()
+    val filteredOptions = MutableLiveData<SearchFilterOptionsModel>().apply {
+        value = SearchFilterOptionsModel()
     }
 
     val searchText = MutableLiveData<String>().apply {
@@ -23,7 +23,7 @@ class SearchViewModel : ViewModel() {
     fun getRestaurants() {
         viewModelScope.launch {
             // TODO show skeleton
-            getRestaurantsUseCase().apply {
+            getRestaurantsUseCase.getRestaurants(filteredOptions.value!!).apply {
                 searchRestaurants.postValue(this)
             }
         }
