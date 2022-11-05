@@ -17,12 +17,30 @@
         app:layout_constraintTop_toTopOf="parent"
         style="@style/MorfandoTextInput">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/email_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             style="@style/MorfandoTextInputEditText"
             android:hint="@string/owner_email"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email"
+        style="@style/MorfandoTextInput">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            style="@style/MorfandoTextInputEditText"
+            android:hint="@string/name"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -32,10 +50,10 @@
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_name"
         style="@style/MorfandoTextInput">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextPassword"
+            android:id="@+id/password_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -53,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password"
         style="@style/MorfandoTextInput">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextReenterPassword"
+            android:id="@+id/reenter_password_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"

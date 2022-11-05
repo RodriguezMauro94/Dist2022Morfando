@@ -10,6 +10,6 @@ interface RestaurantApiClient {
     @GET("restaurants")
     suspend fun getAllRestaurants(): Response<List<RestaurantModel>>
 
-    @GET("filter") //FIXME agregar filtros en back, esto debería ser una lista arreglar en el back
-    suspend fun getRestaurants(): Response<RestaurantModel>
+    @GET("filter") //FIXME agregar filtros en back
+    suspend fun getRestaurants(): Response<List<RestaurantModel>>
 }

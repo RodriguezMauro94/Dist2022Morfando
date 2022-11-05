@@ -8,7 +8,7 @@
     <string name="login_google">Continuar con google</string>
     <string name="login_landing">Ingresa para descubrir una nueva experiencia</string>
     <string name="login_owner">Ingresar como dueño de restaurante</string>
-    <string name="generic_error">"Algo salió mal, vuelve a intentarlo en unos instantes"</string>
+    <string name="generic_error">Algo salió mal, vuelve a intentarlo en unos instantes</string>
     <string name="owner_login_title">Ingresa</string>
     <string name="owner_email">Correo electrónico</string>
     <string name="owner_password">Contraseña</string>
@@ -82,5 +82,8 @@
     <string name="plate_description">Descripcion del item</string>
     <string name="plate_add_button">Agregar</string>
     <string name="plate_delete_button">Eliminar item</string>
-
+    <string name="error_complete_fields">Completá los campos requeridos</string>
+    <string name="error_password_not_match">No coinciden las contraseñas ingresadas</string>
+    <string name="name">Nombre</string>
+    <string name="loading">Cargando…</string>
 </resources>

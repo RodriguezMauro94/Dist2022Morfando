@@ -6,6 +6,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.core.RequestState
+import com.uade.dist.morfando.core.showToast
+import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.databinding.ActivityOwnerLoginBinding
 import com.uade.dist.morfando.ui.viewmodel.OwnerLoginViewModel
 
@@ -39,18 +42,26 @@ class OwnerLoginActivity: AppCompatActivity() {
             ownerLoginViewModel.password.postValue(it.toString())
         }
 
-        ownerLoginViewModel.session.observe(this) { session ->
-            if (session != null) {
-                val intent = Intent()
-                intent.putExtra("session", session)
-                setResult(OWNER_LOGIN_REQUEST_CODE, intent)
-                finish()
-            }
-        }
-
         binding.ownerForgotPassword.setOnClickListener {
             val intent = Intent(this, OwnerForgotPasswordActivity::class.java)
             this.startActivity(intent)
+        }
+
+        ownerLoginViewModel.requestState.observe(this) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    getString(R.string.loading).showToast(this)
+                }
+                is RequestState.SUCCESS -> {
+                    val intent = Intent()
+                    intent.putExtra("session", ownerLoginViewModel.session)
+                    setResult(OWNER_LOGIN_REQUEST_CODE, intent)
+                    finish()
+                }
+                is RequestState.FAILURE -> {
+                    getString(R.string.generic_error).showToast(this)
+                }
+            }
         }
     }
 
@@ -62,7 +73,12 @@ class OwnerLoginActivity: AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == OWNER_REGISTER_REQUEST_CODE) {
-            // TODO finalizar con onresult y pasar el model del user
+            data?.apply {
+                val result = this.getSerializableExtra("session") as SessionModel
+                intent.putExtra("session", result)
+                setResult(OWNER_LOGIN_REQUEST_CODE, intent)
+                finish()
+            }
         }
     }
 }

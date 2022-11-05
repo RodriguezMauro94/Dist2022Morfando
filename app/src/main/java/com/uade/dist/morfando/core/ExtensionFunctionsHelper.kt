@@ -2,6 +2,7 @@ package com.uade.dist.morfando.core
 
 import android.content.Context
 import android.view.View
+import android.widget.Toast
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -49,4 +50,8 @@ fun Int.toPriceRange(): String {
         3 -> "$$$-$$$$"
         else -> "$$$$-$$$$$"
     }
+}
+
+fun String.showToast(context: Context, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(context, this, duration).show()
 }

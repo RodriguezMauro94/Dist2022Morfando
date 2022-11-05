@@ -5,11 +5,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.databinding.ActivityOwnerForgotPasswordBinding
-import com.uade.dist.morfando.ui.viewmodel.OwnerRegisterViewModel
+import com.uade.dist.morfando.ui.viewmodel.OwnerForgotPasswordViewModel
 
 class OwnerForgotPasswordActivity: AppCompatActivity() {
     private lateinit var binding: ActivityOwnerForgotPasswordBinding
-    private val ownerRegisterViewModel: OwnerRegisterViewModel by viewModels()
+    private val ownerRegisterViewModel: OwnerForgotPasswordViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Morfando)

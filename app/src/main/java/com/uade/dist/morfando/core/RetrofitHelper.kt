@@ -17,6 +17,7 @@ object RetrofitHelper {
         return Retrofit.Builder()
             .baseUrl("https://morfando-app.herokuapp.com/morfando-back/v1/")
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(ResultCallAdapterFactory())
             .client(client)
             .build()
     }
