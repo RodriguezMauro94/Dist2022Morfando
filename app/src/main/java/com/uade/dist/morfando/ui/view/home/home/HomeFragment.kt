@@ -62,6 +62,9 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         homeViewModel.nearRestaurants.observe(viewLifecycleOwner) {
             restaurantsNearAdapter.setRestaurants(it)
         }
+        homeViewModel.nearRestaurantsState.observe(viewLifecycleOwner) {
+            // TODO capturar loading y mostrar/ocultar skeleton o mostrar un error
+        }
 
         // FIXME deshardcodear
         restaurantsCheapAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
 import com.uade.dist.morfando.domain.GetRestaurantsUseCase
@@ -30,12 +31,18 @@ class HomeViewModel : ViewModel() {
     val chips: LiveData<Map<String, Int>> = _chips
 
     val nearRestaurants = MutableLiveData<List<RestaurantModel>>()
+    val nearRestaurantsState = MutableLiveData<RequestState>(RequestState.START)
     fun getNearRestaurants() {
         viewModelScope.launch {
-            // TODO show skeleton
-            getRestaurantsUseCase.getRestaurants(SearchFilterOptionsModel()).apply {
-                nearRestaurants.postValue(this)
-            }
+            nearRestaurantsState.value = RequestState.LOADING
+            getRestaurantsUseCase.getRestaurants(SearchFilterOptionsModel())
+                .onSuccess {
+                    nearRestaurants.postValue(it)
+                    nearRestaurantsState.value = RequestState.SUCCESS
+                }
+                .onFailure {
+                    nearRestaurantsState.value = RequestState.FAILURE(it.toString())
+                }
         }
     }
 }

@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.uade.dist.morfando.R
+import com.uade.dist.morfando.core.RequestState
+import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.FragmentFavouritesBinding
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantViewMode
@@ -39,6 +42,20 @@ class FavouritesFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         favouritesViewModel.getRestaurants()
         favouritesViewModel.favouritesRestaurants.observe(viewLifecycleOwner) {
             restaurantsAdapter.setRestaurants(it)
+        }
+        favouritesViewModel.requestState.observe(viewLifecycleOwner) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    // TODO mostrar skeleton
+                }
+                is RequestState.SUCCESS -> {
+                    // TODO ocultar skeleton
+                }
+                is RequestState.FAILURE -> {
+                    // TODO ocultar skeleton
+                    getString(R.string.generic_error).showToast(requireContext())
+                }
+            }
         }
 
         return root
