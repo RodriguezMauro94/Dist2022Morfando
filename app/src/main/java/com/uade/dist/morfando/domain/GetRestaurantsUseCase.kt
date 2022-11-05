@@ -10,13 +10,6 @@ import kotlinx.coroutines.withContext
 class GetRestaurantsUseCase {
     private val retrofit = RetrofitHelper.getRetrofit()
 
-    suspend fun getAllRestaurants(): Result<List<RestaurantModel>> {
-        return withContext(Dispatchers.IO) {
-            val response = retrofit.create(RestaurantApiClient::class.java).getAllRestaurants()
-            response
-        }
-    }
-
     suspend fun getRestaurants(filter: SearchFilterOptionsModel): Result<List<RestaurantModel>> {
         return withContext(Dispatchers.IO) {
             val response = retrofit.create(RestaurantApiClient::class.java).getRestaurants()
