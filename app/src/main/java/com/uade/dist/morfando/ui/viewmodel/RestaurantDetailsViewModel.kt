@@ -46,7 +46,8 @@ class RestaurantDetailsViewModel: ViewModel() {
                         ),
                         listOf(
                             "https://i.imgur.com/GB7lTPH.jpeg"
-                        )
+                        ),
+                        false
                     )
                     ratingsList.postValue(restaurantDetails.value!!.ratings!!)
                     requestState.value = RequestState.SUCCESS

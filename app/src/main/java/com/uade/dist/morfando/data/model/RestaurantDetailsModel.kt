@@ -9,7 +9,8 @@ data class RestaurantDetailsModel(
     @SerializedName("openHours") val openHours: OpenHoursModel,
     @SerializedName("aboutUs") val aboutUs: String,
     @SerializedName("ratings") val ratings: List<RatingModel>?,
-    @SerializedName("images") val images: List<String>?
+    @SerializedName("images") val images: List<String>?,
+    @SerializedName("favourite") val isFavourite: Boolean
 )
 
 data class OpenHoursModel(

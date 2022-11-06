@@ -1,8 +1,14 @@
 package com.uade.dist.morfando.ui.view
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -35,6 +41,7 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
 
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setUpMenu()
 
         val restaurant = intent.extras?.getSerializable("restaurant") as RestaurantModel
 
@@ -115,5 +122,21 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         this.googleMap = map
+    }
+
+    private fun setUpMenu() {
+        addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.details_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.action_fav) {
+                    // TODO agregar/eliminar de favoritos y cambiar el icono en consecuencia
+                    "Agregar/eliminar a favoritos".showToast(this@RestaurantDetailsActivity)
+                }
+                return true
+            }
+        }, this, Lifecycle.State.RESUMED)
     }
 }

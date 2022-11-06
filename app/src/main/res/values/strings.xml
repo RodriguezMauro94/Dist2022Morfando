@@ -86,4 +86,5 @@
     <string name="error_password_not_match">No coinciden las contraseñas ingresadas</string>
     <string name="name">Nombre</string>
     <string name="loading">Cargando…</string>
+    <string name="add_to_favourites">Agregar a favoritos</string>
 </resources>
