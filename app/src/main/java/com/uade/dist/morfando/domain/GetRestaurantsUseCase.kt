@@ -1,6 +1,7 @@
 package com.uade.dist.morfando.domain
 
 import com.uade.dist.morfando.core.RetrofitHelper
+import com.uade.dist.morfando.data.model.RestaurantDetailsModel
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
 import com.uade.dist.morfando.data.network.RestaurantApiClient
@@ -13,6 +14,13 @@ class GetRestaurantsUseCase {
     suspend fun getRestaurants(filter: SearchFilterOptionsModel): Result<List<RestaurantModel>> {
         return withContext(Dispatchers.IO) {
             val response = retrofit.create(RestaurantApiClient::class.java).getRestaurants()
+            response
+        }
+    }
+
+    suspend fun getRestaurantDetail(code: String): Result<RestaurantDetailsModel> {
+        return withContext(Dispatchers.IO) {
+            val response = retrofit.create(RestaurantApiClient::class.java).getRestaurantDetails(code)
             response
         }
     }

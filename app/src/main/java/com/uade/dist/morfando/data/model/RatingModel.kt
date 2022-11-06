@@ -1,0 +1,10 @@
+package com.uade.dist.morfando.data.model
+
+import com.google.gson.annotations.SerializedName
+
+data class RatingModel(
+    @SerializedName("user") val user: String,
+    @SerializedName("rating") val rating: Long,
+    @SerializedName("title") val title: String,
+    @SerializedName("description") val description: String
+)

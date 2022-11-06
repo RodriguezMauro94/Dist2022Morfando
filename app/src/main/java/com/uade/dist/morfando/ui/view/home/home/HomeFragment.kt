@@ -1,5 +1,6 @@
 package com.uade.dist.morfando.ui.view.home.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -15,6 +16,7 @@ import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.addChips
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.FragmentHomeBinding
+import com.uade.dist.morfando.ui.view.RestaurantDetailsActivity
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantViewMode
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
 import com.uade.dist.morfando.ui.viewmodel.home.home.HomeViewModel
@@ -51,9 +53,9 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         }
 
         val restaurants = listOf(
-            RestaurantModel("sushi tushi", "japonesa", 2, 3.toLong(), "Palermo", "https://i.imgur.com/GB7lTPH.jpeg"),
-            RestaurantModel("burger tushi", "americana", 3, 1.toLong(), "Recoleta", "https://i.imgur.com/OK1u0FO.jpeg"),
-            RestaurantModel("La parrilla del tano", "asado", 4, 4.toLong(), "Avellaneda", "https://i.imgur.com/I0jGVwt.jpeg")
+            RestaurantModel("test1", "sushi tushi", "japonesa", 2, 3.toLong(), "Palermo", "https://i.imgur.com/GB7lTPH.jpeg", status = "Abierto"),
+            RestaurantModel("test2", "burger tushi", "americana", 3, 1.toLong(), "Recoleta", "https://i.imgur.com/OK1u0FO.jpeg", status = "Abierto"),
+            RestaurantModel("test3", "La parrilla del tano", "asado", 4, 4.toLong(), "Avellaneda", "https://i.imgur.com/I0jGVwt.jpeg", status = "Abierto")
         )
 
         restaurantsNearAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
@@ -127,7 +129,8 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
     }
 
     override fun onItemClick(restaurant: RestaurantModel) {
-        // TODO ir a VIP del restaurant
-        Toast.makeText(requireContext(), "clickeado: " + restaurant.name, Toast.LENGTH_LONG).show()
+        val intent = Intent(requireContext(), RestaurantDetailsActivity::class.java)
+        intent.putExtra("restaurant", restaurant)
+        startActivity(intent)
     }
 }

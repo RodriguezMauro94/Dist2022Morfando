@@ -60,7 +60,7 @@
     <string name="search_filters_accept">Mostrar</string>
     <string name="search_filters_clear">Limpiar filtros</string>
     <string name="search_filters_distance_value">5 Km.</string>
-    <string name="open_hours_title">Horarios - Abierto</string>
+    <string name="open_hours_title">Horarios - %s</string>
     <string name="menu_title">Menú</string>
     <string name="about_us_title">Nosotros</string>
     <string name="places_title">Lugar</string>
