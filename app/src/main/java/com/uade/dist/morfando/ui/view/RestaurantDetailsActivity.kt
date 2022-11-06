@@ -3,6 +3,7 @@ package com.uade.dist.morfando.ui.view
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -17,12 +18,14 @@ import com.uade.dist.morfando.core.toPriceRange
 import com.uade.dist.morfando.data.model.RestaurantDetailsModel
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityRestaurantDetailsBinding
+import com.uade.dist.morfando.ui.view.ratingsList.RatingsAdapter
 import com.uade.dist.morfando.ui.viewmodel.RestaurantDetailsViewModel
 
 class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityRestaurantDetailsBinding
     private val restaurantDetailsViewModel: RestaurantDetailsViewModel by viewModels()
     private var googleMap: GoogleMap? = null
+    private lateinit var ratingsAdapter: RatingsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Morfando)
@@ -57,8 +60,24 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
             // TODO
         }
 
+        binding.openHoursGroup.setOnClickListener {
+            // TODO
+        }
+
+        binding.menuGroup.setOnClickListener {
+            // TODO
+        }
+
         val mapFragment = supportFragmentManager.findFragmentById(R.id.places_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        ratingsAdapter = RatingsAdapter()
+        val horizontalLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.restaurantRatingsList.layoutManager = horizontalLayoutManager
+        binding.restaurantRatingsList.adapter = ratingsAdapter
+        restaurantDetailsViewModel.ratingsList.observe(this) {
+            ratingsAdapter.setRatings(it)
+        }
     }
 
     private fun completeData(restaurant: RestaurantModel, details: RestaurantDetailsModel) {
@@ -69,14 +88,16 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         binding.restaurantName.text = restaurant.name
         binding.restaurantRating.rating = restaurant.rating.toFloat()
         binding.restaurantRatingValue.text = restaurant.rating.toString()
-        //TODO binding.restaurantRatingCount.text
         binding.restaurantPrice.text = restaurant.priceRange.toPriceRange()
         binding.restaurantType.text = restaurant.cookingType
         binding.restaurantNeighborhood.text = restaurant.neighborhood
         binding.restaurantRating2.rating = restaurant.rating.toFloat()
         binding.restaurantRatingValue2.text = restaurant.rating.toString()
         binding.openHoursTitle.text = getString(R.string.open_hours_title, restaurant.status)
-        //TODO binding.restaurantRatingCount2.text
+        details.ratings?.let {
+            binding.restaurantRatingCount.text = it.size.toString()
+            binding.restaurantRatingCount2.text = it.size.toString()
+        }
         googleMap?.let {
             val position = LatLng(restaurant.latitude, restaurant.longitude)
             it.addMarker(MarkerOptions().position(position))
@@ -90,8 +111,6 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         binding.openHoursValue.text = details.openHours.getToday().openHours
         binding.aboutUsDescription.text = details.aboutUs
         binding.placesDescription.text = restaurant.neighborhood // FIXME
-
-        //TODO binding.restaurantRatingsList
     }
 
     override fun onMapReady(map: GoogleMap) {

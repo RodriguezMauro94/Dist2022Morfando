@@ -4,10 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.core.RequestState
-import com.uade.dist.morfando.data.model.OpenHoursDayModel
-import com.uade.dist.morfando.data.model.OpenHoursModel
-import com.uade.dist.morfando.data.model.RatingModel
-import com.uade.dist.morfando.data.model.RestaurantDetailsModel
+import com.uade.dist.morfando.data.model.*
 import com.uade.dist.morfando.domain.GetRestaurantsUseCase
 import kotlinx.coroutines.launch
 
@@ -15,6 +12,7 @@ class RestaurantDetailsViewModel: ViewModel() {
     private val getRestaurantsUseCase = GetRestaurantsUseCase()
     val restaurantDetails = MutableLiveData<RestaurantDetailsModel?>()
     val requestState = MutableLiveData<RequestState>(RequestState.START)
+    val ratingsList = MutableLiveData<List<RatingModel>>()
 
     fun getDetails(code: String) {
         viewModelScope.launch {
@@ -22,6 +20,9 @@ class RestaurantDetailsViewModel: ViewModel() {
             getRestaurantsUseCase.getRestaurantDetail(code)
                 .onSuccess {
                     restaurantDetails.value = it
+                    it.ratings?.apply {
+                        ratingsList.postValue(this)
+                    }
                     requestState.value = RequestState.SUCCESS
                 }
                 .onFailure {
@@ -40,13 +41,14 @@ class RestaurantDetailsViewModel: ViewModel() {
                         ),
                         "Lorem ipsum dolor set amet",
                         listOf(
-                            RatingModel("jorge", 3.0.toLong(), "Copado", "Lorem ipsum dolor set amet"),
-                            RatingModel("Ricardo", 2.0.toLong(), "Horrible", "Lorem ipsum dolor set amet")
+                            RatingModel("jorge", 3.0.toLong(), "Copado", "Lorem ipsum dolor set amet", "https://i.imgur.com/GB7lTPH.jpeg"),
+                            RatingModel("Ricardo", 2.0.toLong(), "Horrible", "Lorem ipsum dolor set amet", "https://i.imgur.com/OK1u0FO.jpeg")
                         ),
                         listOf(
                             "https://i.imgur.com/GB7lTPH.jpeg"
                         )
                     )
+                    ratingsList.postValue(restaurantDetails.value!!.ratings!!)
                     requestState.value = RequestState.SUCCESS
                 }
         }
