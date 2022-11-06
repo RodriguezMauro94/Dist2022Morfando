@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.squareup.picasso.Picasso
@@ -16,9 +19,10 @@ import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityRestaurantDetailsBinding
 import com.uade.dist.morfando.ui.viewmodel.RestaurantDetailsViewModel
 
-class RestaurantDetailsActivity: AppCompatActivity() {
+class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityRestaurantDetailsBinding
     private val restaurantDetailsViewModel: RestaurantDetailsViewModel by viewModels()
+    private var googleMap: GoogleMap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Morfando)
@@ -52,6 +56,9 @@ class RestaurantDetailsActivity: AppCompatActivity() {
         binding.ratingSubmitButton.setOnClickListener {
             // TODO
         }
+
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.places_map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
     }
 
     private fun completeData(restaurant: RestaurantModel, details: RestaurantDetailsModel) {
@@ -70,11 +77,14 @@ class RestaurantDetailsActivity: AppCompatActivity() {
         binding.restaurantRatingValue2.text = restaurant.rating.toString()
         binding.openHoursTitle.text = getString(R.string.open_hours_title, restaurant.status)
         //TODO binding.restaurantRatingCount2.text
-        //val position = LatLng(restaurant.latitude, restaurant.longitude)
-        val position = LatLng(28.043893, -16.539329)
-        binding.placesMap.getMapAsync {
+        googleMap?.let {
+            val position = LatLng(restaurant.latitude, restaurant.longitude)
             it.addMarker(MarkerOptions().position(position))
-            it.moveCamera(CameraUpdateFactory.newLatLng(position))
+            it.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(position, 18f),
+                4000,
+                null
+            )
         }
 
         binding.openHoursValue.text = details.openHours.getToday().openHours
@@ -82,5 +92,9 @@ class RestaurantDetailsActivity: AppCompatActivity() {
         binding.placesDescription.text = restaurant.neighborhood // FIXME
 
         //TODO binding.restaurantRatingsList
+    }
+
+    override fun onMapReady(map: GoogleMap) {
+        this.googleMap = map
     }
 }
