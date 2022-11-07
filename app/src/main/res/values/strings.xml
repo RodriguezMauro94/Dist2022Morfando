@@ -61,6 +61,7 @@
     <string name="search_filters_clear">Limpiar filtros</string>
     <string name="search_filters_distance_value">5 Km.</string>
     <string name="open_hours_title">Horarios - %s</string>
+    <string name="rating_count">%s reseñas</string>
     <string name="menu_title">Menú</string>
     <string name="about_us_title">Nosotros</string>
     <string name="places_title">Lugar</string>
@@ -89,4 +90,5 @@
     <string name="add_to_favourites">Agregar a favoritos</string>
     <string name="vegan">Vegano</string>
     <string name="celiac">Celíaco</string>
+    <string name="menu_title_activity">Menú - %s</string>
 </resources>

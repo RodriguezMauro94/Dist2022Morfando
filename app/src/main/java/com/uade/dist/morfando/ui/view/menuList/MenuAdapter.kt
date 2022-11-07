@@ -39,7 +39,7 @@ class MenuAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is MenuPlateViewHolder -> {
                 val item = menuItems[position] as PlateItemList
                 holder.plateName.text =  item.name
-                holder.platePrice.text = item.price
+                holder.platePrice.text = "$ ${item.price}"
                 Picasso.get()
                     .load(item.image)
                     .placeholder(R.drawable.logo_morfando)

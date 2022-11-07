@@ -1,5 +1,6 @@
 package com.uade.dist.morfando.ui.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -71,7 +72,9 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         }
 
         binding.menuGroup.setOnClickListener {
-            // TODO
+            val intent = Intent(this, MenuActivity::class.java)
+            intent.putExtra("restaurant", restaurant)
+            startActivity(intent)
         }
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.places_map) as SupportMapFragment
@@ -101,8 +104,8 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         binding.restaurantRatingValue2.text = restaurant.rating.toString()
         binding.openHoursTitle.text = getString(R.string.open_hours_title, restaurant.status)
         details.ratings?.let {
-            binding.restaurantRatingCount.text = it.size.toString()
-            binding.restaurantRatingCount2.text = it.size.toString()
+            binding.restaurantRatingCount.text =getString(R.string.rating_count, it.size.toString())
+            binding.restaurantRatingCount2.text =getString(R.string.rating_count, it.size.toString())
         }
         googleMap?.let {
             val position = LatLng(restaurant.latitude, restaurant.longitude)

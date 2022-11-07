@@ -53,9 +53,9 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         }
 
         val restaurants = listOf(
-            RestaurantModel("test1", "sushi tushi", "japonesa", 2, 3.toLong(), "Palermo", "https://i.imgur.com/GB7lTPH.jpeg", status = "Abierto"),
-            RestaurantModel("test2", "burger tushi", "americana", 3, 1.toLong(), "Recoleta", "https://i.imgur.com/OK1u0FO.jpeg", status = "Abierto"),
-            RestaurantModel("test3", "La parrilla del tano", "asado", 4, 4.toLong(), "Avellaneda", "https://i.imgur.com/I0jGVwt.jpeg", status = "Abierto")
+            RestaurantModel("test1", "Sushi Tushi", "japonesa", 2, 3.toLong(), "Palermo", "https://i.imgur.com/GB7lTPH.jpeg", status = "Abierto"),
+            RestaurantModel("test2", "Burger Tushi", "americana", 3, 1.toLong(), "Recoleta", "https://i.imgur.com/OK1u0FO.jpeg", status = "Abierto"),
+            RestaurantModel("test3", "La parrilla del Tano", "asado", 4, 4.toLong(), "Avellaneda", "https://i.imgur.com/I0jGVwt.jpeg", status = "Abierto")
         )
 
         restaurantsNearAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
