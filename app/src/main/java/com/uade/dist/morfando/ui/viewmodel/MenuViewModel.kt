@@ -1,4 +1,4 @@
-package com.uade.dist.morfando.ui.viewmodel.home
+package com.uade.dist.morfando.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,6 +33,7 @@ class MenuViewModel: ViewModel() {
                             listOf(
                                 PlateModel(
                             "Bastones de muzza",
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                             125.0,
                             "https://i.imgur.com/GB7lTPH.jpeg",
                                     isVegan = false,
@@ -40,6 +41,7 @@ class MenuViewModel: ViewModel() {
                                 ),
                                 PlateModel(
                                     "Lorem ipsum",
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     3.00,
                                     "https://i.imgur.com/GB7lTPH.jpeg",
                                     isVegan = true,
@@ -47,6 +49,7 @@ class MenuViewModel: ViewModel() {
                                 ),
                                 PlateModel(
                                     "Cosa",
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     1.255,
                                     "https://i.imgur.com/GB7lTPH.jpeg",
                                     isVegan = true,
@@ -59,6 +62,7 @@ class MenuViewModel: ViewModel() {
                             listOf(
                                 PlateModel(
                                     "Otra cosa",
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     125.0,
                                     "https://i.imgur.com/OK1u0FO.jpeg",
                                     isVegan = false,
@@ -66,6 +70,7 @@ class MenuViewModel: ViewModel() {
                                 ),
                                 PlateModel(
                                     "Lorem ipsum",
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     3.00,
                                     "https://i.imgur.com/OK1u0FO.jpeg",
                                     isVegan = true,
@@ -73,6 +78,7 @@ class MenuViewModel: ViewModel() {
                                 ),
                                 PlateModel(
                                     "Cosa",
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     1.255,
                                     "https://i.imgur.com/OK1u0FO.jpeg",
                                     isVegan = true,

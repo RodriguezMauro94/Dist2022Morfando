@@ -1,5 +1,6 @@
 package com.uade.dist.morfando.ui.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +12,8 @@ import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityMenuBinding
 import com.uade.dist.morfando.ui.view.menuList.MenuAdapter
 import com.uade.dist.morfando.ui.view.menuList.MenuItemList
-import com.uade.dist.morfando.ui.viewmodel.home.MenuViewModel
+import com.uade.dist.morfando.ui.view.menuList.PlateItemList
+import com.uade.dist.morfando.ui.viewmodel.MenuViewModel
 
 class MenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener {
     private lateinit var binding: ActivityMenuBinding
@@ -55,7 +57,10 @@ class MenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener {
     }
 
     override fun onItemClick(item: MenuItemList) {
-        // TODO ir al detalle
-        "clickeado".showToast(this)
+        (item as? PlateItemList)?.let {
+            val intent = Intent(this, MenuItemDetail::class.java)
+            intent.putExtra("plate", item)
+            startActivity(intent)
+        }
     }
 }

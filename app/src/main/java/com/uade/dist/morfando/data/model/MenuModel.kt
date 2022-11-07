@@ -10,6 +10,7 @@ data class MenuItemModel(
 
 data class PlateModel(
     @SerializedName("name") val name: String,
+    @SerializedName("description") val description: String,
     @SerializedName("price") val price: Double,
     @SerializedName("image") val image: String,
     @SerializedName("isVegan") val isVegan: Boolean,

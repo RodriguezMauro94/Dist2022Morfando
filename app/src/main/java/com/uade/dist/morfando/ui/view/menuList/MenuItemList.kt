@@ -1,16 +1,18 @@
 package com.uade.dist.morfando.ui.view.menuList
 
 import com.uade.dist.morfando.data.model.MenuItemModel
+import java.io.Serializable
 
 abstract class MenuItemList
 
 class PlateItemList(
     val name: String,
+    val description: String,
     val price: Double,
     val image: String,
     val isVegan: Boolean,
     val isCeliac: Boolean
-) : MenuItemList()
+) : MenuItemList(), Serializable
 
 class MenuHeaderItemList(
     val title: String
@@ -28,6 +30,7 @@ fun List<MenuItemModel>.toViewList(): List<MenuItemList> {
             list.add(
                 PlateItemList(
                     plate.name,
+                    plate.description,
                     plate.price,
                     plate.image,
                     plate.isVegan,
