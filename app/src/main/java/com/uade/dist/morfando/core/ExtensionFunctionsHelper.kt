@@ -55,3 +55,7 @@ fun Int.toPriceRange(): String {
 fun String.showToast(context: Context, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(context, this, duration).show()
 }
+
+fun Boolean.getVisibility(): Int {
+    return if (this) View.VISIBLE else View.GONE
+}
