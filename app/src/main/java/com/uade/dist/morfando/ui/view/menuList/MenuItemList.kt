@@ -1,6 +1,4 @@
-package com.uade.dist.morfando.data.model
-
-import com.uade.dist.morfando.ui.view.menuList.MenuViewMode
+package com.uade.dist.morfando.ui.view.menuList
 
 abstract class MenuItemList(
     val viewType: MenuViewMode
@@ -19,3 +17,7 @@ class MenuHeaderItemList(
     viewType: MenuViewMode,
     val title: String
 ) : MenuItemList(viewType)
+
+enum class MenuViewMode(val viewType: Int) {
+    HEADER(0), PLATE(1)
+}

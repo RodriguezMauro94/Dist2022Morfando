@@ -9,9 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.getVisibility
-import com.uade.dist.morfando.data.model.MenuHeaderItemList
-import com.uade.dist.morfando.data.model.MenuItemList
-import com.uade.dist.morfando.data.model.PlateItemList
 
 class MenuAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var clickListener: ItemClickListener
@@ -77,8 +74,8 @@ class MenuAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class MenuPlateViewHolder(restaurantView: View,
-       private val menuItems: List<MenuItemList>,
-       private val clickListener: ItemClickListener
+                              private val menuItems: List<MenuItemList>,
+                              private val clickListener: ItemClickListener
     ) : RecyclerView.ViewHolder(restaurantView), View.OnClickListener {
         val view: View = restaurantView
         val plateName: TextView = view.findViewById(R.id.plate_name)
