@@ -99,4 +99,8 @@
     <string name="tuesday">Martes</string>
     <string name="monday">Lunes</string>
     <string name="open_hours">Horarios</string>
+    <string name="rating">Reseña</string>
+    <string name="rating_title">Título de la reseña</string>
+    <string name="rating_description">Escriba su reseña</string>
+    <string name="rating_publish">Publicar</string>
 </resources>

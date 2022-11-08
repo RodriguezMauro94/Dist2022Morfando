@@ -21,8 +21,10 @@ import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.core.toPriceRange
+import com.uade.dist.morfando.data.model.RatingModel
 import com.uade.dist.morfando.data.model.RestaurantDetailsModel
 import com.uade.dist.morfando.data.model.RestaurantModel
+import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.databinding.ActivityRestaurantDetailsBinding
 import com.uade.dist.morfando.ui.view.gallery.GalleryActivity
 import com.uade.dist.morfando.ui.view.ratingsList.RatingsAdapter
@@ -73,7 +75,9 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         }
 
         binding.ratingSubmitButton.setOnClickListener {
-            // TODO
+            val intent = Intent(this, RatingActivity::class.java)
+            intent.putExtra("restaurant", restaurant)
+            startActivityForResult(intent, RATING_REQUEST_CODE)
         }
 
         binding.openHoursGroup.setOnClickListener {
@@ -153,5 +157,20 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
                 return true
             }
         }, this, Lifecycle.State.RESUMED)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RATING_REQUEST_CODE) {
+            data?.apply {
+                val result = this.getSerializableExtra("rating") as RatingModel
+                val ratings: MutableList<RatingModel>? = restaurantDetailsViewModel.restaurantDetails.value?.ratings?.toMutableList()
+
+                ratings?.apply {
+                    add(result)
+                    ratingsAdapter.setRatings(this)
+                }
+            }
+        }
     }
 }

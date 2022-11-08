@@ -4,9 +4,10 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class RatingModel(
-    @SerializedName("user") val user: String,
+    @SerializedName("userCode") val user: String,
+    @SerializedName("restaurantCode") val code: String,
     @SerializedName("rating") val rating: Long,
-    @SerializedName("title") val title: String,
+    @SerializedName("comment") val title: String,
     @SerializedName("description") val description: String,
-    @SerializedName("image") val userImage: String
+    @SerializedName("image") val userImage: String? = null
 ): Serializable

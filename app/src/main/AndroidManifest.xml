@@ -64,5 +64,8 @@
         <activity
             android:name=".ui.view.gallery.GalleryActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.view.RatingActivity"
+            android:exported="false" />
     </application>
 </manifest>
