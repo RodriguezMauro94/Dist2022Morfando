@@ -24,7 +24,6 @@ import com.uade.dist.morfando.core.toPriceRange
 import com.uade.dist.morfando.data.model.RatingModel
 import com.uade.dist.morfando.data.model.RestaurantDetailsModel
 import com.uade.dist.morfando.data.model.RestaurantModel
-import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.databinding.ActivityRestaurantDetailsBinding
 import com.uade.dist.morfando.ui.view.gallery.GalleryActivity
 import com.uade.dist.morfando.ui.view.ratingsList.RatingsAdapter
@@ -141,6 +140,10 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         this.googleMap = map
+
+        googleMap?.setOnMapClickListener {
+            // TODO abrir google maps con la latLang del restaurant
+        }
     }
 
     private fun setUpMenu() {
