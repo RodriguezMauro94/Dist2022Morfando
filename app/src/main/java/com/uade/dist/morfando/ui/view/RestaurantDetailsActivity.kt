@@ -68,7 +68,11 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         }
 
         binding.openHoursGroup.setOnClickListener {
-            // TODO
+            restaurantDetailsViewModel.restaurantDetails.value?.openHours.let {
+                val intent = Intent(this, OpenHoursActivity::class.java)
+                intent.putExtra("openHours", it)
+                startActivity(intent)
+            }
         }
 
         binding.menuGroup.setOnClickListener {

@@ -58,5 +58,8 @@
         <activity
             android:name=".ui.view.MenuItemDetail"
             android:exported="false" />
+        <activity
+            android:name=".ui.view.OpenHoursActivity"
+            android:exported="false" />
     </application>
 </manifest>

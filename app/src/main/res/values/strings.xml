@@ -91,4 +91,12 @@
     <string name="vegan">Vegano</string>
     <string name="celiac">Celíaco</string>
     <string name="menu_title_activity">Menú - %s</string>
+    <string name="sunday">Domingo</string>
+    <string name="saturday">Sábado</string>
+    <string name="friday">Viernes</string>
+    <string name="thursday">Jueves</string>
+    <string name="wednesday">Miércoles</string>
+    <string name="tuesday">Martes</string>
+    <string name="monday">Lunes</string>
+    <string name="open_hours">Horarios</string>
 </resources>

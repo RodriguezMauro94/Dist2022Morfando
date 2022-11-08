@@ -2,6 +2,7 @@ package com.uade.dist.morfando.data.model
 
 import android.os.Build
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.LocalDate
 
@@ -11,7 +12,7 @@ data class RestaurantDetailsModel(
     @SerializedName("ratings") val ratings: List<RatingModel>?,
     @SerializedName("images") val images: List<String>?,
     @SerializedName("favourite") val isFavourite: Boolean
-)
+): Serializable
 
 data class OpenHoursModel(
     @SerializedName("monday") val monday: OpenHoursDayModel,
@@ -21,7 +22,7 @@ data class OpenHoursModel(
     @SerializedName("friday") val friday: OpenHoursDayModel,
     @SerializedName("saturday") val saturday: OpenHoursDayModel,
     @SerializedName("sunday") val sunday: OpenHoursDayModel,
-) {
+): Serializable {
     fun getToday(): OpenHoursDayModel {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val today = LocalDate.now()
@@ -42,4 +43,4 @@ data class OpenHoursModel(
 data class OpenHoursDayModel(
     @SerializedName("day") val day: String,
     @SerializedName("openHours") val openHours: String
-)
+): Serializable

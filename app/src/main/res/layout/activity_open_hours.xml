@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:padding="@dimen/base_margin">
+
+    <TextView
+        android:id="@+id/open_hours_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textSize="20sp"
+        android:paddingBottom="@dimen/base_margin"
+        android:text="@string/open_hours"
+        style="@style/MorfandoTextInputEditText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/open_hours_monday_title"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:text="@string/monday"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_title" />
+
+    <TextView
+        android:id="@+id/open_hours_monday_value"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="@dimen/base_margin"
+        android:textSize="15sp"
+        tools:text="8:00am - 10:00pm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_monday_title" />
+
+    <TextView
+        android:id="@+id/open_hours_tuesday_title"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:text="@string/tuesday"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_monday_value" />
+
+    <TextView
+        android:id="@+id/open_hours_tuesday_value"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="@dimen/base_margin"
+        android:textSize="15sp"
+        tools:text="8:00am - 10:00pm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_tuesday_title" />
+
+    <TextView
+        android:id="@+id/open_hours_wednesday_title"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:text="@string/wednesday"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_tuesday_value" />
+
+    <TextView
+        android:id="@+id/open_hours_wednesday_value"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="@dimen/base_margin"
+        android:textSize="15sp"
+        tools:text="8:00am - 10:00pm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_wednesday_title" />
+
+    <TextView
+        android:id="@+id/open_hours_thursday_title"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:text="@string/thursday"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_wednesday_value" />
+
+    <TextView
+        android:id="@+id/open_hours_thursday_value"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="@dimen/base_margin"
+        android:textSize="15sp"
+        tools:text="8:00am - 10:00pm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_thursday_title" />
+
+    <TextView
+        android:id="@+id/open_hours_friday_title"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:text="@string/friday"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_thursday_value" />
+
+    <TextView
+        android:id="@+id/open_hours_friday_value"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="@dimen/base_margin"
+        android:textSize="15sp"
+        tools:text="8:00am - 10:00pm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_friday_title" />
+
+    <TextView
+        android:id="@+id/open_hours_saturday_title"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:text="@string/saturday"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_friday_value" />
+
+    <TextView
+        android:id="@+id/open_hours_saturday_value"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="@dimen/base_margin"
+        android:textSize="15sp"
+        tools:text="8:00am - 10:00pm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_saturday_title" />
+
+    <TextView
+        android:id="@+id/open_hours_sunday_title"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:text="@string/sunday"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_saturday_value" />
+
+    <TextView
+        android:id="@+id/open_hours_sunday_value"
+        style="@style/MorfandoTextInputEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="@dimen/base_margin"
+        android:textSize="15sp"
+        tools:text="8:00am - 10:00pm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_hours_sunday_title" />
+</androidx.constraintlayout.widget.ConstraintLayout>
