@@ -45,7 +45,17 @@ class RestaurantDetailsViewModel: ViewModel() {
                             RatingModel("Ricardo", 2.0.toLong(), "Horrible", "Lorem ipsum dolor set amet", "https://i.imgur.com/OK1u0FO.jpeg")
                         ),
                         listOf(
-                            "https://i.imgur.com/GB7lTPH.jpeg"
+                            "https://i.imgur.com/GB7lTPH.jpeg",
+                            "https://i.imgur.com/GB7lTPH.jpeg",
+                            "https://i.imgur.com/GB7lTPH.jpeg",
+                            "https://i.imgur.com/GB7lTPH.jpeg",
+                            "https://i.imgur.com/GB7lTPH.jpeg",
+                            "https://i.imgur.com/GB7lTPH.jpeg",
+                            "https://i.imgur.com/GB7lTPH.jpeg",
+                            "https://i.imgur.com/GB7lTPH.jpeg",
+                            "https://i.imgur.com/GB7lTPH.jpeg",
+                            "https://i.imgur.com/GB7lTPH.jpeg",
+                            "https://i.imgur.com/GB7lTPH.jpeg",
                         ),
                         false
                     )

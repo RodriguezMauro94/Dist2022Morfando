@@ -24,6 +24,7 @@ import com.uade.dist.morfando.core.toPriceRange
 import com.uade.dist.morfando.data.model.RestaurantDetailsModel
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityRestaurantDetailsBinding
+import com.uade.dist.morfando.ui.view.gallery.GalleryActivity
 import com.uade.dist.morfando.ui.view.ratingsList.RatingsAdapter
 import com.uade.dist.morfando.ui.viewmodel.RestaurantDetailsViewModel
 
@@ -60,6 +61,14 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
                 is RequestState.FAILURE -> {
                     getString(R.string.generic_error).showToast(this)
                 }
+            }
+        }
+
+        binding.detailLanding.setOnClickListener {
+            restaurantDetailsViewModel.restaurantDetails.value?.let {
+                val intent = Intent(this, GalleryActivity::class.java)
+                intent.putExtra("details", it)
+                startActivity(intent)
             }
         }
 

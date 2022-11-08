@@ -61,5 +61,8 @@
         <activity
             android:name=".ui.view.OpenHoursActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.view.gallery.GalleryActivity"
+            android:exported="false" />
     </application>
 </manifest>
