@@ -1,6 +1,7 @@
 package com.uade.dist.morfando.ui.view
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -47,6 +48,7 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
 
         val restaurant = intent.extras?.getSerializable("restaurant") as RestaurantModel
 
+        restaurantDetailsViewModel.restaurant.postValue(restaurant)
         restaurantDetailsViewModel.getDetails(restaurant.code)
 
         restaurantDetailsViewModel.requestState.observe(this) {
@@ -142,7 +144,12 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         this.googleMap = map
 
         googleMap?.setOnMapClickListener {
-            // TODO abrir google maps con la latLang del restaurant
+            val restaurant = restaurantDetailsViewModel.restaurant.value
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.google.com/maps/search/?api=1&query=${restaurant?.latitude}%2C${restaurant?.longitude}")
+            )
+            startActivity(intent)
         }
     }
 

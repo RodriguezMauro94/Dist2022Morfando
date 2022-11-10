@@ -1,5 +1,6 @@
 package com.uade.dist.morfando.ui.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 class RestaurantDetailsViewModel: ViewModel() {
     private val getRestaurantsUseCase = GetRestaurantsUseCase()
     val restaurantDetails = MutableLiveData<RestaurantDetailsModel?>()
+    val restaurant = MutableLiveData<RestaurantModel>()
     val requestState = MutableLiveData<RequestState>(RequestState.START)
     val ratingsList = MutableLiveData<List<RatingModel>>()
 
