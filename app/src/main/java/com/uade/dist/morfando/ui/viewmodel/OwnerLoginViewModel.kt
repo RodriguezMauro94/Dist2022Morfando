@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.data.local.SHARED_IS_OWNER
-import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.data.model.UserModel
 import com.uade.dist.morfando.domain.AuthenticateUseCase
