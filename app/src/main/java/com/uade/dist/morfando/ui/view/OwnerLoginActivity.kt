@@ -8,6 +8,7 @@ import androidx.core.widget.addTextChangedListener
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.databinding.ActivityOwnerLoginBinding
 import com.uade.dist.morfando.ui.viewmodel.OwnerLoginViewModel
@@ -53,10 +54,7 @@ class OwnerLoginActivity: AppCompatActivity() {
                     getString(R.string.loading).showToast(this)
                 }
                 is RequestState.SUCCESS -> {
-                    val intent = Intent()
-                    intent.putExtra("session", ownerLoginViewModel.session)
-                    setResult(OWNER_LOGIN_REQUEST_CODE, intent)
-                    finish()
+                    completeLogin(ownerLoginViewModel.session!!)
                 }
                 is RequestState.FAILURE -> {
                     getString(R.string.generic_error).showToast(this)
@@ -75,10 +73,16 @@ class OwnerLoginActivity: AppCompatActivity() {
         if (requestCode == OWNER_REGISTER_REQUEST_CODE) {
             data?.apply {
                 val result = this.getSerializableExtra("session") as SessionModel
-                intent.putExtra("session", result)
-                setResult(OWNER_LOGIN_REQUEST_CODE, intent)
-                finish()
+                completeLogin(result)
             }
         }
+    }
+
+    private fun completeLogin(sessionModel: SessionModel) {
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        ownerLoginViewModel.completeLogin(sharedPreferences)
+        intent.putExtra("session", sessionModel)
+        setResult(OWNER_LOGIN_REQUEST_CODE, intent)
+        finish()
     }
 }

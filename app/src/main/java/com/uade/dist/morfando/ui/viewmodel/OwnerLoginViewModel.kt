@@ -1,9 +1,12 @@
 package com.uade.dist.morfando.ui.viewmodel
 
+import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.core.RequestState
+import com.uade.dist.morfando.data.local.SHARED_IS_OWNER
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.data.model.UserModel
 import com.uade.dist.morfando.domain.AuthenticateUseCase
@@ -28,5 +31,9 @@ class OwnerLoginViewModel: ViewModel() {
                 requestState.value = RequestState.FAILURE(it.toString())
             }
         }
+    }
+
+    fun completeLogin(sharedPreferences: SharedPreferences) {
+        sharedPreferences.edit().putBoolean(SHARED_IS_OWNER, true).apply()
     }
 }

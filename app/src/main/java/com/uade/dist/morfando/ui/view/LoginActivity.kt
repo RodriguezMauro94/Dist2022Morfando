@@ -6,11 +6,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.data.local.SHARED_IS_OWNER
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.databinding.ActivityLoginBinding
@@ -85,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginSuccess(id: String) {
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        sharedPreferences.edit().putBoolean(SHARED_IS_OWNER, false).apply()
         loginViewModel.loginSuccess(sharedPreferences, id)
         startActivity(Intent(this@LoginActivity, RequestGeoPermissionActivity::class.java))
         finish()
