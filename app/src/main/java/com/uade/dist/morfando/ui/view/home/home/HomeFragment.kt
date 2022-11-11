@@ -16,6 +16,7 @@ import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.addChips
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.FragmentHomeBinding
+import com.uade.dist.morfando.ui.view.MyProfileActivity
 import com.uade.dist.morfando.ui.view.RestaurantDetailsActivity
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantViewMode
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
@@ -97,10 +98,8 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
                 if (menuItem.itemId == R.id.action_account) {
-                    //TODO go to account
-                    Toast.makeText(context, "Account", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(requireActivity(), MyProfileActivity::class.java))
                 }
                 return true
             }

@@ -67,5 +67,8 @@
         <activity
             android:name=".ui.view.RatingActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.view.MyProfileActivity"
+            android:exported="false" />
     </application>
 </manifest>

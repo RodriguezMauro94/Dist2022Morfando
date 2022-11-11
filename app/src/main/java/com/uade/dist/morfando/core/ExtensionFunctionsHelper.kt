@@ -59,3 +59,7 @@ fun String.showToast(context: Context, duration: Int = Toast.LENGTH_SHORT) {
 fun Boolean.getVisibility(): Int {
     return if (this) View.VISIBLE else View.GONE
 }
+
+fun View.setVisibility(condition: Boolean) {
+    this.visibility = if (condition) View.VISIBLE else View.GONE
+}

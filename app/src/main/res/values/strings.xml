@@ -103,4 +103,10 @@
     <string name="rating_title">Título de la reseña</string>
     <string name="rating_description">Escriba su reseña</string>
     <string name="rating_publish">Publicar</string>
+    <string name="profile">Perfil</string>
+    <string name="personal_data">Datos personales</string>
+    <string name="change_password">Cambiar contraseña</string>
+    <string name="preferences">Preferencias</string>
+    <string name="my_restaurants">Mis restaurantes</string>
+    <string name="delete_account">Borrar cuenta</string>
 </resources>
