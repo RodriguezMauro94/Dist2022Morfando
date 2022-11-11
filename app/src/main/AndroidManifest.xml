@@ -70,5 +70,8 @@
         <activity
             android:name=".ui.view.MyProfileActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.view.MyRestaurantsActivity"
+            android:exported="false" />
     </application>
 </manifest>

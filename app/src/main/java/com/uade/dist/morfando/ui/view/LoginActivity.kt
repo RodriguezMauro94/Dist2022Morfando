@@ -68,10 +68,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     val result = task.getResult(ApiException::class.java)
                     result?.apply {
-                        // FIXME loginSuccess(this.id!!)
-                        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
-                        sharedPreferences.edit().putBoolean(SHARED_IS_OWNER, false).apply()
-                        loginViewModel.loginSuccess(sharedPreferences, "1234")
+                        //FIXME loginSuccess(this.id!!)
                         loginSuccess("1234")
                     }
                 }
@@ -81,12 +78,15 @@ class LoginActivity : AppCompatActivity() {
         } else if (requestCode == OWNER_LOGIN_REQUEST_CODE) {
             data?.apply {
                 val result = this.getSerializableExtra("session") as SessionModel
-                loginSuccess(result.session)
+                loginSuccess(result.session, true)
             }
         }
     }
 
-    private fun loginSuccess(id: String) {
+    private fun loginSuccess(id: String, isOwner: Boolean = false) {
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        sharedPreferences.edit().putBoolean(SHARED_IS_OWNER, isOwner).apply()
+        loginViewModel.loginSuccess(sharedPreferences, id)
         startActivity(Intent(this@LoginActivity, RequestGeoPermissionActivity::class.java))
         finish()
     }

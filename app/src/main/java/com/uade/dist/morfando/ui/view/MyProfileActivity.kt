@@ -1,5 +1,6 @@
 package com.uade.dist.morfando.ui.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.uade.dist.morfando.R
@@ -23,5 +24,21 @@ class MyProfileActivity: AppCompatActivity() {
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
         val isOwner = sharedPreferences.getBoolean(SHARED_IS_OWNER, false)
         binding.profileMyRestaurants.setVisibility(isOwner)
+
+        binding.profilePersonalData.setOnClickListener {
+            // TODO
+        }
+
+        binding.profileChangePassword.setOnClickListener {
+            // TODO
+        }
+
+        binding.profileMyRestaurants.setOnClickListener {
+            startActivity(Intent(this, MyRestaurantsActivity::class.java))
+        }
+
+        binding.profileDeleteAccount.setOnClickListener {
+            // TODO
+        }
     }
 }

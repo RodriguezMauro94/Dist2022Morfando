@@ -31,8 +31,4 @@ class OwnerLoginViewModel: ViewModel() {
             }
         }
     }
-
-    fun completeLogin(sharedPreferences: SharedPreferences) {
-        sharedPreferences.edit().putBoolean(SHARED_IS_OWNER, true).apply()
-    }
 }

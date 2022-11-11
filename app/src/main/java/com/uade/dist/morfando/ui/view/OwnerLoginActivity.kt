@@ -79,8 +79,6 @@ class OwnerLoginActivity: AppCompatActivity() {
     }
 
     private fun completeLogin(sessionModel: SessionModel) {
-        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
-        ownerLoginViewModel.completeLogin(sharedPreferences)
         intent.putExtra("session", sessionModel)
         setResult(OWNER_LOGIN_REQUEST_CODE, intent)
         finish()
