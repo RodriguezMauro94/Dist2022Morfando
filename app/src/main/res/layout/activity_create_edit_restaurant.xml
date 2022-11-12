@@ -53,11 +53,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/restaurant_street"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/restaurant_number"
             app:layout_constraintTop_toBottomOf="@+id/directions_title"
             style="@style/MorfandoTextInput">
             <com.google.android.material.textfield.TextInputEditText
@@ -67,6 +67,24 @@
                 android:inputType="text"
                 style="@style/MorfandoTextInputEditText"
                 android:hint="@string/street"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/restaurant_number"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/directions_title"
+            style="@style/MorfandoTextInput">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/street_number_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="6"
+                style="@style/MorfandoTextInputEditText"
+                android:hint="@string/number"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -154,9 +172,6 @@
             app:layout_constraintTop_toBottomOf="@id/restaurant_country"
             app:layout_constraintStart_toStartOf="parent" />
 
-
-
-
         <TextView
             android:id="@+id/monday_title"
             android:layout_width="wrap_content"
@@ -172,8 +187,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="@dimen/base_margin"
-            android:paddingEnd="@dimen/base_margin"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/monday_is_open"
             app:layout_constraintTop_toTopOf="@id/monday_title"
@@ -183,8 +198,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
             <Spinner
@@ -192,8 +207,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
         </LinearLayout>
@@ -222,8 +237,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="@dimen/base_margin"
-            android:paddingEnd="@dimen/base_margin"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/monday_is_open"
             app:layout_constraintTop_toTopOf="@id/tuesday_title"
@@ -233,8 +248,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
             <Spinner
@@ -242,8 +257,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
         </LinearLayout>
@@ -272,8 +287,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="@dimen/base_margin"
-            android:paddingEnd="@dimen/base_margin"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/monday_is_open"
             app:layout_constraintTop_toTopOf="@id/wednesday_title"
@@ -283,8 +298,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
             <Spinner
@@ -292,8 +307,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
         </LinearLayout>
@@ -322,8 +337,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="@dimen/base_margin"
-            android:paddingEnd="@dimen/base_margin"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/monday_is_open"
             app:layout_constraintTop_toTopOf="@id/thursday_title"
@@ -333,8 +348,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
             <Spinner
@@ -342,8 +357,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
         </LinearLayout>
@@ -372,8 +387,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="@dimen/base_margin"
-            android:paddingEnd="@dimen/base_margin"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/monday_is_open"
             app:layout_constraintTop_toTopOf="@id/friday_title"
@@ -383,8 +398,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
             <Spinner
@@ -392,8 +407,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
         </LinearLayout>
@@ -422,8 +437,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="@dimen/base_margin"
-            android:paddingEnd="@dimen/base_margin"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/monday_is_open"
             app:layout_constraintTop_toTopOf="@id/saturday_title"
@@ -433,8 +448,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
             <Spinner
@@ -442,8 +457,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
         </LinearLayout>
@@ -472,8 +487,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="@dimen/base_margin"
-            android:paddingEnd="@dimen/base_margin"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/monday_is_open"
             app:layout_constraintTop_toTopOf="@id/sunday_title"
@@ -483,8 +498,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
             <Spinner
@@ -492,8 +507,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/base_margin"
-                android:layout_marginEnd="@dimen/base_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:layout_gravity="center"
                 android:backgroundTint="#464C58"/>
         </LinearLayout>
@@ -535,8 +550,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="150dp"
-            android:layout_marginStart="@dimen/base_margin"
-            android:layout_marginEnd="@dimen/base_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/small_margin"
             android:backgroundTint="#464C58"
             app:layout_constraintStart_toEndOf="@id/kitchen_style_subtitle"
             app:layout_constraintTop_toTopOf="@id/kitchen_style_subtitle"
