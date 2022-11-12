@@ -2,6 +2,7 @@ package com.uade.dist.morfando.ui.view
 
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
 import android.widget.Spinner
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -52,6 +53,15 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         categoriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.kitchenStyleSpinner.adapter = categoriesAdapter
 
+        bindIsOpen(binding.mondayIsOpen, binding.mondayOpenHourSpinner, binding.mondayCloseHourSpinner)
+        bindIsOpen(binding.tuesdayIsOpen, binding.tuesdayOpenHourSpinner, binding.tuesdayCloseHourSpinner)
+        bindIsOpen(binding.wednesdayIsOpen, binding.wednesdayOpenHourSpinner, binding.wednesdayCloseHourSpinner)
+        bindIsOpen(binding.thursdayIsOpen, binding.thursdayOpenHourSpinner, binding.thursdayCloseHourSpinner)
+        bindIsOpen(binding.fridayIsOpen, binding.fridayOpenHourSpinner, binding.fridayCloseHourSpinner)
+        bindIsOpen(binding.saturdayIsOpen, binding.saturdayOpenHourSpinner, binding.saturdayCloseHourSpinner)
+        bindIsOpen(binding.sundayIsOpen, binding.sundayOpenHourSpinner, binding.sundayCloseHourSpinner)
+
+
         /*
             binding.nameValue
 
@@ -62,14 +72,6 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
             binding.townValue
             binding.stateValue
             binding.countryValue
-
-            binding.mondayIsOpen
-            binding.tuesdayIsOpen
-            binding.wednesdayIsOpen
-            binding.thursdayIsOpen
-            binding.fridayIsOpen
-            binding.saturdayIsOpen
-            binding.sundayIsOpen
         */
 
         binding.menuGroup.setOnClickListener {
@@ -82,6 +84,17 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
 
         binding.save.setOnClickListener {
             // TODO
+        }
+    }
+
+    private fun bindIsOpen(isOpen: CheckBox, openHourSpinner: Spinner, closeHourSpinner: Spinner) {
+        isOpen.setOnCheckedChangeListener { _, checked ->
+            openHourSpinner.isEnabled = checked
+            closeHourSpinner.isEnabled = checked
+            if (!checked) {
+                openHourSpinner.setSelection(0)
+                closeHourSpinner.setSelection(0)
+            }
         }
     }
 
