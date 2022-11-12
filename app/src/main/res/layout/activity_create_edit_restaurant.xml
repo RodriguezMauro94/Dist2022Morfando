@@ -130,7 +130,7 @@
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurant_neighborhood"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_town"
             style="@style/MorfandoTextInput">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/state_value"
@@ -535,7 +535,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/kitchen_style_subtitle"
+            android:id="@+id/cooking_type_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
@@ -546,16 +546,16 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <Spinner
-            android:id="@+id/kitchen_style_spinner"
+            android:id="@+id/cooking_type_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="150dp"
             android:layout_marginStart="@dimen/small_margin"
             android:layout_marginEnd="@dimen/small_margin"
             android:backgroundTint="#464C58"
-            app:layout_constraintStart_toEndOf="@id/kitchen_style_subtitle"
-            app:layout_constraintTop_toTopOf="@id/kitchen_style_subtitle"
-            app:layout_constraintBottom_toBottomOf="@id/kitchen_style_subtitle"/>
+            app:layout_constraintStart_toEndOf="@id/cooking_type_subtitle"
+            app:layout_constraintTop_toTopOf="@id/cooking_type_subtitle"
+            app:layout_constraintBottom_toBottomOf="@id/cooking_type_subtitle"/>
 
         <TextView
             android:id="@+id/menu_title"
@@ -567,7 +567,7 @@
             android:layout_marginTop="@dimen/base_margin"
             android:text="@string/menu_title"
             style="@style/MorfandoTextInputEditText"
-            app:layout_constraintTop_toBottomOf="@id/kitchen_style_spinner"
+            app:layout_constraintTop_toBottomOf="@id/cooking_type_spinner"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

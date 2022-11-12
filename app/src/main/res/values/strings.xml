@@ -123,6 +123,9 @@
     <string name="add_photo">Agregar foto</string>
     <string name="save">Guardar</string>
     <string name="number">Número</string>
+    <string name="open_hours_template">%s - %s</string>
+    <string name="open_hours_closed">Hoy cerrado</string>
+    <string name="closed">Cerrado</string>
 
     <string-array name="open_hours_array">
         <item>Apertura</item>

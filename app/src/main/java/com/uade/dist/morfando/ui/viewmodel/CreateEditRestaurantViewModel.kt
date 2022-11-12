@@ -4,25 +4,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.core.RequestState
+import com.uade.dist.morfando.data.model.CreateRestaurantModel
 import com.uade.dist.morfando.data.model.RestaurantModel
-import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
-import com.uade.dist.morfando.domain.GetRestaurantsUseCase
+import com.uade.dist.morfando.domain.CreateRestaurantUseCase
 import kotlinx.coroutines.launch
 
 class CreateEditRestaurantViewModel: ViewModel() {
-    private val getRestaurantsUseCase = GetRestaurantsUseCase()
+    private val createRestaurantUseCase = CreateRestaurantUseCase()
     val originalRestaurant = MutableLiveData<RestaurantModel?>()
-    val requestState = MutableLiveData<RequestState>(RequestState.START)
+    val createRequestState = MutableLiveData<RequestState>(RequestState.START)
 
-    fun getMyRestaurants() {
+    fun createRestaurant(createRestaurantModel: CreateRestaurantModel) {
         viewModelScope.launch {
-            requestState.value = RequestState.LOADING
-            getRestaurantsUseCase.getRestaurants(SearchFilterOptionsModel()) // FIXME
+            createRequestState.value = RequestState.LOADING
+            createRestaurantUseCase.createRestaurant(createRestaurantModel)
                 .onSuccess {
-                    requestState.value = RequestState.SUCCESS
+                    //TODO
+                    createRequestState.value = RequestState.SUCCESS
                 }
                 .onFailure {
-                    requestState.value = RequestState.FAILURE(it.toString())
+                    createRequestState.value = RequestState.FAILURE(it.toString())
                 }
         }
     }

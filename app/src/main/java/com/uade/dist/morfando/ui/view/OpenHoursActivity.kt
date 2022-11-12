@@ -20,12 +20,21 @@ class OpenHoursActivity: AppCompatActivity() {
 
         val openHours = intent.extras?.getSerializable("openHours") as OpenHoursModel
 
-        binding.openHoursMondayValue.text = openHours.monday.openHours
-        binding.openHoursTuesdayValue.text = openHours.tuesday.openHours
-        binding.openHoursWednesdayValue.text = openHours.wednesday.openHours
-        binding.openHoursThursdayValue.text = openHours.thursday.openHours
-        binding.openHoursFridayValue.text = openHours.friday.openHours
-        binding.openHoursSaturdayValue.text = openHours.saturday.openHours
-        binding.openHoursSundayValue.text = openHours.sunday.openHours
+        binding.openHoursMondayValue.text = getOpenHours(openHours.monday.openHours, openHours.monday.closeHours, openHours.monday.isOpen)
+        binding.openHoursTuesdayValue.text = getOpenHours(openHours.tuesday.openHours, openHours.tuesday.closeHours, openHours.tuesday.isOpen)
+        binding.openHoursWednesdayValue.text = getOpenHours(openHours.wednesday.openHours, openHours.wednesday.closeHours, openHours.wednesday.isOpen)
+        binding.openHoursThursdayValue.text = getOpenHours(openHours.thursday.openHours, openHours.thursday.closeHours, openHours.thursday.isOpen)
+        binding.openHoursFridayValue.text = getOpenHours(openHours.friday.openHours, openHours.friday.closeHours, openHours.friday.isOpen)
+        binding.openHoursSaturdayValue.text = getOpenHours(openHours.saturday.openHours, openHours.saturday.closeHours, openHours.saturday.isOpen)
+        binding.openHoursSundayValue.text = getOpenHours(openHours.sunday.openHours, openHours.sunday.closeHours, openHours.sunday.isOpen)
+    }
+
+    private fun getOpenHours(openHours: String?, closeHours: String?, isOpen: Boolean): String {
+        return if (isOpen) {
+            getString(R.string.open_hours_template, openHours, closeHours)
+        } else {
+            getString(R.string.closed)
+        }
+
     }
 }

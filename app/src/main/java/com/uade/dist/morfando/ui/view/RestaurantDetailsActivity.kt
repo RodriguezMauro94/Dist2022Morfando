@@ -135,7 +135,10 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
             )
         }
 
-        binding.openHoursValue.text = details.openHours.getToday().openHours
+        binding.openHoursValue.text = if (details.openHours.getToday().isOpen)
+                getString(R.string.open_hours_template, details.openHours.getToday().openHours, details.openHours.getToday().closeHours)
+            else
+                getString(R.string.open_hours_closed)
         binding.aboutUsDescription.text = details.aboutUs
         binding.placesDescription.text = restaurant.neighborhood // FIXME
     }

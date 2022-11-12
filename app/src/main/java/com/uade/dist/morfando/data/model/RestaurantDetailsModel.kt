@@ -42,5 +42,7 @@ data class OpenHoursModel(
 
 data class OpenHoursDayModel(
     @SerializedName("day") val day: String,
-    @SerializedName("openHours") val openHours: String
+    @SerializedName("openHours") val openHours: String?,
+    @SerializedName("closeHours") val closeHours: String?,
+    @SerializedName("isOpen") val isOpen: Boolean,
 ): Serializable

@@ -33,13 +33,13 @@ class RestaurantDetailsViewModel: ViewModel() {
                     // TODO eliminar:
                     restaurantDetails.value = RestaurantDetailsModel(
                         OpenHoursModel(
-                            OpenHoursDayModel("Lunes", "08-10 hs"),
-                            OpenHoursDayModel("Martes", "08-10 hs"),
-                            OpenHoursDayModel("Miercoles", "08-10 hs"),
-                            OpenHoursDayModel("Jueves", "08-10 hs"),
-                            OpenHoursDayModel("Viernes", "08-10 hs"),
-                            OpenHoursDayModel("Sábado", "08-10 hs"),
-                            OpenHoursDayModel("Domingo", "08-12 hs")
+                            OpenHoursDayModel("Lunes", "08 hs", "10 hs", true),
+                            OpenHoursDayModel("Martes", "08 hs", "10 hs", true),
+                            OpenHoursDayModel("Miercoles", "08 hs", "10 hs", true),
+                            OpenHoursDayModel("Jueves", "08 hs", "10 hs", true),
+                            OpenHoursDayModel("Viernes", "08 hs", "10 hs", true),
+                            OpenHoursDayModel("Sábado", null, null, false),
+                            OpenHoursDayModel("Domingo", "08 hs", "12 hs", true)
                         ),
                         "Lorem ipsum dolor set amet",
                         listOf(
