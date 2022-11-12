@@ -60,6 +60,8 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.RestaurantsV
 
     override fun getItemCount(): Int = restaurants.size
 
+    fun getRestaurants(): List<RestaurantModel> = this.restaurants
+
     fun setRestaurants(restaurants: List<RestaurantModel>) {
         this.restaurants = restaurants.toMutableList()
         notifyDataSetChanged()

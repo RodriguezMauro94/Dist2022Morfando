@@ -109,4 +109,17 @@
     <string name="preferences">Preferencias</string>
     <string name="my_restaurants">Mis restaurantes</string>
     <string name="delete_account">Borrar cuenta</string>
+    <string name="address">Dirección</string>
+    <string name="street">Calle</string>
+    <string name="neighborhood">Barrio</string>
+    <string name="town">Localidad</string>
+    <string name="state">Provincia</string>
+    <string name="country">País</string>
+    <string name="kitchen_style">Tipo de comida</string>
+    <string name="style">Tipo</string>
+    <string name="add_menu">Agregar menú</string>
+    <string name="edit_menu">Editar menú</string>
+    <string name="photos">Fotos</string>
+    <string name="add_photo">Agregar foto</string>
+    <string name="save">Guardar</string>
 </resources>

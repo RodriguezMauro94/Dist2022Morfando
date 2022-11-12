@@ -73,5 +73,8 @@
         <activity
             android:name=".ui.view.MyRestaurantsActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.view.CreateEditRestaurantActivity"
+            android:exported="false" />
     </application>
 </manifest>

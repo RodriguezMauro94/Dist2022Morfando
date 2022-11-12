@@ -1,6 +1,5 @@
 package com.uade.dist.morfando.ui.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +11,7 @@ import com.uade.dist.morfando.ui.view.restaurantList.RestaurantViewMode
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
 import com.uade.dist.morfando.ui.viewmodel.MyRestaurantsViewModel
 
-const val ADD_RESTAURANT_REQUEST_CODE = 4000
-const val EDIT_RESTAURANT_REQUEST_CODE = 5000
-
-class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickListener {
+class CreateEditRestaurantActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickListener {
     private lateinit var binding: ActivityMyRestaurantsBinding
     private lateinit var myRestaurantsAdapter: RestaurantsAdapter
     private val myRestaurantsViewModel: MyRestaurantsViewModel by viewModels()
@@ -30,7 +26,7 @@ class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickLi
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.addRestaurant.setOnClickListener {
-            startActivityForResult(Intent(this, CreateEditRestaurantActivity::class.java), ADD_RESTAURANT_REQUEST_CODE)
+            // TODO agregar restaurante creado a la lista
         }
 
         myRestaurantsAdapter = RestaurantsAdapter(this, RestaurantViewMode.MINIFIED)
@@ -48,17 +44,5 @@ class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickLi
 
     override fun onItemClick(restaurant: RestaurantModel) {
         // TODO ir a editar restaurante
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ADD_RESTAURANT_REQUEST_CODE) {
-            data?.apply {
-                val result = this.getSerializableExtra("restaurant") as RestaurantModel
-                val list = myRestaurantsAdapter.getRestaurants().toMutableList()
-                list.add(result)
-                myRestaurantsAdapter.setRestaurants(list)
-            }
-        }
     }
 }
