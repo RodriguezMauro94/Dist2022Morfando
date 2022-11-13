@@ -19,7 +19,7 @@ import com.uade.dist.morfando.databinding.ActivityCreateEditRestaurantBinding
 import com.uade.dist.morfando.ui.view.home.categories.categories
 import com.uade.dist.morfando.ui.viewmodel.CreateEditRestaurantViewModel
 
-const val CREATE_EDIT_MENU_CODE = 5000
+const val CREATE_EDIT_MENU_REQUEST_CODE = 5000
 
 class CreateEditRestaurantActivity: AppCompatActivity() {
     private lateinit var binding: ActivityCreateEditRestaurantBinding
@@ -83,7 +83,7 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
             if (restaurant != null) {
                 intent.putExtra("restaurant", restaurant)
             }
-            startActivityForResult(intent, CREATE_EDIT_MENU_CODE)
+            startActivityForResult(intent, CREATE_EDIT_MENU_REQUEST_CODE)
         }
 
         binding.photosGroup.setOnClickListener {

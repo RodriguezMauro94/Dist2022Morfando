@@ -18,6 +18,8 @@ import com.uade.dist.morfando.ui.view.menuList.MenuItemList
 import com.uade.dist.morfando.ui.view.menuList.PlateItemList
 import com.uade.dist.morfando.ui.viewmodel.CreateEditMenuViewModel
 
+const val ADD_MENU_ITEM_REQUEST_CODE = 6000
+
 class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener {
     private lateinit var binding: ActivityCreateEditMenuBinding
     private val createEditMenuViewModel: CreateEditMenuViewModel by viewModels()
@@ -35,6 +37,10 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
         val restaurant = intent.extras?.getSerializable("restaurant") as? RestaurantModel?
         if (restaurant != null) {
             createEditMenuViewModel.getMenu(restaurant.code)
+        }
+
+        binding.addItem.setOnClickListener {
+            startActivityForResult(Intent(this, CreateEditMenuItemActivity::class.java), ADD_MENU_ITEM_REQUEST_CODE)
         }
 
         createEditMenuViewModel.requestState.observe(this) {
@@ -61,7 +67,7 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
     }
 
     override fun onItemClick(item: MenuItemList) {
-        (item as? PlateItemList)?.let { item ->
+        (item as? PlateItemList)?.let { plate ->
             val dialog = Dialog(this)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(true)
@@ -76,7 +82,7 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
 
             delete.setOnClickListener {
                 val items = menuAdapter.menuItems.toMutableList()
-                items.remove(item)
+                items.remove(plate)
                 menuAdapter.setMenu(items)
                 dialog.dismiss()
             }

@@ -131,6 +131,13 @@
     <string name="add_item">Agregar item</string>
     <string name="edit">Editar</string>
     <string name="delete">Eliminar</string>
+    <string name="add_item_to_menu">Agregar item al menú</string>
+    <string name="category">Categoría</string>
+    <string name="price">Precio</string>
+    <string name="suitable">Apto</string>
+    <string name="suitable_vegan">Apto vegano</string>
+    <string name="suitable_celiac">Apto celíaco</string>
+    <string name="type">Tipo</string>
 
     <string-array name="open_hours_array">
         <item>Apertura</item>
