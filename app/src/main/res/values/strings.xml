@@ -128,6 +128,9 @@
     <string name="closed">Cerrado</string>
     <string name="price_range">Rango de precios</string>
     <string name="range">Rango</string>
+    <string name="add_item">Agregar item</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
 
     <string-array name="open_hours_array">
         <item>Apertura</item>

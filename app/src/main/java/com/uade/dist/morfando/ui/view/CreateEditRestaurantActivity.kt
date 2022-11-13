@@ -1,5 +1,6 @@
 package com.uade.dist.morfando.ui.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
@@ -17,6 +18,8 @@ import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityCreateEditRestaurantBinding
 import com.uade.dist.morfando.ui.view.home.categories.categories
 import com.uade.dist.morfando.ui.viewmodel.CreateEditRestaurantViewModel
+
+const val CREATE_EDIT_MENU_CODE = 5000
 
 class CreateEditRestaurantActivity: AppCompatActivity() {
     private lateinit var binding: ActivityCreateEditRestaurantBinding
@@ -76,7 +79,11 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         bindIsOpen(binding.sundayIsOpen, binding.sundayOpenHourSpinner, binding.sundayCloseHourSpinner)
 
         binding.menuGroup.setOnClickListener {
-            // TODO
+            val intent = Intent(this, CreateEditMenuActivity::class.java)
+            if (restaurant != null) {
+                intent.putExtra("restaurant", restaurant)
+            }
+            startActivityForResult(intent, CREATE_EDIT_MENU_CODE)
         }
 
         binding.photosGroup.setOnClickListener {
