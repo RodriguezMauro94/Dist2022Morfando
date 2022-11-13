@@ -43,15 +43,6 @@ fun ChipGroup.addCheckedChip(context: Context, key: String, label: String) {
     }
 }
 
-fun Int.toPriceRange(): String {
-    return when (this) {
-        1 -> "$-$$"
-        2 -> "$$-$$$"
-        3 -> "$$$-$$$$"
-        else -> "$$$$-$$$$$"
-    }
-}
-
 fun String.showToast(context: Context, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(context, this, duration).show()
 }

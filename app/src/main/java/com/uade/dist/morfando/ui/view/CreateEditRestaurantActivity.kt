@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
+import com.uade.dist.morfando.core.priceRange
 import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.data.model.CreateRestaurantModel
 import com.uade.dist.morfando.data.model.OpenHoursDayModel
@@ -36,7 +37,10 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
             createEditRestaurantViewModel.getRestaurantDetails(restaurant.code)
         }
 
-        //TODO falta rango de precios
+        val priceRangeAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, priceRange.values.toList())
+        priceRangeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.priceRangeSpinner.adapter = priceRangeAdapter
 
         binding.addEditMenuTitle.text = if (restaurant == null) getString(R.string.add_menu) else getString(R.string.edit_menu)
 
@@ -96,6 +100,8 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
             val saturdayOpenHoursFilled = openHourIsFilled(binding.saturdayIsOpen, binding.saturdayOpenHourSpinner, binding.saturdayCloseHourSpinner)
             val sundayOpenHoursFilled = openHourIsFilled(binding.sundayIsOpen, binding.sundayOpenHourSpinner, binding.sundayCloseHourSpinner)
 
+            val priceRange = binding.priceRangeSpinner.selectedItemPosition + 1
+
             // FIXME validar menu
             // FIXME validar photos
 
@@ -114,6 +120,8 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                 fridayOpenHoursFilled &&
                 saturdayOpenHoursFilled &&
                 sundayOpenHoursFilled) {
+
+                // FIXME falta calcular coordenadas a partir de la dirección
 
                 val createRestaurantModel = CreateRestaurantModel(
                     null,
@@ -134,8 +142,9 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                         getOpenHours("sunday", binding.sundayIsOpen, binding.sundayOpenHourSpinner, binding.sundayCloseHourSpinner),
                     ),
                     categories[binding.cookingTypeSpinner.selectedItemPosition].id,
-                    emptyList(), //FIXME
-                    emptyList()  //FIXME
+                    priceRange,
+                    emptyList(), // FIXME enviar menu
+                    emptyList()  // FIXME enviar fotos
                 )
 
                 if (restaurant == null) {
@@ -144,7 +153,6 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     createRestaurantModel.code = restaurant.code
                     createEditRestaurantViewModel.editRestaurant(createRestaurantModel)
                 }
-
             } else {
                 getString(R.string.error_complete_fields).showToast(this)
             }
@@ -177,6 +185,8 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                             binding.cookingTypeSpinner.setSelection(categories.indexOfFirst { category ->
                                 category.id == restaurant.cookingType
                             })
+
+                            binding.priceRangeSpinner.setSelection(restaurant.priceRange - 1)
 
                             // TODO mostrar fotos?
                         }
