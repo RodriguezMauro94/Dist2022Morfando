@@ -61,7 +61,7 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
     }
 
     override fun onItemClick(item: MenuItemList) {
-        (item as? PlateItemList)?.let {
+        (item as? PlateItemList)?.let { item ->
             val dialog = Dialog(this)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(true)
@@ -75,8 +75,10 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
             }
 
             delete.setOnClickListener {
-                // TODO
-                "delete".showToast(this)
+                val items = menuAdapter.menuItems.toMutableList()
+                items.remove(item)
+                menuAdapter.setMenu(items)
+                dialog.dismiss()
             }
 
             dialog.show()

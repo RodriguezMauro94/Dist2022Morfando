@@ -12,7 +12,7 @@ import com.uade.dist.morfando.core.getVisibility
 
 class MenuAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var clickListener: ItemClickListener
-    private var menuItems = mutableListOf<MenuItemList>()
+    var menuItems = mutableListOf<MenuItemList>()
 
     constructor(clickListener: ItemClickListener): this() {
         this.clickListener = clickListener
