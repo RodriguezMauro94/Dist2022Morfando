@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class CreateRestaurantModel(
+    @SerializedName("code") var code: String? = null,
     @SerializedName("name") val name: String,
     @SerializedName("street") val street: String,
     @SerializedName("streetNumber") val streetNumber: String,

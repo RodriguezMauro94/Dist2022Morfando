@@ -13,7 +13,6 @@ import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
 import com.uade.dist.morfando.ui.viewmodel.MyRestaurantsViewModel
 
 const val ADD_RESTAURANT_REQUEST_CODE = 4000
-const val EDIT_RESTAURANT_REQUEST_CODE = 5000
 
 class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickListener {
     private lateinit var binding: ActivityMyRestaurantsBinding
@@ -47,7 +46,9 @@ class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickLi
     }
 
     override fun onItemClick(restaurant: RestaurantModel) {
-        // TODO ir a editar restaurante
+        val intent = Intent(this, CreateEditRestaurantActivity::class.java)
+        intent.putExtra("restaurant", restaurant)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

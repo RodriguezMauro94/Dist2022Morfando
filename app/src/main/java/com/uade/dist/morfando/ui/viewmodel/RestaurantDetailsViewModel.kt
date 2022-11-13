@@ -1,6 +1,5 @@
 package com.uade.dist.morfando.ui.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,13 +32,13 @@ class RestaurantDetailsViewModel: ViewModel() {
                     // TODO eliminar:
                     restaurantDetails.value = RestaurantDetailsModel(
                         OpenHoursModel(
-                            OpenHoursDayModel("Lunes", "08 hs", "10 hs", true),
-                            OpenHoursDayModel("Martes", "08 hs", "10 hs", true),
-                            OpenHoursDayModel("Miercoles", "08 hs", "10 hs", true),
-                            OpenHoursDayModel("Jueves", "08 hs", "10 hs", true),
-                            OpenHoursDayModel("Viernes", "08 hs", "10 hs", true),
+                            OpenHoursDayModel("Lunes", "08:00", "10:00", true),
+                            OpenHoursDayModel("Martes", "08:00", "10:00", true),
+                            OpenHoursDayModel("Miercoles", "08:00", "10:00", true),
+                            OpenHoursDayModel("Jueves", "08:00", "10:00", true),
+                            OpenHoursDayModel("Viernes", "08:00", "10:00", true),
                             OpenHoursDayModel("Sábado", null, null, false),
-                            OpenHoursDayModel("Domingo", "08 hs", "12 hs", true)
+                            OpenHoursDayModel("Domingo", "08:00", "12:00", true)
                         ),
                         "Lorem ipsum dolor set amet",
                         listOf(
@@ -59,7 +58,12 @@ class RestaurantDetailsViewModel: ViewModel() {
                             "https://i.imgur.com/GB7lTPH.jpeg",
                             "https://i.imgur.com/GB7lTPH.jpeg",
                         ),
-                        false
+                        false,
+                        "calle",
+                        "123",
+                        "Buenos aires",
+                        "avellaneda",
+                        "argentina"
                     )
                     ratingsList.postValue(restaurantDetails.value!!.ratings!!)
                     requestState.value = RequestState.SUCCESS

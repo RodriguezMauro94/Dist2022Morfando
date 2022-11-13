@@ -32,6 +32,11 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
 
         val restaurant = intent.extras?.getSerializable("restaurant") as? RestaurantModel?
         createEditRestaurantViewModel.originalRestaurant.postValue(restaurant)
+        if (restaurant != null) {
+            createEditRestaurantViewModel.getRestaurantDetails(restaurant.code)
+        }
+
+        //TODO falta rango de precios
 
         binding.addEditMenuTitle.text = if (restaurant == null) getString(R.string.add_menu) else getString(R.string.edit_menu)
 
@@ -66,17 +71,6 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         bindIsOpen(binding.saturdayIsOpen, binding.saturdayOpenHourSpinner, binding.saturdayCloseHourSpinner)
         bindIsOpen(binding.sundayIsOpen, binding.sundayOpenHourSpinner, binding.sundayCloseHourSpinner)
 
-        /*
-        TODO fill in edit
-            binding.nameValue
-            binding.streetValue
-            binding.streetNumberValue
-            binding.stateValue
-            binding.neighborhoodValue
-            binding.townValue
-            binding.countryValue
-        */
-
         binding.menuGroup.setOnClickListener {
             // TODO
         }
@@ -86,61 +80,43 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         }
 
         binding.save.setOnClickListener {
-            createRestaurant()
-        }
+            val name: String = binding.nameValue.text.toString()
+            val street = binding.streetValue.text.toString()
+            val streetNumber = binding.streetNumberValue.text.toString()
+            val state = binding.stateValue.text.toString()
+            val neighborhood = binding.neighborhoodValue.text.toString()
+            val town = binding.townValue.text.toString()
+            val country = binding.countryValue.text.toString()
 
-        createEditRestaurantViewModel.createRequestState.observe(this) {
-            when (it) {
-                is RequestState.LOADING -> {
-                    getString(R.string.loading).showToast(this)
-                }
-                is RequestState.SUCCESS -> {
-                    // TODO devolver restaurant as result
-                }
-                is RequestState.FAILURE -> {
-                    getString(R.string.generic_error).showToast(this)
-                }
-            }
-        }
-    }
+            val mondayOpenHoursFilled = openHourIsFilled(binding.mondayIsOpen, binding.mondayOpenHourSpinner, binding.mondayCloseHourSpinner)
+            val tuesdayOpenHoursFilled = openHourIsFilled(binding.tuesdayIsOpen, binding.tuesdayOpenHourSpinner, binding.tuesdayCloseHourSpinner)
+            val wednesdayOpenHoursFilled = openHourIsFilled(binding.wednesdayIsOpen, binding.wednesdayOpenHourSpinner, binding.wednesdayCloseHourSpinner)
+            val thursdayOpenHoursFilled = openHourIsFilled(binding.thursdayIsOpen, binding.thursdayOpenHourSpinner, binding.thursdayCloseHourSpinner)
+            val fridayOpenHoursFilled = openHourIsFilled(binding.fridayIsOpen, binding.fridayOpenHourSpinner, binding.fridayCloseHourSpinner)
+            val saturdayOpenHoursFilled = openHourIsFilled(binding.saturdayIsOpen, binding.saturdayOpenHourSpinner, binding.saturdayCloseHourSpinner)
+            val sundayOpenHoursFilled = openHourIsFilled(binding.sundayIsOpen, binding.sundayOpenHourSpinner, binding.sundayCloseHourSpinner)
 
-    private fun createRestaurant() {
-        val name: String = binding.nameValue.text.toString()
-        val street = binding.streetValue.text.toString()
-        val streetNumber = binding.streetNumberValue.text.toString()
-        val state = binding.stateValue.text.toString()
-        val neighborhood = binding.neighborhoodValue.text.toString()
-        val town = binding.townValue.text.toString()
-        val country = binding.countryValue.text.toString()
+            // FIXME validar menu
+            // FIXME validar photos
 
-        val mondayOpenHoursFilled = openHourIsFilled(binding.mondayIsOpen, binding.mondayOpenHourSpinner, binding.mondayCloseHourSpinner)
-        val tuesdayOpenHoursFilled = openHourIsFilled(binding.tuesdayIsOpen, binding.tuesdayOpenHourSpinner, binding.tuesdayCloseHourSpinner)
-        val wednesdayOpenHoursFilled = openHourIsFilled(binding.wednesdayIsOpen, binding.wednesdayOpenHourSpinner, binding.wednesdayCloseHourSpinner)
-        val thursdayOpenHoursFilled = openHourIsFilled(binding.thursdayIsOpen, binding.thursdayOpenHourSpinner, binding.thursdayCloseHourSpinner)
-        val fridayOpenHoursFilled = openHourIsFilled(binding.fridayIsOpen, binding.fridayOpenHourSpinner, binding.fridayCloseHourSpinner)
-        val saturdayOpenHoursFilled = openHourIsFilled(binding.saturdayIsOpen, binding.saturdayOpenHourSpinner, binding.saturdayCloseHourSpinner)
-        val sundayOpenHoursFilled = openHourIsFilled(binding.sundayIsOpen, binding.sundayOpenHourSpinner, binding.sundayCloseHourSpinner)
+            if (
+                name.isNotEmpty() &&
+                street.isNotEmpty() &&
+                streetNumber.isNotEmpty() &&
+                state.isNotEmpty() &&
+                neighborhood.isNotEmpty() &&
+                town.isNotEmpty() &&
+                country.isNotEmpty() &&
+                mondayOpenHoursFilled &&
+                tuesdayOpenHoursFilled &&
+                wednesdayOpenHoursFilled &&
+                thursdayOpenHoursFilled &&
+                fridayOpenHoursFilled &&
+                saturdayOpenHoursFilled &&
+                sundayOpenHoursFilled) {
 
-        // FIXME validar menu
-        // FIXME validar photos
-
-        if (
-            name.isNotEmpty() &&
-            street.isNotEmpty() &&
-            streetNumber.isNotEmpty() &&
-            state.isNotEmpty() &&
-            neighborhood.isNotEmpty() &&
-            town.isNotEmpty() &&
-            country.isNotEmpty() &&
-            mondayOpenHoursFilled &&
-            tuesdayOpenHoursFilled &&
-            wednesdayOpenHoursFilled &&
-            thursdayOpenHoursFilled &&
-            fridayOpenHoursFilled &&
-            saturdayOpenHoursFilled &&
-            sundayOpenHoursFilled) {
-            createEditRestaurantViewModel.createRestaurant(
-                CreateRestaurantModel(
+                val createRestaurantModel = CreateRestaurantModel(
+                    null,
                     name,
                     street,
                     streetNumber,
@@ -161,10 +137,95 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     emptyList(), //FIXME
                     emptyList()  //FIXME
                 )
-            )
-        } else {
-            getString(R.string.error_complete_fields).showToast(this)
+
+                if (restaurant == null) {
+                    createEditRestaurantViewModel.createRestaurant(createRestaurantModel)
+                } else {
+                    createRestaurantModel.code = restaurant.code
+                    createEditRestaurantViewModel.editRestaurant(createRestaurantModel)
+                }
+
+            } else {
+                getString(R.string.error_complete_fields).showToast(this)
+            }
         }
+
+        createEditRestaurantViewModel.detailsRequestState.observe(this) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    getString(R.string.loading).showToast(this)
+                }
+                is RequestState.SUCCESS -> {
+                    restaurant?.let { restaurant ->
+                        createEditRestaurantViewModel.restaurantDetails.value?.let { details ->
+                            binding.nameValue.setText(restaurant.name)
+                            binding.streetValue.setText(details.streetValue)
+                            binding.streetNumberValue.setText(details.streetNumberValue)
+                            binding.stateValue.setText(details.stateValue)
+                            binding.neighborhoodValue.setText(restaurant.neighborhood)
+                            binding.townValue.setText(details.townValue)
+                            binding.countryValue.setText(details.countryValue)
+
+                            showOpenHour(details.openHours.monday, binding.mondayIsOpen, binding.mondayOpenHourSpinner, binding.mondayCloseHourSpinner)
+                            showOpenHour(details.openHours.tuesday, binding.tuesdayIsOpen, binding.tuesdayOpenHourSpinner, binding.tuesdayCloseHourSpinner)
+                            showOpenHour(details.openHours.wednesday, binding.wednesdayIsOpen, binding.wednesdayOpenHourSpinner, binding.wednesdayCloseHourSpinner)
+                            showOpenHour(details.openHours.thursday, binding.thursdayIsOpen, binding.thursdayOpenHourSpinner, binding.thursdayCloseHourSpinner)
+                            showOpenHour(details.openHours.friday, binding.fridayIsOpen, binding.fridayOpenHourSpinner, binding.fridayCloseHourSpinner)
+                            showOpenHour(details.openHours.saturday, binding.saturdayIsOpen, binding.saturdayOpenHourSpinner, binding.saturdayCloseHourSpinner)
+                            showOpenHour(details.openHours.sunday, binding.sundayIsOpen, binding.sundayOpenHourSpinner, binding.sundayCloseHourSpinner)
+
+                            binding.cookingTypeSpinner.setSelection(categories.indexOfFirst { category ->
+                                category.id == restaurant.cookingType
+                            })
+
+                            // TODO mostrar fotos?
+                        }
+                    }
+                }
+                is RequestState.FAILURE -> {
+                    getString(R.string.generic_error).showToast(this)
+                }
+            }
+        }
+
+        createEditRestaurantViewModel.createRequestState.observe(this) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    getString(R.string.loading).showToast(this)
+                }
+                is RequestState.SUCCESS -> {
+                    // TODO devolver restaurant as result
+                }
+                is RequestState.FAILURE -> {
+                    getString(R.string.generic_error).showToast(this)
+                }
+            }
+        }
+
+        createEditRestaurantViewModel.editRequestState.observe(this) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    getString(R.string.loading).showToast(this)
+                }
+                is RequestState.SUCCESS -> {
+                    // TODO devolver restaurant as result
+                }
+                is RequestState.FAILURE -> {
+                    getString(R.string.generic_error).showToast(this)
+                }
+            }
+        }
+    }
+
+    private fun showOpenHour(openHoursModel: OpenHoursDayModel, isOpen: CheckBox, openHourSpinner: Spinner, closeHourSpinner: Spinner) {
+        openHoursModel.openHours?.let {
+            openHourSpinner.setSelection(resources.getStringArray(R.array.open_hours_array).indexOf(it))
+        }
+        openHoursModel.closeHours?.let {
+            closeHourSpinner.setSelection(resources.getStringArray(R.array.close_hours_array).indexOf(it))
+        }
+
+        isOpen.isChecked = openHoursModel.isOpen
     }
 
     private fun getOpenHours(day: String, isOpen: CheckBox, openHourSpinner: Spinner, closeHourSpinner: Spinner): OpenHoursDayModel {

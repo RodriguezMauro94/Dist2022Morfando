@@ -4,10 +4,7 @@ import com.uade.dist.morfando.data.model.CreateRestaurantModel
 import com.uade.dist.morfando.data.model.MenuItemModel
 import com.uade.dist.morfando.data.model.RestaurantDetailsModel
 import com.uade.dist.morfando.data.model.RestaurantModel
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface RestaurantApiClient {
     @GET("filter") //FIXME agregar filtros en back
@@ -21,4 +18,7 @@ interface RestaurantApiClient {
 
     @POST("restaurant")
     suspend fun createRestaurant(@Body restaurant: CreateRestaurantModel): Result<RestaurantModel>
+
+    @PATCH("restaurant")
+    suspend fun editRestaurant(@Body restaurant: CreateRestaurantModel): Result<RestaurantModel>
 }

@@ -11,7 +11,12 @@ data class RestaurantDetailsModel(
     @SerializedName("aboutUs") val aboutUs: String,
     @SerializedName("ratings") val ratings: List<RatingModel>?,
     @SerializedName("images") val images: List<String>?,
-    @SerializedName("favourite") val isFavourite: Boolean
+    @SerializedName("favourite") val isFavourite: Boolean,
+    @SerializedName("street") val streetValue: String,
+    @SerializedName("streetNumber") val streetNumberValue: String,
+    @SerializedName("state") val stateValue: String,
+    @SerializedName("town") val townValue: String,
+    @SerializedName("country") val countryValue: String
 ): Serializable
 
 data class OpenHoursModel(
