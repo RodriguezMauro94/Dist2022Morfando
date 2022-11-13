@@ -4,11 +4,13 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class MenuItemModel(
-    @SerializedName("title") val title: String,
-    @SerializedName("plates") val plates: List<PlateModel>
+    @SerializedName("type") val type: String,
+    @SerializedName("category") val category: String,
+    @SerializedName("plates") val plates: MutableList<PlateModel>
 ): Serializable
 
 data class PlateModel(
+    @SerializedName("code") val code: String,
     @SerializedName("name") val name: String,
     @SerializedName("description") val description: String,
     @SerializedName("price") val price: Double,

@@ -9,6 +9,7 @@ import com.uade.dist.morfando.domain.GetRestaurantsUseCase
 import com.uade.dist.morfando.ui.view.menuList.MenuItemList
 import com.uade.dist.morfando.ui.view.menuList.toViewList
 import kotlinx.coroutines.launch
+import java.util.*
 
 class MenuViewModel: ViewModel() {
     private val getRestaurantsUseCase = GetRestaurantsUseCase()
@@ -29,17 +30,20 @@ class MenuViewModel: ViewModel() {
                     // TODO eliminar:
                     val list = listOf(
                         MenuItemModel(
-                            "Entrada",
-                            listOf(
+                            "Plato principal",
+                            "Pastas",
+                            mutableListOf(
                                 PlateModel(
-                            "Bastones de muzza",
+                                    UUID.randomUUID().toString(),
+                                    "Bastones de muzza",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
-                            125.0,
-                            "https://i.imgur.com/GB7lTPH.jpeg",
+                                    125.0,
+                                    "https://i.imgur.com/GB7lTPH.jpeg",
                                     isVegan = false,
                                     isCeliac = false
                                 ),
                                 PlateModel(
+                                    UUID.randomUUID().toString(),
                                     "Lorem ipsum",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     3.00,
@@ -48,6 +52,7 @@ class MenuViewModel: ViewModel() {
                                     isCeliac = false
                                 ),
                                 PlateModel(
+                                    UUID.randomUUID().toString(),
                                     "Cosa",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     1.255,
@@ -58,9 +63,11 @@ class MenuViewModel: ViewModel() {
                             )
                         ),
                         MenuItemModel(
-                            "Platos principales",
-                            listOf(
+                            "Platos principal",
+                            "Carne",
+                            mutableListOf(
                                 PlateModel(
+                                    UUID.randomUUID().toString(),
                                     "Otra cosa",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     125.0,
@@ -69,6 +76,7 @@ class MenuViewModel: ViewModel() {
                                     isCeliac = false
                                 ),
                                 PlateModel(
+                                    UUID.randomUUID().toString(),
                                     "Lorem ipsum",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     3.00,
@@ -77,6 +85,7 @@ class MenuViewModel: ViewModel() {
                                     isCeliac = false
                                 ),
                                 PlateModel(
+                                    UUID.randomUUID().toString(),
                                     "Cosa",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     1.255,

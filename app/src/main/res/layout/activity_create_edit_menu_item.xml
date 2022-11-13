@@ -21,31 +21,6 @@
             android:text="@string/add_item_to_menu" />
 
         <TextView
-            android:id="@+id/category_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:textSize="20sp"
-            android:paddingBottom="@dimen/base_margin"
-            android:layout_marginTop="@dimen/base_margin"
-            android:text="@string/category"
-            style="@style/MorfandoTextInputEditText"
-            app:layout_constraintTop_toBottomOf="@id/add_item_title"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Spinner
-            android:id="@+id/cooking_type_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:minHeight="45dp"
-            android:backgroundTint="#464C58"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/category_title"
-            app:layout_constraintTop_toBottomOf="@id/category_title"/>
-
-
-        <TextView
             android:id="@+id/item_type_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +30,7 @@
             android:layout_marginTop="@dimen/base_margin"
             android:text="@string/type"
             style="@style/MorfandoTextInputEditText"
-            app:layout_constraintTop_toBottomOf="@id/cooking_type_spinner"
+            app:layout_constraintTop_toBottomOf="@id/add_item_title"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Spinner
@@ -69,6 +44,30 @@
             app:layout_constraintEnd_toEndOf="@id/item_type_title"
             app:layout_constraintTop_toBottomOf="@id/item_type_title"/>
 
+        <TextView
+            android:id="@+id/category_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="20sp"
+            android:paddingBottom="@dimen/base_margin"
+            android:layout_marginTop="@dimen/base_margin"
+            android:text="@string/category"
+            style="@style/MorfandoTextInputEditText"
+            app:layout_constraintTop_toBottomOf="@id/item_type_spinner"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="150dp"
+            android:minHeight="45dp"
+            android:backgroundTint="#464C58"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/category_title"
+            app:layout_constraintTop_toBottomOf="@id/category_title"/>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/item_name"
             android:layout_width="match_parent"
@@ -76,7 +75,7 @@
             android:layout_marginTop="@dimen/base_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_type_spinner"
+            app:layout_constraintTop_toBottomOf="@id/category_spinner"
             style="@style/MorfandoTextInput">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/name_value"
@@ -179,7 +178,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <CheckBox
-            android:id="@+id/suitable_vegan"
+            android:id="@+id/is_vegan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/suitable_vegan"
@@ -188,12 +187,12 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <CheckBox
-            android:id="@+id/suitable_celiac"
+            android:id="@+id/is_celiac"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/suitable_celiac"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/suitable_vegan"
+            app:layout_constraintTop_toBottomOf="@id/is_vegan"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <com.google.android.material.button.MaterialButton
@@ -205,6 +204,6 @@
             android:text="@string/save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/suitable_celiac" />
+            app:layout_constraintTop_toBottomOf="@+id/is_celiac" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

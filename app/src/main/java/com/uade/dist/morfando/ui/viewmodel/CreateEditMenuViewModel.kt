@@ -9,18 +9,21 @@ import com.uade.dist.morfando.domain.GetRestaurantsUseCase
 import com.uade.dist.morfando.ui.view.menuList.MenuItemList
 import com.uade.dist.morfando.ui.view.menuList.toViewList
 import kotlinx.coroutines.launch
+import java.util.*
 
 class CreateEditMenuViewModel: ViewModel() {
     private val getRestaurantsUseCase = GetRestaurantsUseCase()
     val requestState = MutableLiveData<RequestState>(RequestState.START)
-    val menuList = MutableLiveData<List<MenuItemList>>()
+    val menuViewList = MutableLiveData<List<MenuItemList>>(emptyList())
+    val menuLogicList = MutableLiveData<List<MenuItemModel>>(emptyList())
 
     fun getMenu(code: String) {
         viewModelScope.launch {
             requestState.value = RequestState.LOADING
             getRestaurantsUseCase.getMenu(code)
                 .onSuccess {
-                    menuList.postValue(it.toViewList())
+                    menuViewList.postValue(it.toViewList())
+                    menuLogicList.postValue(it)
                     requestState.value = RequestState.SUCCESS
                 }
                 .onFailure {
@@ -29,9 +32,11 @@ class CreateEditMenuViewModel: ViewModel() {
                     // TODO eliminar:
                     val list = listOf(
                         MenuItemModel(
-                            "Entrada",
-                            listOf(
+                            "Plato principal",
+                            "Pastas",
+                            mutableListOf(
                                 PlateModel(
+                                    UUID.randomUUID().toString(),
                             "Bastones de muzza",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                             125.0,
@@ -40,6 +45,7 @@ class CreateEditMenuViewModel: ViewModel() {
                                     isCeliac = false
                                 ),
                                 PlateModel(
+                                    UUID.randomUUID().toString(),
                                     "Lorem ipsum",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     3.00,
@@ -48,6 +54,7 @@ class CreateEditMenuViewModel: ViewModel() {
                                     isCeliac = false
                                 ),
                                 PlateModel(
+                                    UUID.randomUUID().toString(),
                                     "Cosa",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     1.255,
@@ -58,9 +65,11 @@ class CreateEditMenuViewModel: ViewModel() {
                             )
                         ),
                         MenuItemModel(
-                            "Platos principales",
-                            listOf(
+                            "Platos principal",
+                            "Carne",
+                            mutableListOf(
                                 PlateModel(
+                                    UUID.randomUUID().toString(),
                                     "Otra cosa",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     125.0,
@@ -69,6 +78,7 @@ class CreateEditMenuViewModel: ViewModel() {
                                     isCeliac = false
                                 ),
                                 PlateModel(
+                                    UUID.randomUUID().toString(),
                                     "Lorem ipsum",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     3.00,
@@ -77,6 +87,7 @@ class CreateEditMenuViewModel: ViewModel() {
                                     isCeliac = false
                                 ),
                                 PlateModel(
+                                    UUID.randomUUID().toString(),
                                     "Cosa",
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam turpis neque, dignissim ac fringilla eu, tincidunt et nisl. Vivamus hendrerit tellus vel varius scelerisque.",
                                     1.255,
@@ -87,7 +98,8 @@ class CreateEditMenuViewModel: ViewModel() {
                             )
                         )
                     )
-                    menuList.postValue(list.toViewList())
+                    menuLogicList.postValue(list)
+                    menuViewList.postValue(list.toViewList())
                     requestState.value = RequestState.SUCCESS
                 }
         }

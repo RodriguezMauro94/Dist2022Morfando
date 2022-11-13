@@ -1,10 +1,16 @@
 package com.uade.dist.morfando.core
 
-val itemCategories = listOf(
+val itemType = listOf(
     "Promoción del día",
     "Entrada",
     "Minuta",
     "Plato principal",
+    "Plato",
+    "Postre",
+    "Bebida"
+)
+
+val itemCategories = listOf(
     "Parrilla",
     "Postre",
     "Carne",
@@ -14,11 +20,7 @@ val itemCategories = listOf(
     "Ensalada",
     "Sushi",
     "Empanada",
-    "Taco"
-)
-
-val itemType = listOf(
-    "Plato",
-    "Postre",
-    "Bebida"
+    "Taco",
+    "Sin alcohol",
+    "Alcoholicas"
 )

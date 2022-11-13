@@ -25,9 +25,8 @@ class MenuAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             MenuHeaderViewHolder(view)
         } else  {
             val view: View = inflater.inflate(R.layout.item_menu_plate, parent, false)
-            MenuPlateViewHolder(view, menuItems, clickListener)
+            MenuPlateViewHolder(view)
         }
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -50,6 +49,9 @@ class MenuAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 holder.veganText.visibility = item.isVegan.getVisibility()
                 holder.celiacImage.visibility = item.isCeliac.getVisibility()
                 holder.celiacText.visibility = item.isCeliac.getVisibility()
+                holder.view.setOnClickListener {
+                    clickListener.onItemClick(menuItems[position])
+                }
             }
         }
     }
@@ -73,10 +75,7 @@ class MenuAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val plateHeader: TextView = view.findViewById(R.id.plate_header)
     }
 
-    class MenuPlateViewHolder(restaurantView: View,
-                              private val menuItems: List<MenuItemList>,
-                              private val clickListener: ItemClickListener
-    ) : RecyclerView.ViewHolder(restaurantView), View.OnClickListener {
+    class MenuPlateViewHolder(restaurantView: View) : RecyclerView.ViewHolder(restaurantView) {
         val view: View = restaurantView
         val plateName: TextView = view.findViewById(R.id.plate_name)
         val plateImage: ImageView = view.findViewById(R.id.plate_image)
@@ -86,14 +85,6 @@ class MenuAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val veganText: TextView = view.findViewById(R.id.vegan_text)
         val celiacImage: ImageView = view.findViewById(R.id.celiac_image)
         val celiacText: TextView = view.findViewById(R.id.celiac_text)
-
-        init {
-            view.setOnClickListener(this)
-        }
-
-        override fun onClick(view: View) {
-            clickListener.onItemClick(menuItems[adapterPosition])
-        }
     }
 
     interface ItemClickListener {
