@@ -1,7 +1,6 @@
 package com.uade.dist.morfando.data.network
 
 import com.uade.dist.morfando.data.model.*
-import com.uade.dist.morfando.domain.SaveMenuModel
 import retrofit2.http.*
 
 interface RestaurantApiClient {

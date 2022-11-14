@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.uade.dist.morfando.core.RetrofitHelper
 import com.uade.dist.morfando.data.model.MenuModel
 import com.uade.dist.morfando.data.model.RestaurantModel
+import com.uade.dist.morfando.data.model.SaveMenuModel
 import com.uade.dist.morfando.data.network.RestaurantApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -25,8 +26,3 @@ class SaveMenuUseCase {
         }
     }
 }
-
-data class SaveMenuModel(
-    @SerializedName("code") val restaurantCode: String,
-    @SerializedName("menu") val menu: MenuModel
-): Serializable
