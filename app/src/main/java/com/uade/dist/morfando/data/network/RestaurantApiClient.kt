@@ -1,9 +1,7 @@
 package com.uade.dist.morfando.data.network
 
-import com.uade.dist.morfando.data.model.CreateRestaurantModel
-import com.uade.dist.morfando.data.model.MenuItemModel
-import com.uade.dist.morfando.data.model.RestaurantDetailsModel
-import com.uade.dist.morfando.data.model.RestaurantModel
+import com.uade.dist.morfando.data.model.*
+import com.uade.dist.morfando.domain.SaveMenuModel
 import retrofit2.http.*
 
 interface RestaurantApiClient {
@@ -14,7 +12,13 @@ interface RestaurantApiClient {
     suspend fun getRestaurantDetails(@Query("restaurant-code") code: String): Result<RestaurantDetailsModel>
 
     @GET("plates")
-    suspend fun getMenu(@Query("restaurant-code") code: String): Result<List<MenuItemModel>>
+    suspend fun getMenu(@Query("restaurant-code") code: String): Result<MenuModel>
+
+    @PATCH("plates")
+    suspend fun updateMenu(@Body saveMenu: SaveMenuModel): Result<RestaurantModel>
+
+    @POST("plates")
+    suspend fun saveMenu(@Body saveMenu: SaveMenuModel): Result<RestaurantModel>
 
     @POST("restaurant")
     suspend fun createRestaurant(@Body restaurant: CreateRestaurantModel): Result<RestaurantModel>

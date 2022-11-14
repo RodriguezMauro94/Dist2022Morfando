@@ -12,6 +12,7 @@ import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.data.model.MenuItemModel
+import com.uade.dist.morfando.data.model.MenuModel
 import com.uade.dist.morfando.data.model.PlateModel
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityCreateEditMenuBinding
@@ -47,7 +48,7 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
             startActivityForResult(Intent(this, CreateEditMenuItemActivity::class.java), ADD_MENU_ITEM_REQUEST_CODE)
         }
 
-        createEditMenuViewModel.requestState.observe(this) {
+        createEditMenuViewModel.getMenuRequestState.observe(this) {
             when (it) {
                 is RequestState.LOADING -> {
                     getString(R.string.loading).showToast(this)
@@ -68,6 +69,37 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
         createEditMenuViewModel.menuViewList.observe(this) {
             menuAdapter.setMenu(it)
         }
+        createEditMenuViewModel.getMenuRequestState.observe(this) {
+            // TODO mostrar/ocultar skeleton
+        }
+
+        createEditMenuViewModel.saveMenuRequestState.observe(this) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    getString(R.string.loading).showToast(this)
+                }
+                is RequestState.SUCCESS -> {
+                    finish()
+                }
+                is RequestState.FAILURE -> {
+                    getString(R.string.generic_error).showToast(this)
+                }
+            }
+        }
+
+        binding.save.setOnClickListener {
+            if (restaurant != null) {
+                createEditMenuViewModel.saveMenu(restaurant.code)
+            } else {
+                if (!createEditMenuViewModel.menuLogicList.value.isNullOrEmpty()) {
+                    val intent = Intent()
+                    intent.putExtra("menu", MenuModel(createEditMenuViewModel.menuLogicList.value!!))
+                    setResult(CREATE_MENU_REQUEST_CODE, intent)
+                }
+
+                finish()
+            }
+        }
     }
 
     override fun onItemClick(item: MenuItemList) {
@@ -82,7 +114,6 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
             edit.setOnClickListener {
                 var plateModel: PlateModel? = null
                 var menuModel: MenuItemModel? = null
-
 
                 createEditMenuViewModel.menuLogicList.value!!.forEach { menuList ->
                     menuList.plates.forEach { plateList ->

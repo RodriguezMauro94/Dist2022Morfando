@@ -3,6 +3,10 @@ package com.uade.dist.morfando.data.model
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+data class MenuModel(
+    @SerializedName("items") val menu: List<MenuItemModel>,
+): Serializable
+
 data class MenuItemModel(
     @SerializedName("type") val type: String,
     @SerializedName("category") val category: String,

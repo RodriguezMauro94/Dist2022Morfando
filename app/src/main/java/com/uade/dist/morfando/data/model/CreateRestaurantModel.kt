@@ -15,6 +15,6 @@ data class CreateRestaurantModel(
     @SerializedName("openHours") val openHours: OpenHoursModel,
     @SerializedName("cookingType") val category: String,
     @SerializedName("priceRange") val priceRange: Int,
-    @SerializedName("menu") val menu: List<MenuItemModel>,
+    @SerializedName("menu") val menu: MenuModel,
     @SerializedName("photos") val photos: List<String>
 ): Serializable

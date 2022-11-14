@@ -1,10 +1,7 @@
 package com.uade.dist.morfando.domain
 
 import com.uade.dist.morfando.core.RetrofitHelper
-import com.uade.dist.morfando.data.model.MenuItemModel
-import com.uade.dist.morfando.data.model.RestaurantDetailsModel
-import com.uade.dist.morfando.data.model.RestaurantModel
-import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
+import com.uade.dist.morfando.data.model.*
 import com.uade.dist.morfando.data.network.RestaurantApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -25,7 +22,7 @@ class GetRestaurantsUseCase {
         }
     }
 
-    suspend fun getMenu(code: String): Result<List<MenuItemModel>> {
+    suspend fun getMenu(code: String): Result<MenuModel> {
         return withContext(Dispatchers.IO) {
             api.getMenu(code)
         }

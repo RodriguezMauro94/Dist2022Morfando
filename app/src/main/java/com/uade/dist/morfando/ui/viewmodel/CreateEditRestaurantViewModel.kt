@@ -8,10 +8,12 @@ import com.uade.dist.morfando.data.model.*
 import com.uade.dist.morfando.domain.CreateRestaurantUseCase
 import com.uade.dist.morfando.domain.EditRestaurantUseCase
 import com.uade.dist.morfando.domain.GetRestaurantsUseCase
+import com.uade.dist.morfando.domain.SaveMenuUseCase
 import kotlinx.coroutines.launch
 
 class CreateEditRestaurantViewModel: ViewModel() {
     private val createRestaurantUseCase = CreateRestaurantUseCase()
+    private val saveMenuUseCase = SaveMenuUseCase()
     private val editRestaurantUseCase = EditRestaurantUseCase()
     private val restaurantUseCase = GetRestaurantsUseCase()
     val originalRestaurant = MutableLiveData<RestaurantModel?>()
@@ -19,6 +21,7 @@ class CreateEditRestaurantViewModel: ViewModel() {
     val createRequestState = MutableLiveData<RequestState>(RequestState.START)
     val editRequestState = MutableLiveData<RequestState>(RequestState.START)
     val detailsRequestState = MutableLiveData<RequestState>(RequestState.START)
+    val menu = MutableLiveData<MenuModel?>()
 
     fun getRestaurantDetails(code: String) {
         viewModelScope.launch {
@@ -76,8 +79,13 @@ class CreateEditRestaurantViewModel: ViewModel() {
             createRequestState.value = RequestState.LOADING
             createRestaurantUseCase.createRestaurant(createRestaurantModel)
                 .onSuccess {
-                    //TODO
-                    createRequestState.value = RequestState.SUCCESS
+                    saveMenuUseCase.saveMenu(it.code, menu.value!!)
+                        .onSuccess {
+                            createRequestState.value = RequestState.SUCCESS
+                        }
+                        .onFailure {
+                            createRequestState.value = RequestState.FAILURE(it.toString())
+                        }
                 }
                 .onFailure {
                     createRequestState.value = RequestState.FAILURE(it.toString())
@@ -90,7 +98,6 @@ class CreateEditRestaurantViewModel: ViewModel() {
             editRequestState.value = RequestState.LOADING
             editRestaurantUseCase.editRestaurant(createRestaurantModel)
                 .onSuccess {
-                    //TODO
                     editRequestState.value = RequestState.SUCCESS
                 }
                 .onFailure {
