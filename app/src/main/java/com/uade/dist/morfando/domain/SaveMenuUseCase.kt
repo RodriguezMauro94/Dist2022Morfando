@@ -1,6 +1,5 @@
 package com.uade.dist.morfando.domain
 
-import com.google.gson.annotations.SerializedName
 import com.uade.dist.morfando.core.RetrofitHelper
 import com.uade.dist.morfando.data.model.MenuModel
 import com.uade.dist.morfando.data.model.RestaurantModel
@@ -8,7 +7,6 @@ import com.uade.dist.morfando.data.model.SaveMenuModel
 import com.uade.dist.morfando.data.network.RestaurantApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.Serializable
 
 class SaveMenuUseCase {
     private val retrofit = RetrofitHelper.getRetrofit()

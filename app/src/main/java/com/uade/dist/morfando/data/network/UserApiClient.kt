@@ -1,8 +1,11 @@
 package com.uade.dist.morfando.data.network
 
+import com.uade.dist.morfando.data.model.PersonalDataModel
 import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.data.model.UserModel
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 
 interface UserApiClient {
@@ -11,4 +14,10 @@ interface UserApiClient {
 
     @POST("register")
     suspend fun register(@Body user: UserModel): Result<SessionModel>
+
+    @GET("users")
+    suspend fun getPersonalData(): Result<PersonalDataModel>
+
+    @PATCH("users")
+    suspend fun updatePersonalData(@Body personalDataModel: PersonalDataModel): Result<PersonalDataModel>
 }

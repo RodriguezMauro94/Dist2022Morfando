@@ -26,7 +26,7 @@ class MyProfileActivity: AppCompatActivity() {
         binding.profileMyRestaurants.setVisibility(isOwner)
 
         binding.profilePersonalData.setOnClickListener {
-            // TODO
+            startActivity(Intent(this, PersonalDataActivity::class.java))
         }
 
         binding.profileChangePassword.setOnClickListener {
