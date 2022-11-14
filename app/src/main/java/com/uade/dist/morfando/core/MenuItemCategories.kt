@@ -22,5 +22,7 @@ val itemCategories = listOf(
     "Empanada",
     "Taco",
     "Sin alcohol",
-    "Alcoholicas"
+    "Alcoholicas",
+    "Torta",
+    "Aperitivos"
 )

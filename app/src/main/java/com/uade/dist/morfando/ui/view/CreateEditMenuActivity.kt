@@ -12,6 +12,7 @@ import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.data.model.MenuItemModel
+import com.uade.dist.morfando.data.model.PlateModel
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityCreateEditMenuBinding
 import com.uade.dist.morfando.ui.view.menuList.MenuAdapter
@@ -20,7 +21,8 @@ import com.uade.dist.morfando.ui.view.menuList.PlateItemList
 import com.uade.dist.morfando.ui.view.menuList.toViewList
 import com.uade.dist.morfando.ui.viewmodel.CreateEditMenuViewModel
 
-const val ADD_EDIT_MENU_ITEM_REQUEST_CODE = 6000
+const val ADD_MENU_ITEM_REQUEST_CODE = 6000
+const val EDIT_MENU_ITEM_REQUEST_CODE = 7000
 
 class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener {
     private lateinit var binding: ActivityCreateEditMenuBinding
@@ -42,7 +44,7 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
         }
 
         binding.addItem.setOnClickListener {
-            startActivityForResult(Intent(this, CreateEditMenuItemActivity::class.java), ADD_EDIT_MENU_ITEM_REQUEST_CODE)
+            startActivityForResult(Intent(this, CreateEditMenuItemActivity::class.java), ADD_MENU_ITEM_REQUEST_CODE)
         }
 
         createEditMenuViewModel.requestState.observe(this) {
@@ -78,8 +80,26 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
             val delete = dialog.findViewById(R.id.delete) as LinearLayout
 
             edit.setOnClickListener {
-                // TODO
-                "edit".showToast(this)
+                var plateModel: PlateModel? = null
+                var menuModel: MenuItemModel? = null
+
+
+                createEditMenuViewModel.menuLogicList.value!!.forEach { menuList ->
+                    menuList.plates.forEach { plateList ->
+                        if(plateList.code == plate.code) {
+                            plateModel = plateList
+                            menuModel = menuList
+                        }
+                    }
+                }
+
+                plateModel?.apply {
+                    val intent = Intent(this@CreateEditMenuActivity, CreateEditMenuItemActivity::class.java)
+                    intent.putExtra("plate", plateModel)
+                    intent.putExtra("menu", menuModel)
+                    startActivityForResult(intent, EDIT_MENU_ITEM_REQUEST_CODE)
+                }
+                dialog.dismiss()
             }
 
             delete.setOnClickListener {
@@ -100,23 +120,37 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ADD_EDIT_MENU_ITEM_REQUEST_CODE) {
+        if (requestCode == ADD_MENU_ITEM_REQUEST_CODE) {
             data?.apply {
                 val result = this.getSerializableExtra("menuItem") as MenuItemModel
                 val logicList = createEditMenuViewModel.menuLogicList.value!!.toMutableList()
-                val menuItem: MenuItemModel? = logicList.find {
-                    it.type == result.type && it.category == result.category
+                addPlate(logicList, result)
+            }
+        } else if (requestCode == EDIT_MENU_ITEM_REQUEST_CODE) {
+            data?.apply {
+                val result = this.getSerializableExtra("menuItem") as MenuItemModel
+                val logicList = createEditMenuViewModel.menuLogicList.value!!.toMutableList()
+                logicList.forEach {
+                    it.plates.removeAll { plates ->
+                        plates.code == result.plates[0].code
+                    }
                 }
-                if (menuItem != null) {
-                    menuItem.plates.addAll(result.plates)
-                } else {
-                    logicList.add(result)
-                }
-
-                createEditMenuViewModel.menuLogicList.value = logicList
-
-                menuAdapter.setMenu(logicList.toViewList())
+                addPlate(logicList, result)
             }
         }
+    }
+
+    private fun addPlate(logicList: MutableList<MenuItemModel>, result: MenuItemModel) {
+        val menuItem: MenuItemModel? = logicList.find {
+            it.type == result.type && it.category == result.category
+        }
+        if (menuItem != null) {
+            menuItem.plates.addAll(result.plates)
+        } else {
+            logicList.add(result)
+        }
+
+        createEditMenuViewModel.menuLogicList.value = logicList
+        menuAdapter.setMenu(logicList.toViewList())
     }
 }

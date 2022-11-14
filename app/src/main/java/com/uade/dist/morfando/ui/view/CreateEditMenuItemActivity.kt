@@ -25,6 +25,9 @@ class CreateEditMenuItemActivity: AppCompatActivity() {
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val plate = intent.extras?.getSerializable("plate") as? PlateModel?
+        val menu = intent.extras?.getSerializable("menu") as? MenuItemModel?
+
         val categoriesAdapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, itemCategories)
         categoriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -35,10 +38,16 @@ class CreateEditMenuItemActivity: AppCompatActivity() {
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.itemTypeSpinner.adapter = typeAdapter
 
+        if (plate != null && menu != null) {
+            fillInputs(plate, menu)
+        }
+
         binding.save.setOnClickListener {
             val name =  binding.nameValue.text.toString()
             val price =  binding.priceValue.text.toString()
             val description =  binding.descriptionValue.text.toString()
+            val code = plate?.code ?: UUID.randomUUID().toString()
+            val resultCode = if(plate == null) ADD_MENU_ITEM_REQUEST_CODE else EDIT_MENU_ITEM_REQUEST_CODE
 
             // TODO validate photo
 
@@ -46,8 +55,8 @@ class CreateEditMenuItemActivity: AppCompatActivity() {
                 val isVegan = binding.isVegan.isChecked
                 val isCeliac = binding.isCeliac.isChecked
 
-                val plate = PlateModel(
-                    UUID.randomUUID().toString(),
+                val plateModel = PlateModel(
+                    code,
                     name,
                     description,
                     price.toDouble(),
@@ -56,21 +65,31 @@ class CreateEditMenuItemActivity: AppCompatActivity() {
                     isCeliac
                 )
 
-                val menu = MenuItemModel(
+                val menuModel = MenuItemModel(
                     binding.itemTypeSpinner.selectedItem as String,
                     binding.categorySpinner.selectedItem as String,
                     mutableListOf(
-                        plate
+                        plateModel
                     )
                 )
 
                 val intent = Intent()
-                intent.putExtra("menuItem", menu)
-                setResult(ADD_EDIT_MENU_ITEM_REQUEST_CODE, intent)
+                intent.putExtra("menuItem", menuModel)
+                setResult(resultCode, intent)
                 finish()
             } else {
                 getString(R.string.error_complete_fields).showToast(this)
             }
         }
+    }
+
+    private fun fillInputs(plate: PlateModel, menu: MenuItemModel) {
+        binding.nameValue.setText(plate.name)
+        binding.priceValue.setText(plate.price.toString())
+        binding.descriptionValue.setText(plate.description)
+        binding.isVegan.isChecked = plate.isVegan
+        binding.isCeliac.isChecked = plate.isCeliac
+        binding.itemTypeSpinner.setSelection(itemType.indexOf(menu.type))
+        binding.categorySpinner.setSelection(itemCategories.indexOf(menu.category))
     }
 }

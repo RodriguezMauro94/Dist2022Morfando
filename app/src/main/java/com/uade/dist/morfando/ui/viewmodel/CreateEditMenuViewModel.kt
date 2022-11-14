@@ -32,8 +32,8 @@ class CreateEditMenuViewModel: ViewModel() {
                     // TODO eliminar:
                     val list = listOf(
                         MenuItemModel(
-                            "Plato principal",
-                            "Pastas",
+                            "Entrada",
+                            "Pasta",
                             mutableListOf(
                                 PlateModel(
                                     UUID.randomUUID().toString(),
@@ -65,7 +65,7 @@ class CreateEditMenuViewModel: ViewModel() {
                             )
                         ),
                         MenuItemModel(
-                            "Platos principal",
+                            "Postre",
                             "Carne",
                             mutableListOf(
                                 PlateModel(
