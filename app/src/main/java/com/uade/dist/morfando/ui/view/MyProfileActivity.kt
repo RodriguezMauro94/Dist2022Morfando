@@ -30,7 +30,7 @@ class MyProfileActivity: AppCompatActivity() {
         }
 
         binding.profileChangePassword.setOnClickListener {
-            // TODO
+            startActivity(Intent(this, OwnerChangePasswordActivity::class.java))
         }
 
         binding.profileMyRestaurants.setOnClickListener {
