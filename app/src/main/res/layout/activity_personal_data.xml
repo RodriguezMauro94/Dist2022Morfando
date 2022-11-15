@@ -33,7 +33,7 @@
             android:id="@+id/name_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             style="@style/MorfandoTextInputEditText"
             android:hint="@string/public_user_name"/>
     </com.google.android.material.textfield.TextInputLayout>

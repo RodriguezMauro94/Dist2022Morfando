@@ -140,7 +140,9 @@
     <string name="type">Tipo</string>
     <string name="perfil_photo">Foto de perfil</string>
     <string name="public_user_name">Nombre público de usuario</string>
-    <string name="personal_data_updated">"Datos personales actualizados correctamente"</string>
+    <string name="personal_data_updated">Datos personales actualizados correctamente</string>
+    <string name="password_updated">Contraseña actualizada correctamente</string>
+    <string name="change">Cambiar</string>
 
     <string-array name="open_hours_array">
         <item>Apertura</item>

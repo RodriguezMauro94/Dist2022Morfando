@@ -85,5 +85,8 @@
         <activity
             android:name=".ui.view.PersonalDataActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.view.OwnerChangePasswordActivity"
+            android:exported="false" />
     </application>
 </manifest>

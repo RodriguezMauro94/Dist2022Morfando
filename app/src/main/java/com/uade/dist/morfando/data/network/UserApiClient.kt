@@ -18,6 +18,6 @@ interface UserApiClient {
     @GET("users")
     suspend fun getPersonalData(): Result<PersonalDataModel>
 
-    @PATCH("users")
-    suspend fun updatePersonalData(@Body personalDataModel: PersonalDataModel): Result<PersonalDataModel>
+    @PATCH("users/password")
+    suspend fun changePassword(@Body newPassword: String): Result<SessionModel>
 }
