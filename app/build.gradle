@@ -64,6 +64,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:20.0.0'
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.8'
+    // Cloudinary
+    implementation 'com.cloudinary:cloudinary-android-core:2.2.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
