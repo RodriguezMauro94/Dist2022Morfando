@@ -158,7 +158,6 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     ),
                     categories[binding.cookingTypeSpinner.selectedItemPosition].id,
                     priceRange,
-                    MenuModel(emptyList()), // FIXME enviar menu
                     emptyList(), // FIXME enviar fotos
                     latitude,
                     longitude
