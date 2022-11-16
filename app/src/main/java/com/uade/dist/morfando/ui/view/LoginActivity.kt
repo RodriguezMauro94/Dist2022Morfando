@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            //TODO .requestIdToken(getString(R.string.server_client_id))
+            // TODO .requestIdToken(getString(R.string.server_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     val result = task.getResult(ApiException::class.java)
                     result?.apply {
-                        //FIXME loginSuccess(this.id!!)
+                        // FIXME loginSuccess(this.id!!)
                         loginSuccess("1234")
                     }
                 }

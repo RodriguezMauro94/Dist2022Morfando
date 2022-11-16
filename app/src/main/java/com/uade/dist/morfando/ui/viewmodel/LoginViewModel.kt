@@ -14,6 +14,6 @@ class LoginViewModel: ViewModel() {
             Log.d("account- id", this.id!!)
             Log.d("account- id", this.idToken!!) // TODO enviar id a backend y validarlo https://developers.google.com/identity/sign-in/android/backend-auth
             */
-        sharedPreferences.edit().putString(SHARED_PREFERENCES_TOKEN, "1234").apply() //FIXME enviar idToken
+        sharedPreferences.edit().putString(SHARED_PREFERENCES_TOKEN, "1234").apply() // FIXME enviar idToken
     }
 }

@@ -1,6 +1,7 @@
 package com.uade.dist.morfando.ui.view
 
 import android.content.Intent
+import android.location.Geocoder
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
@@ -126,8 +127,16 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                 sundayOpenHoursFilled &&
                 menuIsValid
             ) {
+                val direction = "$street $streetNumber, $neighborhood, $town, $state, $country"
+                var latitude = 0.0
+                var longitude = 0.0
 
-                // FIXME falta calcular coordenadas a partir de la dirección
+                val geocoder = Geocoder(this)
+                val addresses = geocoder.getFromLocationName(direction, 1)
+                if(addresses.isNotEmpty()) {
+                    latitude = addresses[0].latitude
+                    longitude = addresses[0].longitude
+                }
 
                 val createRestaurantModel = CreateRestaurantModel(
                     null,
@@ -150,7 +159,9 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     categories[binding.cookingTypeSpinner.selectedItemPosition].id,
                     priceRange,
                     MenuModel(emptyList()), // FIXME enviar menu
-                    emptyList()  // FIXME enviar fotos
+                    emptyList(), // FIXME enviar fotos
+                    latitude,
+                    longitude
                 )
 
                 if (restaurant == null) {

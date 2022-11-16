@@ -32,7 +32,7 @@ class CreateEditRestaurantViewModel: ViewModel() {
                     detailsRequestState.value = RequestState.SUCCESS
                 }
                 .onFailure {
-                    //FIXME dejar esto: detailsRequestState.value = RequestState.FAILURE(it.toString())
+                    // FIXME dejar esto: detailsRequestState.value = RequestState.FAILURE(it.toString())
 
                     restaurantDetails.value = RestaurantDetailsModel(
                         OpenHoursModel(

@@ -16,5 +16,7 @@ data class CreateRestaurantModel(
     @SerializedName("cookingType") val category: String,
     @SerializedName("priceRange") val priceRange: Int,
     @SerializedName("menu") val menu: MenuModel,
-    @SerializedName("photos") val photos: List<String>
+    @SerializedName("photos") val photos: List<String>,
+    @SerializedName("latitude") val latitude: Double,
+    @SerializedName("longitude") val longitude: Double
 ): Serializable
