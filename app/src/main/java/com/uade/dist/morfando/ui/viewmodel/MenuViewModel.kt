@@ -25,7 +25,7 @@ class MenuViewModel: ViewModel() {
                     requestState.value = RequestState.SUCCESS
                 }
                 .onFailure {
-                    // TODO dejar esto: requestState.value = RequestState.FAILURE(it.toString())
+                    // TODO hc dejar esto: requestState.value = RequestState.FAILURE(it.toString())
 
                     // TODO eliminar:
                     val list = listOf(

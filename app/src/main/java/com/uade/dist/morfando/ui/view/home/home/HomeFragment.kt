@@ -3,16 +3,18 @@ package com.uade.dist.morfando.ui.view.home.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.core.ChipSearchOptionsModel
 import com.uade.dist.morfando.core.addChips
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.FragmentHomeBinding
@@ -49,8 +51,10 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         }
 
         homeViewModel.chipClicked.observe(viewLifecycleOwner) {
-            // TODO ir al search con el valor correspondiente para la busqueda
-            Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
+            requireActivity().findNavController(R.id.nav_host_fragment_activity_home).navigate(
+                R.id.navigation_search,
+                bundleOf("options" to it.option)
+            )
         }
 
         val restaurants = listOf(
@@ -113,7 +117,7 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
     }
 
     private fun addChips(
-        chips: Map<String, Int>,
+        chips: Map<String, ChipSearchOptionsModel>,
         chipsGroup: ChipGroup,
         homeViewModel: HomeViewModel
     ) {

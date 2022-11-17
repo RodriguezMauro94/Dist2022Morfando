@@ -5,11 +5,16 @@ import android.view.View
 import android.widget.Toast
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
 
+data class ChipSearchOptionsModel(
+    val text: Int,
+    val option: SearchFilterOptionsModel
+)
 
-fun ChipGroup.addChips(context: Context, chips: Map<String, Int>, callback: (key: String) -> Unit) {
+fun ChipGroup.addChips(context: Context, chips: Map<String, ChipSearchOptionsModel>, callback: (key: String) -> Unit) {
     chips.forEach {
-        this.addChip(context, it.key, context.getString(it.value), callback)
+        this.addChip(context, it.key, context.getString(it.value.text), callback)
     }
 }
 

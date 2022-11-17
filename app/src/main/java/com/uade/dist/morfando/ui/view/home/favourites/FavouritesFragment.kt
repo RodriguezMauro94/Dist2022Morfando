@@ -1,5 +1,6 @@
 package com.uade.dist.morfando.ui.view.home.favourites
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.FragmentFavouritesBinding
+import com.uade.dist.morfando.ui.view.RestaurantDetailsActivity
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantViewMode
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
 import com.uade.dist.morfando.ui.viewmodel.home.favourites.FavouritesViewModel
@@ -79,7 +81,8 @@ class FavouritesFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
     }
 
     override fun onItemClick(restaurant: RestaurantModel) {
-        // TODO ir a VIP del restaurant
-        Toast.makeText(requireContext(), "clickeado: " + restaurant.name, Toast.LENGTH_SHORT).show()
+        val intent = Intent(requireContext(), RestaurantDetailsActivity::class.java)
+        intent.putExtra("restaurant", restaurant)
+        startActivity(intent)
     }
 }

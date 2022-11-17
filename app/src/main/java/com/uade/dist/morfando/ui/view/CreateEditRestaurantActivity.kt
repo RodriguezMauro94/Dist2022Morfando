@@ -85,7 +85,7 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         }
 
         binding.photosGroup.setOnClickListener {
-            // TODO
+            // TODO photos
         }
 
         binding.save.setOnClickListener {
