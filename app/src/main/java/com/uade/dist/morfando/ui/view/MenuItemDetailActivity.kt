@@ -8,7 +8,7 @@ import com.uade.dist.morfando.core.getVisibility
 import com.uade.dist.morfando.databinding.ActivityMenuItemDetailBinding
 import com.uade.dist.morfando.ui.view.menuList.PlateItemList
 
-class MenuItemDetail: AppCompatActivity() {
+class MenuItemDetailActivity: AppCompatActivity() {
     private lateinit var binding: ActivityMenuItemDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

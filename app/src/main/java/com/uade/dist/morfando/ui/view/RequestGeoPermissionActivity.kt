@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
-import android.location.Geocoder
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -15,10 +14,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.core.getLocation
 import com.uade.dist.morfando.databinding.ActivityRequestGeoPermissionBinding
 import com.uade.dist.morfando.ui.view.home.HomeActivity
-import java.io.IOException
-import java.util.*
 
 class RequestGeoPermissionActivity: AppCompatActivity() {
     private lateinit var binding: ActivityRequestGeoPermissionBinding
@@ -94,7 +92,7 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
             try {
                 // GPS is on
                 val response = task.getResult(ApiException::class.java)
-                getLocation()
+                getLocation(this)
             } catch (e: ApiException) {
                 // GPS is off
                 e.printStackTrace()
@@ -109,32 +107,6 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
                     LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
                         // when the setting is unavailable
                     }
-                }
-            }
-        }
-    }
-
-    // FIXME chequear si esto hace falta que esté acá, quizas se puede devolver en el onresult de la actividad, o directamente mandar este codigo a un helper para usarlo desde otros lados
-    private fun getLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
-            val location = task.result
-            if (location != null) {
-                try {
-                    val geocoder = Geocoder(this, Locale.getDefault())
-                    val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                    Toast.makeText(this@RequestGeoPermissionActivity, address[0].getAddressLine(0), Toast.LENGTH_LONG).show()
-                } catch (e: IOException) {
-                    e.printStackTrace()
                 }
             }
         }

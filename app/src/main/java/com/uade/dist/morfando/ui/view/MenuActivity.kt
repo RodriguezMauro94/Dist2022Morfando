@@ -62,7 +62,7 @@ class MenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener {
 
     override fun onItemClick(item: MenuItemList) {
         (item as? PlateItemList)?.let {
-            val intent = Intent(this, MenuItemDetail::class.java)
+            val intent = Intent(this, MenuItemDetailActivity::class.java)
             intent.putExtra("plate", item)
             startActivity(intent)
         }

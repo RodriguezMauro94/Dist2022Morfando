@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
+import com.uade.dist.morfando.core.getLocation
 import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
@@ -39,6 +39,11 @@ class SearchFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             ViewModelProvider(this)[SearchViewModel::class.java]
 
         setUpActionBar()
+
+        getLocation(requireContext()) {
+            searchViewModel.latitude = it.latitude
+            searchViewModel.longitude = it.longitude
+        }
 
         val sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE)
         val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""

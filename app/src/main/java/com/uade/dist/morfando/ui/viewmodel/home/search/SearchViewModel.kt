@@ -13,6 +13,8 @@ class SearchViewModel : ViewModel() {
     val searchRestaurants = MutableLiveData<List<RestaurantModel>>()
     val requestState = MutableLiveData<RequestState>(RequestState.START)
     val searchText = MutableLiveData("")
+    var latitude: Double? = null
+    var longitude: Double? = null
 
     val filteredOptions = MutableLiveData<SearchFilterOptionsModel>().apply {
         value = SearchFilterOptionsModel()
@@ -22,6 +24,9 @@ class SearchViewModel : ViewModel() {
         val getRestaurantsUseCase = GetRestaurantsUseCase(token)
         viewModelScope.launch {
             requestState.value = RequestState.LOADING
+            filteredOptions.value!!.latitude = latitude
+            filteredOptions.value!!.longitude = longitude
+
             getRestaurantsUseCase.getRestaurants(filteredOptions.value!!)
                 .onSuccess {
                     searchRestaurants.postValue(it)
