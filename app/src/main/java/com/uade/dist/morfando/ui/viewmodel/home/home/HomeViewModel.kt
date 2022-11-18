@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
     val chipClicked = MutableLiveData<ChipSearchOptionsModel>()
+    var latitude: Double? = null
+    var longitude: Double? = null
 
     fun chipTapped(chip: String) {
         chipClicked.postValue(_chips.value?.get(chip))

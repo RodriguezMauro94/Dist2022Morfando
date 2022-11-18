@@ -16,6 +16,7 @@ import com.google.android.material.chip.ChipGroup
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.ChipSearchOptionsModel
 import com.uade.dist.morfando.core.addChips
+import com.uade.dist.morfando.core.getLocation
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RestaurantModel
@@ -44,6 +45,11 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         setUpActionBar()
         setUpMenu()
 
+        getLocation(requireActivity()) {
+            homeViewModel.latitude = it.latitude
+            homeViewModel.longitude = it.longitude
+        }
+
         val sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE)
         val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
 
@@ -56,6 +62,8 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         }
 
         homeViewModel.chipClicked.observe(viewLifecycleOwner) {
+            it.option.latitude = homeViewModel.latitude
+            it.option.longitude = homeViewModel.longitude
             requireActivity().findNavController(R.id.nav_host_fragment_activity_home).navigate(
                 R.id.navigation_search,
                 bundleOf("options" to it.option)
