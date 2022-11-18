@@ -6,13 +6,13 @@ import com.uade.dist.morfando.data.network.RestaurantApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class GetRestaurantsUseCase(private val auth: String) {
+class GetRestaurantsUseCase(auth: String) {
     private val retrofit = RetrofitHelper.getRetrofit(auth)
     private val api = retrofit.create(RestaurantApiClient::class.java)
 
     suspend fun getRestaurants(filter: SearchFilterOptionsModel): Result<List<RestaurantModel>> {
         return withContext(Dispatchers.IO) {
-            api.getRestaurants()
+            api.getRestaurants(filter.openNow, filter.priceRange, filter.ratingRange, filter.cookingType, filter.distance)
         }
     }
 

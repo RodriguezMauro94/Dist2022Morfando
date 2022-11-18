@@ -4,8 +4,14 @@ import com.uade.dist.morfando.data.model.*
 import retrofit2.http.*
 
 interface RestaurantApiClient {
-    @GET("filter") // FIXME agregar filtros en back
-    suspend fun getRestaurants(): Result<List<RestaurantModel>>
+    @GET("filter")
+    suspend fun getRestaurants(
+        @Query("openNow") openNow: Boolean?,
+        @Query("priceRange") priceRange: Int?,
+        @Query("ratingRange") ratingRange: Int?,
+        @Query("cookingType") cookingType: String?,
+        @Query("distance") distance: Int?
+    ): Result<List<RestaurantModel>>
 
     @GET("restaurant/details")
     suspend fun getRestaurantDetails(@Query("restaurant-code") code: String): Result<RestaurantDetailsModel>
