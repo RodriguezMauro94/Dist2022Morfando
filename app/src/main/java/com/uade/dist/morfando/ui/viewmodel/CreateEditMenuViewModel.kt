@@ -13,14 +13,14 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateEditMenuViewModel: ViewModel() {
-    private val getRestaurantsUseCase = GetRestaurantsUseCase()
-    private val saveMenuUseCase = SaveMenuUseCase()
     val getMenuRequestState = MutableLiveData<RequestState>(RequestState.START)
     val saveMenuRequestState = MutableLiveData<RequestState>(RequestState.START)
     val menuViewList = MutableLiveData<List<MenuItemList>>(emptyList())
     val menuLogicList = MutableLiveData<List<MenuItemModel>>(emptyList())
+    var token = ""
 
     fun getMenu(code: String) {
+        val getRestaurantsUseCase = GetRestaurantsUseCase(token)
         viewModelScope.launch {
             getMenuRequestState.value = RequestState.LOADING
             getRestaurantsUseCase.getMenu(code)
@@ -109,6 +109,7 @@ class CreateEditMenuViewModel: ViewModel() {
     }
 
     fun saveMenu(restaurantCode: String) {
+        val saveMenuUseCase = SaveMenuUseCase(token)
         menuLogicList.value?.let {
             viewModelScope.launch {
                 saveMenuRequestState.value = RequestState.LOADING

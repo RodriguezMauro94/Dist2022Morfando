@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.MenuItemModel
 import com.uade.dist.morfando.data.model.MenuModel
 import com.uade.dist.morfando.data.model.PlateModel
@@ -38,6 +40,9 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
 
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        createEditMenuViewModel.token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
 
         val restaurant = intent.extras?.getSerializable("restaurant") as? RestaurantModel?
         if (restaurant != null) {

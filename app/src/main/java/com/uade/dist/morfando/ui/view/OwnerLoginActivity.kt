@@ -8,7 +8,6 @@ import androidx.core.widget.addTextChangedListener
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
-import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.databinding.ActivityOwnerLoginBinding
 import com.uade.dist.morfando.ui.viewmodel.OwnerLoginViewModel

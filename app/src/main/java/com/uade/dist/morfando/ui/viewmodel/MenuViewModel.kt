@@ -12,11 +12,11 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class MenuViewModel: ViewModel() {
-    private val getRestaurantsUseCase = GetRestaurantsUseCase()
     val requestState = MutableLiveData<RequestState>(RequestState.START)
     val menuList = MutableLiveData<List<MenuItemList>>()
 
-    fun getMenu(code: String) {
+    fun getMenu(token: String, code: String) {
+        val getRestaurantsUseCase = GetRestaurantsUseCase(token)
         viewModelScope.launch {
             requestState.value = RequestState.LOADING
             getRestaurantsUseCase.getMenu(code)

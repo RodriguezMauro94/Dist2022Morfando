@@ -9,13 +9,13 @@ import com.uade.dist.morfando.domain.GetRestaurantsUseCase
 import kotlinx.coroutines.launch
 
 class RestaurantDetailsViewModel: ViewModel() {
-    private val getRestaurantsUseCase = GetRestaurantsUseCase()
     val restaurantDetails = MutableLiveData<RestaurantDetailsModel?>()
     val restaurant = MutableLiveData<RestaurantModel>()
     val requestState = MutableLiveData<RequestState>(RequestState.START)
     val ratingsList = MutableLiveData<List<RatingModel>>()
 
-    fun getDetails(code: String) {
+    fun getDetails(token: String, code: String) {
+        val getRestaurantsUseCase = GetRestaurantsUseCase(token)
         viewModelScope.launch {
             requestState.value = RequestState.LOADING
             getRestaurantsUseCase.getRestaurantDetail(code)
@@ -42,8 +42,8 @@ class RestaurantDetailsViewModel: ViewModel() {
                         ),
                         "Lorem ipsum dolor set amet",
                         listOf(
-                            RatingModel("jorge", "code",  3.0.toLong(), "Copado", "Lorem ipsum dolor set amet", "https://i.imgur.com/GB7lTPH.jpeg"),
-                            RatingModel("Ricardo", "code",  2.0.toLong(), "Horrible", "Lorem ipsum dolor set amet", "https://i.imgur.com/OK1u0FO.jpeg")
+                            RatingModel("code",  3.0.toLong(), "Copado", "Lorem ipsum dolor set amet", "https://i.imgur.com/GB7lTPH.jpeg"),
+                            RatingModel("code",  2.0.toLong(), "Horrible", "Lorem ipsum dolor set amet", "https://i.imgur.com/OK1u0FO.jpeg")
                         ),
                         listOf(
                             "https://i.imgur.com/GB7lTPH.jpeg",

@@ -8,10 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class EditRestaurantUseCase {
-    private val retrofit = RetrofitHelper.getRetrofit()
-    private val api = retrofit.create(RestaurantApiClient::class.java)
-
-    suspend fun editRestaurant(restaurant: CreateRestaurantModel): Result<RestaurantModel> {
+    suspend fun editRestaurant(auth: String, restaurant: CreateRestaurantModel): Result<RestaurantModel> {
+        val retrofit = RetrofitHelper.getRetrofit(auth)
+        val api = retrofit.create(RestaurantApiClient::class.java)
         return withContext(Dispatchers.IO) {
             api.editRestaurant(restaurant)
         }

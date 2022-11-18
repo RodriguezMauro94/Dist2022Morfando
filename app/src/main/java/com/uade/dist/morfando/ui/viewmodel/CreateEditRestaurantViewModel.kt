@@ -13,17 +13,17 @@ import kotlinx.coroutines.launch
 
 class CreateEditRestaurantViewModel: ViewModel() {
     private val createRestaurantUseCase = CreateRestaurantUseCase()
-    private val saveMenuUseCase = SaveMenuUseCase()
     private val editRestaurantUseCase = EditRestaurantUseCase()
-    private val restaurantUseCase = GetRestaurantsUseCase()
     val originalRestaurant = MutableLiveData<RestaurantModel?>()
     val restaurantDetails = MutableLiveData<RestaurantDetailsModel?>()
     val createRequestState = MutableLiveData<RequestState>(RequestState.START)
     val editRequestState = MutableLiveData<RequestState>(RequestState.START)
     val detailsRequestState = MutableLiveData<RequestState>(RequestState.START)
     val menu = MutableLiveData<MenuModel?>()
+    var token = ""
 
     fun getRestaurantDetails(code: String) {
+        val restaurantUseCase = GetRestaurantsUseCase(token)
         viewModelScope.launch {
             detailsRequestState.value = RequestState.LOADING
             restaurantUseCase.getRestaurantDetail(code)
@@ -32,7 +32,7 @@ class CreateEditRestaurantViewModel: ViewModel() {
                     detailsRequestState.value = RequestState.SUCCESS
                 }
                 .onFailure {
-                    // FIXME dejar esto: detailsRequestState.value = RequestState.FAILURE(it.toString())
+                    //FIXME dejar esto: detailsRequestState.value = RequestState.FAILURE(it.toString())
 
                     restaurantDetails.value = RestaurantDetailsModel(
                         OpenHoursModel(
@@ -46,8 +46,8 @@ class CreateEditRestaurantViewModel: ViewModel() {
                         ),
                         "Lorem ipsum dolor set amet",
                         listOf(
-                            RatingModel("jorge", "code",  3.0.toLong(), "Copado", "Lorem ipsum dolor set amet", "https://i.imgur.com/GB7lTPH.jpeg"),
-                            RatingModel("Ricardo", "code",  2.0.toLong(), "Horrible", "Lorem ipsum dolor set amet", "https://i.imgur.com/OK1u0FO.jpeg")
+                            RatingModel("code",  3.0.toLong(), "Copado", "Lorem ipsum dolor set amet", "https://i.imgur.com/GB7lTPH.jpeg"),
+                            RatingModel("code",  2.0.toLong(), "Horrible", "Lorem ipsum dolor set amet", "https://i.imgur.com/OK1u0FO.jpeg")
                         ),
                         listOf(
                             "https://i.imgur.com/GB7lTPH.jpeg",
@@ -75,9 +75,11 @@ class CreateEditRestaurantViewModel: ViewModel() {
     }
 
     fun createRestaurant(createRestaurantModel: CreateRestaurantModel) {
+        val saveMenuUseCase = SaveMenuUseCase(token)
+
         viewModelScope.launch {
             createRequestState.value = RequestState.LOADING
-            createRestaurantUseCase.createRestaurant(createRestaurantModel)
+            createRestaurantUseCase.createRestaurant(token, createRestaurantModel)
                 .onSuccess {
                     saveMenuUseCase.saveMenu(it.code, menu.value!!)
                         .onSuccess {
@@ -96,7 +98,7 @@ class CreateEditRestaurantViewModel: ViewModel() {
     fun editRestaurant(createRestaurantModel: CreateRestaurantModel) {
         viewModelScope.launch {
             editRequestState.value = RequestState.LOADING
-            editRestaurantUseCase.editRestaurant(createRestaurantModel)
+            editRestaurantUseCase.editRestaurant(token, createRestaurantModel)
                 .onSuccess {
                     editRequestState.value = RequestState.SUCCESS
                 }

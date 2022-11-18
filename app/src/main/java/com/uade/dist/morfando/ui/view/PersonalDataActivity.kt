@@ -9,7 +9,10 @@ import androidx.core.widget.doAfterTextChanged
 import com.squareup.picasso.Picasso
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.*
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.databinding.ActivityPersonalDataBinding
+import com.uade.dist.morfando.domain.UserPersonalDataUseCase
 import com.uade.dist.morfando.ui.viewmodel.PersonalDataViewModel
 
 class PersonalDataActivity: AppCompatActivity() {
@@ -24,6 +27,10 @@ class PersonalDataActivity: AppCompatActivity() {
 
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+        personalDataViewModel.userPersonalDataUseCase = UserPersonalDataUseCase(token)
 
         personalDataViewModel.getPersonalData()
 

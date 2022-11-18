@@ -6,6 +6,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityMyRestaurantsBinding
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantViewMode
@@ -28,6 +30,9 @@ class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickLi
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+
         binding.addRestaurant.setOnClickListener {
             startActivityForResult(Intent(this, CreateEditRestaurantActivity::class.java), ADD_RESTAURANT_REQUEST_CODE)
         }
@@ -36,7 +41,7 @@ class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickLi
         val horizontalLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.myRestaurantsList.layoutManager = horizontalLayoutManager
         binding.myRestaurantsList.adapter = myRestaurantsAdapter
-        myRestaurantsViewModel.getMyRestaurants()
+        myRestaurantsViewModel.getMyRestaurants(token)
         myRestaurantsViewModel.myRestaurants.observe(this) {
             myRestaurantsAdapter.setRestaurants(it)
         }

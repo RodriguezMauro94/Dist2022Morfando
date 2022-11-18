@@ -9,7 +9,7 @@ import com.uade.dist.morfando.domain.UserPersonalDataUseCase
 import kotlinx.coroutines.launch
 
 class PersonalDataViewModel: ViewModel() {
-    private val userPersonalDataUseCase = UserPersonalDataUseCase()
+    lateinit var userPersonalDataUseCase: UserPersonalDataUseCase
     var getRequestState = MutableLiveData<RequestState>(RequestState.START)
     var postRequestState = MutableLiveData<RequestState>(RequestState.START)
     var personalData = MutableLiveData<PersonalDataModel>()

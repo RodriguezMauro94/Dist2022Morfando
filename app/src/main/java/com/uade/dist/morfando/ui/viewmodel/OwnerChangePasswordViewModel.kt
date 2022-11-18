@@ -11,10 +11,10 @@ class OwnerChangePasswordViewModel: ViewModel() {
     private val ownerChangePasswordDataUseCase = OwnerChangePasswordDataUseCase()
     var requestState = MutableLiveData<RequestState>(RequestState.START)
 
-    fun changePassword(newPassword: String) {
+    fun changePassword(token: String, newPassword: String) {
         viewModelScope.launch {
             requestState.value = RequestState.LOADING
-            ownerChangePasswordDataUseCase.changePassword(newPassword).onSuccess {
+            ownerChangePasswordDataUseCase.changePassword(token, newPassword).onSuccess {
                 requestState.value = RequestState.SUCCESS
             }.onFailure {
                 requestState.value = RequestState.FAILURE(it.toString())

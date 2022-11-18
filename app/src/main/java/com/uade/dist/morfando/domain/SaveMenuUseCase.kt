@@ -8,8 +8,8 @@ import com.uade.dist.morfando.data.network.RestaurantApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SaveMenuUseCase {
-    private val retrofit = RetrofitHelper.getRetrofit()
+class SaveMenuUseCase(private val auth: String) {
+    private val retrofit = RetrofitHelper.getRetrofit(auth)
     private val api = retrofit.create(RestaurantApiClient::class.java)
 
     suspend fun updateMenu(code: String, menu: MenuModel): Result<RestaurantModel> {

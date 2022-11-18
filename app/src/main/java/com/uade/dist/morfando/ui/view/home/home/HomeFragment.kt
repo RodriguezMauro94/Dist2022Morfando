@@ -16,6 +16,8 @@ import com.google.android.material.chip.ChipGroup
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.ChipSearchOptionsModel
 import com.uade.dist.morfando.core.addChips
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.FragmentHomeBinding
 import com.uade.dist.morfando.ui.view.MyProfileActivity
@@ -42,6 +44,9 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         setUpActionBar()
         setUpMenu()
 
+        val sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE)
+        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -65,7 +70,7 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
 
         restaurantsNearAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
         bindList(binding.homeNearRestaurants, restaurantsNearAdapter)
-        homeViewModel.getNearRestaurants()
+        homeViewModel.getNearRestaurants(token)
         homeViewModel.nearRestaurants.observe(viewLifecycleOwner) {
             restaurantsNearAdapter.setRestaurants(it)
         }

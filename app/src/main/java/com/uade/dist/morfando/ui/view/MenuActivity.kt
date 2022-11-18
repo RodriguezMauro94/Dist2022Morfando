@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityMenuBinding
 import com.uade.dist.morfando.ui.view.menuList.MenuAdapter
@@ -31,7 +33,9 @@ class MenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener {
 
         val restaurant = intent.extras?.getSerializable("restaurant") as RestaurantModel
         binding.menuTitle.text = getString(R.string.menu_title_activity, restaurant.name)
-        menuViewModel.getMenu(restaurant.code)
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+        menuViewModel.getMenu(token, restaurant.code)
 
         menuViewModel.requestState.observe(this) {
             when (it) {

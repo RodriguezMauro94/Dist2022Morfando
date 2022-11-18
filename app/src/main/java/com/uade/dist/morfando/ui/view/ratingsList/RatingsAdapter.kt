@@ -22,7 +22,7 @@ class RatingsAdapter: RecyclerView.Adapter<RatingsAdapter.RatingsViewHolder>() {
 
     override fun onBindViewHolder(holder: RatingsViewHolder, position: Int) {
         ratings[position].apply {
-            holder.ratingName.text = user
+            holder.ratingName.text = userName
             holder.ratingTitle.text = title
             holder.ratingDescription.text = description
             holder.rating.rating = rating.toFloat()

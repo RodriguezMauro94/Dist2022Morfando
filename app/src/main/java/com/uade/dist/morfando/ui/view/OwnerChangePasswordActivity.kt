@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.databinding.ActivityOwnerChangePasswordBinding
 import com.uade.dist.morfando.ui.viewmodel.OwnerChangePasswordViewModel
 
@@ -22,13 +24,16 @@ class OwnerChangePasswordActivity: AppCompatActivity() {
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+
         binding.save.setOnClickListener {
             val password = binding.passwordValue.text.toString()
             val reenterPassword = binding.reenterPasswordValue.text.toString()
 
             if (password.isNotEmpty() && reenterPassword.isNotEmpty()) {
                 if (password == reenterPassword) {
-                    ownerChangePasswordViewModel.changePassword(password)
+                    ownerChangePasswordViewModel.changePassword(token, password)
                 } else {
                     getString(R.string.error_password_not_match).showToast(this)
                 }

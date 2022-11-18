@@ -42,8 +42,8 @@ class RatingActivity: AppCompatActivity() {
                 getString(R.string.error_complete_fields).showToast(this)
             } else {
                 ratingViewModel.publish(
+                    token,
                     RatingModel(
-                        token, // FIXME debería enviar el user code, no el token
                         restaurant.code,
                         rating.toLong(),
                         title,

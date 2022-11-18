@@ -13,11 +13,11 @@ class RatingViewModel: ViewModel() {
     val requestState = MutableLiveData<RequestState>(RequestState.START)
     var rating: RatingModel? = null
 
-    fun publish(rating: RatingModel) {
+    fun publish(token: String, rating: RatingModel) {
         this.rating = rating
         viewModelScope.launch {
             requestState.value = RequestState.LOADING
-            publishRatingUseCase.publish(rating)
+            publishRatingUseCase.publish(token, rating)
                 .onSuccess {
                     requestState.value = RequestState.SUCCESS
                 }

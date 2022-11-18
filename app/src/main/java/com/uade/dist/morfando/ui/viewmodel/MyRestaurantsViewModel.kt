@@ -10,11 +10,11 @@ import com.uade.dist.morfando.domain.GetRestaurantsUseCase
 import kotlinx.coroutines.launch
 
 class MyRestaurantsViewModel: ViewModel() {
-    private val getRestaurantsUseCase = GetRestaurantsUseCase()
     val myRestaurants = MutableLiveData<List<RestaurantModel>>()
     val requestState = MutableLiveData<RequestState>(RequestState.START)
 
-    fun getMyRestaurants() {
+    fun getMyRestaurants(token: String) {
+        val getRestaurantsUseCase = GetRestaurantsUseCase(token)
         viewModelScope.launch {
             requestState.value = RequestState.LOADING
             getRestaurantsUseCase.getRestaurants(SearchFilterOptionsModel()) // FIXME llamar a api correcta

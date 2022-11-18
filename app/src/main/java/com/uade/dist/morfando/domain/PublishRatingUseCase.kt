@@ -7,9 +7,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class PublishRatingUseCase {
-    private val retrofit = RetrofitHelper.getRetrofit()
-
-    suspend fun publish(rating: RatingModel): Result<Any> {
+    suspend fun publish(auth: String, rating: RatingModel): Result<Any> {
+        val retrofit = RetrofitHelper.getRetrofit(auth)
         return withContext(Dispatchers.IO) {
             val response = retrofit.create(RatingApiClient::class.java).publish(rating)
             response

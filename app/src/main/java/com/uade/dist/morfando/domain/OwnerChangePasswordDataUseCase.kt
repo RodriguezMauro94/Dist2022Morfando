@@ -8,10 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class OwnerChangePasswordDataUseCase {
-    private val retrofit = RetrofitHelper.getRetrofit()
-    private val api = retrofit.create(UserApiClient::class.java)
-
-    suspend fun changePassword(newPassword: String): Result<SessionModel> {
+    suspend fun changePassword(auth: String, newPassword: String): Result<SessionModel> {
+        val retrofit = RetrofitHelper.getRetrofit(auth)
+        val api = retrofit.create(UserApiClient::class.java)
         return withContext(Dispatchers.IO) {
             val response = api.changePassword(newPassword)
             response

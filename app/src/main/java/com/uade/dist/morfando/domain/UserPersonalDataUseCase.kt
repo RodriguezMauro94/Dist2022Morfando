@@ -6,8 +6,8 @@ import com.uade.dist.morfando.data.network.UserApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class UserPersonalDataUseCase {
-    private val retrofit = RetrofitHelper.getRetrofit()
+class UserPersonalDataUseCase(auth: String) {
+    private val retrofit = RetrofitHelper.getRetrofit(auth)
     private val api = retrofit.create(UserApiClient::class.java)
 
     suspend fun getPersonalData(): Result<PersonalDataModel> {

@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
 import com.uade.dist.morfando.databinding.FragmentSearchBinding
@@ -38,6 +40,9 @@ class SearchFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
 
         setUpActionBar()
 
+        val sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE)
+        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+
         arguments?.getSerializable("options")?.let {
             searchViewModel.filteredOptions.postValue(it as SearchFilterOptionsModel)
         }
@@ -54,11 +59,11 @@ class SearchFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         }
 
         searchViewModel.filteredOptions.observe(viewLifecycleOwner) {
-            searchViewModel.getRestaurants()
+            searchViewModel.getRestaurants(token)
         }
 
         searchViewModel.searchText.observe(viewLifecycleOwner) {
-            searchViewModel.getRestaurants()
+            searchViewModel.getRestaurants(token)
         }
 
         binding.searchText.addTextChangedListener {

@@ -22,6 +22,8 @@ import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.core.toPriceRange
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RatingModel
 import com.uade.dist.morfando.data.model.RestaurantDetailsModel
 import com.uade.dist.morfando.data.model.RestaurantModel
@@ -46,10 +48,13 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setUpMenu()
 
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+
         val restaurant = intent.extras?.getSerializable("restaurant") as RestaurantModel
 
         restaurantDetailsViewModel.restaurant.postValue(restaurant)
-        restaurantDetailsViewModel.getDetails(restaurant.code)
+        restaurantDetailsViewModel.getDetails(token, restaurant.code)
 
         restaurantDetailsViewModel.requestState.observe(this) {
             when (it) {

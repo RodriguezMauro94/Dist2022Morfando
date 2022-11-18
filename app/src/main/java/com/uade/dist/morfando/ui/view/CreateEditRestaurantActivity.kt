@@ -12,6 +12,8 @@ import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.priceRange
 import com.uade.dist.morfando.core.showToast
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.*
 import com.uade.dist.morfando.databinding.ActivityCreateEditRestaurantBinding
 import com.uade.dist.morfando.ui.view.home.categories.categories
@@ -31,6 +33,9 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
 
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        createEditRestaurantViewModel.token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
 
         val restaurant = intent.extras?.getSerializable("restaurant") as? RestaurantModel?
         createEditRestaurantViewModel.originalRestaurant.postValue(restaurant)

@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.FragmentFavouritesBinding
 import com.uade.dist.morfando.ui.view.RestaurantDetailsActivity
@@ -39,9 +41,12 @@ class FavouritesFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE)
+        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+
         restaurantsAdapter = RestaurantsAdapter(this, RestaurantViewMode.VERTICAL)
         bindList(binding.favouritesRestaurants, restaurantsAdapter)
-        favouritesViewModel.getRestaurants()
+        favouritesViewModel.getRestaurants(token)
         favouritesViewModel.favouritesRestaurants.observe(viewLifecycleOwner) {
             restaurantsAdapter.setRestaurants(it)
         }

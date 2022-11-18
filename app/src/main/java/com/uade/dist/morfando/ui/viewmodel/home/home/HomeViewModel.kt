@@ -13,7 +13,6 @@ import com.uade.dist.morfando.domain.GetRestaurantsUseCase
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
-    private val getRestaurantsUseCase = GetRestaurantsUseCase()
     val chipClicked = MutableLiveData<ChipSearchOptionsModel>()
 
     fun chipTapped(chip: String) {
@@ -33,7 +32,8 @@ class HomeViewModel : ViewModel() {
 
     val nearRestaurants = MutableLiveData<List<RestaurantModel>>()
     val nearRestaurantsState = MutableLiveData<RequestState>(RequestState.START)
-    fun getNearRestaurants() {
+    fun getNearRestaurants(token: String) {
+        val getRestaurantsUseCase = GetRestaurantsUseCase(token)
         viewModelScope.launch {
             nearRestaurantsState.value = RequestState.LOADING
             getRestaurantsUseCase.getRestaurants(SearchFilterOptionsModel())
