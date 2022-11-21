@@ -282,6 +282,21 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                 }
             }
         }
+
+        createEditRestaurantViewModel.detailsRequestState.observe(this) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    getString(R.string.loading).showToast(this)
+                }
+                is RequestState.SUCCESS -> {
+                    getString(R.string.deleted_restaurant_status).showToast(this)
+                    finish()
+                }
+                is RequestState.FAILURE -> {
+                    getString(R.string.generic_error).showToast(this)
+                }
+            }
+        }
     }
 
     private fun updateStatusButtons(restaurant: RestaurantModel) {

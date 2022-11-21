@@ -147,6 +147,7 @@
     <string name="delete_restaurant">Eliminar restaurante</string>
     <string name="open_restaurant">Abrir restaurant</string>
     <string name="updated_restaurant_status">Estado actualizado correctamente</string>
+    <string name="deleted_restaurant_status">Restaurant eliminado correctamente</string>
 
     <string-array name="open_hours_array">
         <item>Apertura</item>
