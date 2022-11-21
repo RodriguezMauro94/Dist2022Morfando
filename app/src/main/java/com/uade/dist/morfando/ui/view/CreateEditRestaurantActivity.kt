@@ -283,7 +283,7 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
             }
         }
 
-        createEditRestaurantViewModel.detailsRequestState.observe(this) {
+        createEditRestaurantViewModel.deleteRequestState.observe(this) {
             when (it) {
                 is RequestState.LOADING -> {
                     getString(R.string.loading).showToast(this)
