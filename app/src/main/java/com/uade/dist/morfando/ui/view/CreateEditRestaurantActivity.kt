@@ -302,7 +302,7 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
     private fun updateStatusButtons(restaurant: RestaurantModel) {
         if (restaurant.status == "active") {
             binding.close.visibility = View.VISIBLE
-        } else if (restaurant.status == "closed") {
+        } else {
             binding.open.visibility = View.VISIBLE
         }
     }
