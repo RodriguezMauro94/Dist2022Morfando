@@ -3,6 +3,7 @@ package com.uade.dist.morfando.ui.view
 import android.content.Intent
 import android.location.Geocoder
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.Spinner
@@ -41,6 +42,9 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         createEditRestaurantViewModel.originalRestaurant.postValue(restaurant)
         if (restaurant != null) {
             createEditRestaurantViewModel.getRestaurantDetails(restaurant.code)
+            binding.delete.visibility = View.VISIBLE
+
+            updateStatusButtons(restaurant)
         }
 
         val priceRangeAdapter =
@@ -87,6 +91,18 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                 intent.putExtra("restaurant", restaurant)
             }
             startActivityForResult(intent, CREATE_MENU_REQUEST_CODE)
+        }
+
+        binding.close.setOnClickListener {
+            createEditRestaurantViewModel.updateStatus("closed")
+        }
+
+        binding.open.setOnClickListener {
+            createEditRestaurantViewModel.updateStatus("active")
+        }
+
+        binding.delete.setOnClickListener {
+            createEditRestaurantViewModel.deleteRestaurant()
         }
 
         binding.photosGroup.setOnClickListener {
@@ -165,10 +181,12 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     priceRange,
                     emptyList(), // FIXME enviar fotos
                     latitude,
-                    longitude
+                    longitude,
+                    null
                 )
 
                 if (restaurant == null) {
+                    createRestaurantModel.status = "active"
                     createEditRestaurantViewModel.createRestaurant(createRestaurantModel)
                 } else {
                     createRestaurantModel.code = restaurant.code
@@ -246,6 +264,31 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     getString(R.string.generic_error).showToast(this)
                 }
             }
+        }
+
+        createEditRestaurantViewModel.updateStatusRequestState.observe(this) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    getString(R.string.loading).showToast(this)
+                }
+                is RequestState.SUCCESS -> {
+                    getString(R.string.updated_restaurant_status).showToast(this)
+                    createEditRestaurantViewModel.originalRestaurant.value?.apply {
+                        updateStatusButtons(this)
+                    }
+                }
+                is RequestState.FAILURE -> {
+                    getString(R.string.generic_error).showToast(this)
+                }
+            }
+        }
+    }
+
+    private fun updateStatusButtons(restaurant: RestaurantModel) {
+        if (restaurant.status == "active") {
+            binding.close.visibility = View.VISIBLE
+        } else if (restaurant.status == "closed") {
+            binding.open.visibility = View.VISIBLE
         }
     }
 

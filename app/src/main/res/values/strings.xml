@@ -143,6 +143,10 @@
     <string name="personal_data_updated">Datos personales actualizados correctamente</string>
     <string name="password_updated">Contraseña actualizada correctamente</string>
     <string name="change">Cambiar</string>
+    <string name="close_restaurant">Cerrar temporalmente</string>
+    <string name="delete_restaurant">Eliminar restaurante</string>
+    <string name="open_restaurant">Abrir restaurant</string>
+    <string name="updated_restaurant_status">Estado actualizado correctamente</string>
 
     <string-array name="open_hours_array">
         <item>Apertura</item>

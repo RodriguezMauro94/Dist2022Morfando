@@ -18,6 +18,8 @@ class CreateEditRestaurantViewModel: ViewModel() {
     val restaurantDetails = MutableLiveData<RestaurantDetailsModel?>()
     val createRequestState = MutableLiveData<RequestState>(RequestState.START)
     val editRequestState = MutableLiveData<RequestState>(RequestState.START)
+    val deleteRequestState = MutableLiveData<RequestState>(RequestState.START)
+    val updateStatusRequestState = MutableLiveData<RequestState>(RequestState.START)
     val detailsRequestState = MutableLiveData<RequestState>(RequestState.START)
     val menu = MutableLiveData<MenuModel?>()
     var token = ""
@@ -105,6 +107,37 @@ class CreateEditRestaurantViewModel: ViewModel() {
                 .onFailure {
                     editRequestState.value = RequestState.FAILURE(it.toString())
                 }
+        }
+    }
+
+    fun deleteRestaurant() {
+        viewModelScope.launch {
+            originalRestaurant.value?.let {
+                deleteRequestState.value = RequestState.LOADING
+                editRestaurantUseCase.deleteRestaurant(token, it.code)
+                    .onSuccess {
+                        deleteRequestState.value = RequestState.SUCCESS
+                    }
+                    .onFailure {
+                        deleteRequestState.value = RequestState.FAILURE(it.toString())
+                    }
+            }
+        }
+    }
+
+    fun updateStatus(state: String) {
+        viewModelScope.launch {
+            originalRestaurant.value?.let {
+                updateStatusRequestState.value = RequestState.LOADING
+                editRestaurantUseCase.updateStatus(token, it.code, state)
+                    .onSuccess { result ->
+                        originalRestaurant.value!!.status = result.status
+                        updateStatusRequestState.value = RequestState.SUCCESS
+                    }
+                    .onFailure {
+                        updateStatusRequestState.value = RequestState.FAILURE(it.toString())
+                    }
+            }
         }
     }
 }

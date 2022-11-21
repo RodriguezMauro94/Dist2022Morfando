@@ -688,6 +688,45 @@
              app:layout_constraintStart_toStartOf="parent"
              app:layout_constraintTop_toBottomOf="@+id/photos_group" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/close"
+            android:visibility="gone"
+            tools:visibility="visible"
+            style="@style/MorfandoButtonTransparentOutlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="@string/close_restaurant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/save" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/open"
+            android:visibility="gone"
+            tools:visibility="visible"
+            style="@style/MorfandoButtonTransparentOutlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="@string/open_restaurant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/close" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/delete"
+            android:visibility="gone"
+            tools:visibility="visible"
+            style="@style/MorfandoButtonSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="@string/delete_restaurant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/open" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"

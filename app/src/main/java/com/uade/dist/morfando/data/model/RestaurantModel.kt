@@ -13,5 +13,5 @@ data class RestaurantModel(
     @SerializedName("image") val image: String,
     @SerializedName("latitude") val latitude: Double = 0.0,
     @SerializedName("longitude") val longitude: Double = 0.0,
-    @SerializedName("status") val status: String? = null
+    @SerializedName("status") var status: String? = null
 ): Serializable

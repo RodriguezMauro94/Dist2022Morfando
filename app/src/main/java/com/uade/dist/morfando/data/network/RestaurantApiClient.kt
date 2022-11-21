@@ -30,4 +30,10 @@ interface RestaurantApiClient {
 
     @PATCH("restaurant")
     suspend fun editRestaurant(@Body restaurant: CreateRestaurantModel): Result<RestaurantModel>
+
+    @DELETE("restaurant")
+    suspend fun deleteRestaurant(@Query("restaurant-code") code: String): Result<SessionModel>
+
+    @PATCH("restaurant")
+    suspend fun updateStatus(@Query("restaurant-code") code: String, @Query("status") status: String): Result<RestaurantModel>
 }
