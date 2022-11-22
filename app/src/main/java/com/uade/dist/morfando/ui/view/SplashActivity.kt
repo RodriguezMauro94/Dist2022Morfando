@@ -25,7 +25,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        initCloudinary(this)
+        try {
+            initCloudinary(this)
+        } catch (e: Exception) {
+        }
 
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
         val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null)
