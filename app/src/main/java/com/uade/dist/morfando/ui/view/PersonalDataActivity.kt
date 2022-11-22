@@ -185,20 +185,21 @@ class PersonalDataActivity: AppCompatActivity() {
                 val isCamera: Boolean = (data?.extras != null && data.extras!!.containsKey("data"))
                 if (isCamera) {
                     handleCameraCallback(data!!) { photo, pathFile ->
-                        binding.profilePhoto.setImageBitmap(photo)
-                        personalDataViewModel.personalData.value?.apply {
-                            image = pathFile
-                        }
+                        updatePhoto(photo, pathFile)
                     }
                 } else {
                     handleCameraCallback(this, data!!.data!!) { photo, pathFile ->
-                        binding.profilePhoto.setImageBitmap(photo)
-                        personalDataViewModel.personalData.value?.apply {
-                            image = pathFile
-                        }
+                        updatePhoto(photo, pathFile)
                     }
                 }
             }
+        }
+    }
+
+    private fun updatePhoto(photo: Bitmap, pathFile: String) {
+        binding.profilePhoto.setImageBitmap(photo)
+        personalDataViewModel.personalData.value?.apply {
+            image = pathFile
         }
     }
 }
