@@ -103,4 +103,9 @@ class PersonalDataActivity: AppCompatActivity() {
                 .into(binding.profilePhoto)
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

@@ -92,4 +92,9 @@ class CreateEditMenuItemActivity: AppCompatActivity() {
         binding.itemTypeSpinner.setSelection(itemType.indexOf(menu.type))
         binding.categorySpinner.setSelection(itemCategories.indexOf(menu.category))
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

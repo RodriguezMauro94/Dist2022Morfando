@@ -1,10 +1,11 @@
-package com.uade.dist.morfando.ui.view.gallery
+package com.uade.dist.morfando.ui.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.data.model.RestaurantDetailsModel
 import com.uade.dist.morfando.databinding.ActivityGalleryBinding
+import com.uade.dist.morfando.ui.view.gallery.GalleryAdapter
 
 class GalleryActivity: AppCompatActivity() {
     private lateinit var binding: ActivityGalleryBinding
@@ -25,5 +26,10 @@ class GalleryActivity: AppCompatActivity() {
             binding.galleryGrid.adapter = adapter
             adapter.images = it
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

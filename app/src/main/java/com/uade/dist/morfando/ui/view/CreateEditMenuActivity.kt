@@ -189,4 +189,9 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
         createEditMenuViewModel.menuLogicList.value = logicList
         menuAdapter.setMenu(logicList.toViewList())
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

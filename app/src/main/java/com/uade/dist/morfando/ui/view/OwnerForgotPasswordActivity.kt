@@ -23,4 +23,9 @@ class OwnerForgotPasswordActivity: AppCompatActivity() {
             // TODO
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

@@ -35,6 +35,10 @@ class OpenHoursActivity: AppCompatActivity() {
         } else {
             getString(R.string.closed)
         }
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

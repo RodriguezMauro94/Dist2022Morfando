@@ -62,6 +62,11 @@ class OwnerLoginActivity: AppCompatActivity() {
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     private fun ownerRegister() {
         val intent = Intent(this, OwnerRegisterActivity::class.java)
         this.startActivityForResult(intent, OWNER_REGISTER_REQUEST_CODE)

@@ -56,4 +56,9 @@ class OwnerRegisterActivity: AppCompatActivity() {
             }
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

@@ -112,4 +112,9 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
             }
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

@@ -63,7 +63,7 @@
             android:name=".ui.view.OpenHoursActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.gallery.GalleryActivity"
+            android:name=".ui.view.GalleryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.RatingActivity"

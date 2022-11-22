@@ -34,4 +34,9 @@ class MenuItemDetailActivity: AppCompatActivity() {
         binding.celiacImage.visibility = plate.isCeliac.getVisibility()
         binding.celiacText.visibility = plate.isCeliac.getVisibility()
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

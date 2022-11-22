@@ -67,4 +67,9 @@ class MenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener {
             startActivity(intent)
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }
