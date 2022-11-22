@@ -10,9 +10,7 @@ import android.widget.Spinner
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.uade.dist.morfando.R
-import com.uade.dist.morfando.core.RequestState
-import com.uade.dist.morfando.core.priceRange
-import com.uade.dist.morfando.core.showToast
+import com.uade.dist.morfando.core.*
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.*
@@ -25,6 +23,7 @@ const val CREATE_MENU_REQUEST_CODE = 5000
 class CreateEditRestaurantActivity: AppCompatActivity() {
     private lateinit var binding: ActivityCreateEditRestaurantBinding
     private val createEditRestaurantViewModel: CreateEditRestaurantViewModel by viewModels()
+    private val photos = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Morfando)
@@ -105,8 +104,10 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
             createEditRestaurantViewModel.deleteRestaurant()
         }
 
+        checkCameraPermission(applicationContext, this)
+
         binding.photosGroup.setOnClickListener {
-            // TODO photos
+            openImageIntent(this)
         }
 
         binding.save.setOnClickListener {
@@ -129,8 +130,6 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
             val priceRange = binding.priceRangeSpinner.selectedItemPosition + 1
             val menuIsValid = if (restaurant == null) createEditRestaurantViewModel.menu.value != null else true
 
-            // FIXME validar photos
-
             if (
                 name.isNotEmpty() &&
                 street.isNotEmpty() &&
@@ -146,7 +145,8 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                 fridayOpenHoursFilled &&
                 saturdayOpenHoursFilled &&
                 sundayOpenHoursFilled &&
-                menuIsValid
+                menuIsValid &&
+                photos.isNotEmpty()
             ) {
                 val direction = "$street $streetNumber, $neighborhood, $town, $state, $country"
                 var latitude = 0.0
@@ -179,7 +179,7 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     ),
                     categories[binding.cookingTypeSpinner.selectedItemPosition].id,
                     priceRange,
-                    emptyList(), // FIXME enviar fotos
+                    photos,
                     latitude,
                     longitude,
                     null
@@ -227,7 +227,9 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
 
                             binding.priceRangeSpinner.setSelection(restaurant.priceRange - 1)
 
-                            // TODO mostrar fotos?
+                            details.images?.let { images ->
+                                photos.addAll(images)
+                            }
                         }
                     }
                 }
@@ -370,6 +372,12 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
             data?.apply {
                 val result = this.getSerializableExtra("menu") as MenuModel
                 createEditRestaurantViewModel.menu.value = result
+            }
+        } else if (resultCode == RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST) {
+                handleCameraCallback(this, data) { _, pathFile ->
+                    photos.add(pathFile)
+                }
             }
         }
     }
