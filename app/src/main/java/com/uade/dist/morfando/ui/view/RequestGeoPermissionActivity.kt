@@ -37,7 +37,6 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
             when {
                 permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION, permissions) || permissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION, permissions) -> {
                     checkGPS()
-                    goToHome()
                 }
                 else -> {
                     // FIXME hacer algo
@@ -92,7 +91,9 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
             try {
                 // GPS is on
                 val response = task.getResult(ApiException::class.java)
-                getLocation(this)
+                getLocation(this) {
+                    goToHome()
+                }
             } catch (e: ApiException) {
                 // GPS is off
                 e.printStackTrace()

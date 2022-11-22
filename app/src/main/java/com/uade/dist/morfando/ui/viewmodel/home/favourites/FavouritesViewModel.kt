@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.data.model.RestaurantModel
-import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
 import com.uade.dist.morfando.domain.GetRestaurantsUseCase
 import kotlinx.coroutines.launch
 
