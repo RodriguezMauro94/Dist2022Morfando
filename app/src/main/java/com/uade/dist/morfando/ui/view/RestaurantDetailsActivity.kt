@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.core.toPriceRange
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_FAVOURITES
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RatingModel
@@ -50,11 +52,14 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
 
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
         val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+        val favourites = sharedPreferences.getStringSet(SHARED_PREFERENCES_FAVOURITES, null) ?: setOf()
 
         val restaurant = intent.extras?.getSerializable("restaurant") as RestaurantModel
 
+        restaurantDetailsViewModel.favourites = favourites.toMutableSet()
+        restaurantDetailsViewModel.token = token
         restaurantDetailsViewModel.restaurant.postValue(restaurant)
-        restaurantDetailsViewModel.getDetails(token, restaurant.code)
+        restaurantDetailsViewModel.getDetails(restaurant.code)
 
         restaurantDetailsViewModel.requestState.observe(this) {
             when (it) {
@@ -167,14 +172,46 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
                 menuInflater.inflate(R.menu.details_menu, menu)
             }
 
+            override fun onPrepareMenu(menu: Menu) {
+                super.onPrepareMenu(menu)
+                val menuItem = menu.findItem(R.id.action_fav)
+                menuItem?.let {
+                    updateFavouritesIcon(menuItem)
+                }
+            }
+
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 if (menuItem.itemId == R.id.action_fav) {
-                    // TODO agregar/eliminar de favoritos y cambiar el icono en consecuencia
-                    "Agregar/eliminar a favoritos".showToast(this@RestaurantDetailsActivity)
+                    val favourites = restaurantDetailsViewModel.favourites
+                    val code = restaurantDetailsViewModel.restaurant.value!!.code
+                    if (favourites.contains(code)) {
+                        favourites.remove(code)
+                    } else {
+                        favourites.add(code)
+                    }
+                    updateFavouritesIcon(menuItem)
+
+                    restaurantDetailsViewModel.addRemoveFavourite()
                 }
                 return true
             }
         }, this, Lifecycle.State.RESUMED)
+    }
+
+    private fun updateFavouritesIcon(menuItem: MenuItem) {
+        val favourites = restaurantDetailsViewModel.favourites
+        val code = restaurantDetailsViewModel.restaurant.value!!.code
+        if (favourites.contains(code)) {
+            menuItem.icon = ContextCompat.getDrawable(
+                this@RestaurantDetailsActivity,
+                R.drawable.ic_favorites_24
+            )
+        } else {
+            menuItem.icon = ContextCompat.getDrawable(
+                this@RestaurantDetailsActivity,
+                R.drawable.ic_favorite_border_24
+            )
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

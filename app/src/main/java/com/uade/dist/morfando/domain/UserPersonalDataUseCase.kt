@@ -2,6 +2,7 @@ package com.uade.dist.morfando.domain
 
 import com.uade.dist.morfando.core.RetrofitHelper
 import com.uade.dist.morfando.data.model.PersonalDataModel
+import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.data.network.UserApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -20,6 +21,13 @@ class UserPersonalDataUseCase(auth: String) {
     suspend fun updatePersonalData(personalDataModel: PersonalDataModel): Result<PersonalDataModel> {
         return withContext(Dispatchers.IO) {
             val response = api.updatePersonalData(personalDataModel)
+            response
+        }
+    }
+
+    suspend fun updateFavourites(favourites: Set<String>): Result<SessionModel> {
+        return withContext(Dispatchers.IO) {
+            val response = api.updateFavourites(favourites)
             response
         }
     }
