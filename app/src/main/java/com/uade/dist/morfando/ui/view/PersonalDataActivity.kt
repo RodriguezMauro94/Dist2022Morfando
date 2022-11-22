@@ -21,6 +21,7 @@ import com.uade.dist.morfando.domain.UserPersonalDataUseCase
 import com.uade.dist.morfando.ui.viewmodel.PersonalDataViewModel
 import java.io.File
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 
@@ -159,18 +160,7 @@ class PersonalDataActivity: AppCompatActivity() {
         outputFileUri = Uri.fromFile(sdImageMainDirectory)
 
         // Camera.
-        val cameraIntents: MutableList<Intent> = ArrayList()
-        val captureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val packageManager = packageManager
-        val listCam = packageManager.queryIntentActivities(captureIntent, 0)
-        for (res in listCam) {
-            val packageName = res.activityInfo.packageName
-            val intent = Intent(captureIntent)
-            intent.component = ComponentName(packageName, res.activityInfo.name)
-            intent.setPackage(packageName)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri)
-            cameraIntents.add(intent)
-        }
+        val cameraIntents = listOf(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
 
         // Filesystem.
         val galleryIntent = Intent()
@@ -192,24 +182,16 @@ class PersonalDataActivity: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             if (requestCode == CAMERA_REQUEST) {
-                val isCamera: Boolean = if (data == null) {
-                    true
-                } else {
-                    val action = data.action
-                    if (action == null) {
-                        false
-                    } else {
-                        action == MediaStore.ACTION_IMAGE_CAPTURE
+                val isCamera: Boolean = (data?.extras != null && data.extras!!.containsKey("data"))
+                if (isCamera) {
+                    handleCameraCallback(data!!) { photo, pathFile ->
+                        binding.profilePhoto.setImageBitmap(photo)
+                        personalDataViewModel.personalData.value?.apply {
+                            image = pathFile
+                        }
                     }
-                }
-                val selectedImageUri: Uri? = if (isCamera) {
-                    outputFileUri
                 } else {
-                    data?.data
-                }
-
-                selectedImageUri?.let {
-                    handleCameraCallback(this, it) { photo, pathFile ->
+                    handleCameraCallback(this, data!!.data!!) { photo, pathFile ->
                         binding.profilePhoto.setImageBitmap(photo)
                         personalDataViewModel.personalData.value?.apply {
                             image = pathFile
