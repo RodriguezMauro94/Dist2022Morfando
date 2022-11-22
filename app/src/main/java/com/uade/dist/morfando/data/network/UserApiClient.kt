@@ -23,4 +23,7 @@ interface UserApiClient {
 
     @PATCH("users/password")
     suspend fun changePassword(@Body newPassword: String): Result<SessionModel>
+
+    @DELETE("users")
+    suspend fun deleteAccount(): Result<SessionModel>
 }

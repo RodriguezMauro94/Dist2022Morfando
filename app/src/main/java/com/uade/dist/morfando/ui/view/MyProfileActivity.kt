@@ -2,15 +2,22 @@ package com.uade.dist.morfando.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.core.setVisibility
+import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.data.local.SHARED_IS_OWNER
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_FAVOURITES
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.databinding.ActivityMyProfileBinding
+import com.uade.dist.morfando.ui.viewmodel.MyProfileViewModel
 
 class MyProfileActivity: AppCompatActivity() {
     private lateinit var binding: ActivityMyProfileBinding
+    private val myProfileViewModel: MyProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Morfando)
@@ -22,6 +29,7 @@ class MyProfileActivity: AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
         val isOwner = sharedPreferences.getBoolean(SHARED_IS_OWNER, false)
         binding.profileMyRestaurants.setVisibility(isOwner)
 
@@ -38,7 +46,24 @@ class MyProfileActivity: AppCompatActivity() {
         }
 
         binding.profileDeleteAccount.setOnClickListener {
-            // TODO
+            myProfileViewModel.deleteAccount(token)
+        }
+
+        myProfileViewModel.requestState.observe(this) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    getString(R.string.loading).showToast(this)
+                }
+                is RequestState.SUCCESS -> {
+                    sharedPreferences.edit().putString(SHARED_PREFERENCES_TOKEN, null).apply()
+                    sharedPreferences.edit().putString(SHARED_PREFERENCES_FAVOURITES, null).apply()
+                    startActivity(Intent(this, SplashActivity::class.java))
+                    finish()
+                }
+                is RequestState.FAILURE -> {
+                    getString(R.string.generic_error).showToast(this)
+                }
+            }
         }
     }
 

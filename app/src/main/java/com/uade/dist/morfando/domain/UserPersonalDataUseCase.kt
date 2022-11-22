@@ -31,4 +31,11 @@ class UserPersonalDataUseCase(auth: String) {
             response
         }
     }
+
+    suspend fun deleteAccount(): Result<SessionModel> {
+        return withContext(Dispatchers.IO) {
+            val response = api.deleteAccount()
+            response
+        }
+    }
 }
