@@ -98,15 +98,8 @@ class PersonalDataActivity: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             if (requestCode == CAMERA_REQUEST) {
-                val isCamera: Boolean = (data?.extras != null && data.extras!!.containsKey("data"))
-                if (isCamera) {
-                    handleCameraCallback(data!!) { photo, pathFile ->
-                        updatePhoto(photo, pathFile)
-                    }
-                } else {
-                    handleCameraCallback(this, data!!.data!!) { photo, pathFile ->
-                        updatePhoto(photo, pathFile)
-                    }
+                handleCameraCallback(this, data) { photo, pathFile ->
+                    updatePhoto(photo, pathFile)
                 }
             }
         }

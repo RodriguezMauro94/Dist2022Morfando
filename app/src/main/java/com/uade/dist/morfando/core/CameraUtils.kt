@@ -52,12 +52,21 @@ fun openImageIntent(activity: AppCompatActivity) {
     activity.startActivityForResult(chooserIntent, CAMERA_REQUEST)
 }
 
-fun handleCameraCallback(context: Context, image: Uri, callback: (photo: Bitmap, pathFile: String) -> Unit) {
+fun handleCameraCallback(context: Context, data: Intent?, callback: (photo: Bitmap, pathFile: String) -> Unit) {
+    val isCamera: Boolean = (data?.extras != null && data.extras!!.containsKey("data"))
+    if (isCamera) {
+        handle(data!!, callback)
+    } else {
+        handle(context, data!!.data!!, callback)
+    }
+}
+
+private fun handle(context: Context, image: Uri, callback: (photo: Bitmap, pathFile: String) -> Unit) {
     val photo = MediaStore.Images.Media.getBitmap(context.contentResolver, image)
     compressAndPost(photo, callback)
 }
 
-fun handleCameraCallback(data: Intent, callback: (photo: Bitmap, pathFile: String) -> Unit) {
+private fun handle(data: Intent, callback: (photo: Bitmap, pathFile: String) -> Unit) {
     val photo: Bitmap = data.extras?.get("data") as Bitmap
     compressAndPost(photo, callback)
 }
