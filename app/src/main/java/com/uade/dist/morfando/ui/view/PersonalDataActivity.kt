@@ -90,47 +90,10 @@ class PersonalDataActivity: AppCompatActivity() {
 
         checkCameraPermission(applicationContext, this)
 
-        val permissionRequest = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
-            when {
-                permissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE, permissions) -> {
-                    openImageIntent()
-                }
-                else -> {
-                    // FIXME hacer algo
-                    Toast.makeText(this, "permiso denegado", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-
         binding.photosGroup.setOnClickListener {
-            val check =
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            if (check == PackageManager.PERMISSION_GRANTED) {
-                openImageIntent()
-            } else {
-                permissionRequest.launch(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-            }
+            openImageIntent()
         }
     }
-
-    private fun permissionGranted(permission: String, permissions: Map<String, @JvmSuppressWildcards Boolean>)
-            = permissions.containsKey(permission) && permissions.getValue(permission)
-
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CAMERA_REQUEST) {
-            data?.apply {
-                handleCameraCallback(data) { photo, pathFile ->
-                    binding.profilePhoto.setImageBitmap(photo)
-                    personalDataViewModel.personalData.value?.apply {
-                        image = pathFile
-                    }
-                }
-            }
-        }
-    }*/
 
     private fun updateFields() {
         personalDataViewModel.personalData.value?.apply {
