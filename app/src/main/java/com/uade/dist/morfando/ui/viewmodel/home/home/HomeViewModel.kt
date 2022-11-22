@@ -1,5 +1,6 @@
 package com.uade.dist.morfando.ui.viewmodel.home.home
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,9 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.ChipSearchOptionsModel
 import com.uade.dist.morfando.core.RequestState
+import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_FAVOURITES
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.data.model.SearchFilterOptionsModel
 import com.uade.dist.morfando.domain.GetRestaurantsUseCase
+import com.uade.dist.morfando.domain.UserPersonalDataUseCase
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
@@ -45,6 +48,16 @@ class HomeViewModel : ViewModel() {
                 }
                 .onFailure {
                     nearRestaurantsState.value = RequestState.FAILURE(it.toString())
+                }
+        }
+    }
+
+    fun getPersonalData(sharedPreferences: SharedPreferences, token: String) {
+        viewModelScope.launch {
+            val userPersonalDataUseCase = UserPersonalDataUseCase(token)
+            userPersonalDataUseCase.getPersonalData()
+                .onSuccess {
+                    sharedPreferences.edit().putStringSet(SHARED_PREFERENCES_FAVOURITES, it.favourites.toSet()).apply()
                 }
         }
     }

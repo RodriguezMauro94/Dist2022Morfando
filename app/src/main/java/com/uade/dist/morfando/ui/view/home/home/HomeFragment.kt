@@ -56,6 +56,8 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        homeViewModel.getPersonalData(sharedPreferences, token)
+
         homeViewModel.chips.observe(viewLifecycleOwner) {
             binding.chipsGroup.removeAllViews()
             addChips(it, binding.chipsGroup, homeViewModel)

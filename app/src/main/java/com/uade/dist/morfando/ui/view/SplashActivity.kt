@@ -27,24 +27,22 @@ class SplashActivity : AppCompatActivity() {
 
         initCloudinary(this)
 
-        GlobalScope.launch {
-            val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
-            val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null)
-            if (token == null) {
-                goToLogin()
-            } else {
-                splashViewModel.getPersonalData(sharedPreferences)
-            }
-            finish()
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null)
+        if (token == null) {
+            goToLogin()
+        } else {
+            splashViewModel.getPersonalData(sharedPreferences, token)
         }
 
-        splashViewModel.getRequestState.observe(this) {
+        splashViewModel.requestState.observe(this) {
             when (it) {
                 is RequestState.LOADING -> {
                     getString(R.string.loading).showToast(this)
                 }
                 is RequestState.SUCCESS -> {
                     startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+                    finish()
                 }
                 is RequestState.FAILURE -> {
                     goToLogin()
@@ -55,5 +53,6 @@ class SplashActivity : AppCompatActivity() {
 
     private fun goToLogin() {
         startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+        finish()
     }
 }
