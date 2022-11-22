@@ -4,10 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import com.squareup.picasso.Picasso
 import com.uade.dist.morfando.R
-import com.uade.dist.morfando.core.itemCategories
-import com.uade.dist.morfando.core.itemType
-import com.uade.dist.morfando.core.showToast
+import com.uade.dist.morfando.core.*
 import com.uade.dist.morfando.data.model.MenuItemModel
 import com.uade.dist.morfando.data.model.PlateModel
 import com.uade.dist.morfando.databinding.ActivityCreateEditMenuItemBinding
@@ -15,6 +14,7 @@ import java.util.*
 
 class CreateEditMenuItemActivity: AppCompatActivity() {
     private lateinit var binding: ActivityCreateEditMenuItemBinding
+    private var photo = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Morfando)
@@ -49,9 +49,7 @@ class CreateEditMenuItemActivity: AppCompatActivity() {
             val code = plate?.code ?: UUID.randomUUID().toString()
             val resultCode = if(plate == null) ADD_MENU_ITEM_REQUEST_CODE else EDIT_MENU_ITEM_REQUEST_CODE
 
-            // TODO validate photo
-
-            if (name.isNotEmpty() && price.isNotEmpty() && description.isNotEmpty()) {
+            if (name.isNotEmpty() && price.isNotEmpty() && description.isNotEmpty() && photo.isNotEmpty()) {
                 val isVegan = binding.isVegan.isChecked
                 val isCeliac = binding.isCeliac.isChecked
 
@@ -60,7 +58,7 @@ class CreateEditMenuItemActivity: AppCompatActivity() {
                     name,
                     description,
                     price.toDouble(),
-                    "https://i.imgur.com/GB7lTPH.jpeg", // TODO foto
+                    photo,
                     isVegan,
                     isCeliac
                 )
@@ -81,6 +79,24 @@ class CreateEditMenuItemActivity: AppCompatActivity() {
                 getString(R.string.error_complete_fields).showToast(this)
             }
         }
+
+        checkCameraPermission(applicationContext, this)
+
+        binding.photosGroup.setOnClickListener {
+            openImageIntent(this)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST) {
+                handleCameraCallback(this, data) { bitmap, pathFile ->
+                    photo = pathFile
+                    binding.menuItemPhoto.setImageBitmap(bitmap)
+                }
+            }
+        }
     }
 
     private fun fillInputs(plate: PlateModel, menu: MenuItemModel) {
@@ -91,6 +107,12 @@ class CreateEditMenuItemActivity: AppCompatActivity() {
         binding.isCeliac.isChecked = plate.isCeliac
         binding.itemTypeSpinner.setSelection(itemType.indexOf(menu.type))
         binding.categorySpinner.setSelection(itemCategories.indexOf(menu.category))
+
+        photo = plate.image
+        Picasso.get()
+            .load(photo)
+            .placeholder(R.drawable.logo_morfando)
+            .into(binding.menuItemPhoto)
     }
 
     override fun onSupportNavigateUp(): Boolean {
