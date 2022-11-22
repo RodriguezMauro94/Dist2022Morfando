@@ -1,6 +1,7 @@
 package com.uade.dist.morfando.ui.view
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -49,25 +50,34 @@ class MyProfileActivity: AppCompatActivity() {
             myProfileViewModel.deleteAccount(token)
         }
 
+        binding.profileCloseSession.setOnClickListener {
+            closeSession(sharedPreferences)
+        }
+
         myProfileViewModel.requestState.observe(this) {
             when (it) {
                 is RequestState.LOADING -> {
                     getString(R.string.loading).showToast(this)
                 }
                 is RequestState.SUCCESS -> {
-                    sharedPreferences.edit().putString(SHARED_PREFERENCES_TOKEN, null).apply()
-                    sharedPreferences.edit().putString(SHARED_PREFERENCES_FAVOURITES, null).apply()
-
-                    val intent = Intent(this, SplashActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP or  Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(intent)
-                    finish()
+                    closeSession(sharedPreferences)
                 }
                 is RequestState.FAILURE -> {
                     getString(R.string.generic_error).showToast(this)
                 }
             }
         }
+    }
+
+    private fun closeSession(sharedPreferences: SharedPreferences) {
+        sharedPreferences.edit().putString(SHARED_PREFERENCES_TOKEN, null).apply()
+        sharedPreferences.edit().putString(SHARED_PREFERENCES_FAVOURITES, null).apply()
+
+        val intent = Intent(this, SplashActivity::class.java)
+        intent.flags =
+            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
     }
 
     override fun onSupportNavigateUp(): Boolean {
