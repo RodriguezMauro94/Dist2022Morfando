@@ -52,6 +52,10 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
         binding.geoNotNow.setOnClickListener {
             // TODO
         }
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            checkGPS()
+        }
     }
 
     private fun permissionGranted(permission: String, permissions: Map<String, @JvmSuppressWildcards Boolean>)
@@ -111,10 +115,5 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
                 }
             }
         }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
     }
 }
