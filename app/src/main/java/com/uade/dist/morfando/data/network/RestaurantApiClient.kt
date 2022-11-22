@@ -13,6 +13,9 @@ interface RestaurantApiClient {
         @Query("distance") distance: Int?
     ): Result<List<RestaurantModel>>
 
+    @GET("users/favorites")
+    suspend fun getFavourites(): Result<List<RestaurantModel>>
+
     @GET("restaurant/details")
     suspend fun getRestaurantDetails(@Query("restaurant-code") code: String): Result<RestaurantDetailsModel>
 

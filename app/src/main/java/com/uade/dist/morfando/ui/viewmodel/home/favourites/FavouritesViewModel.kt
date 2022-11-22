@@ -17,7 +17,7 @@ class FavouritesViewModel : ViewModel() {
         val getRestaurantsUseCase = GetRestaurantsUseCase(token)
         viewModelScope.launch {
             requestState.value = RequestState.LOADING
-            getRestaurantsUseCase.getRestaurants(SearchFilterOptionsModel())
+            getRestaurantsUseCase.getFavourites()
                 .onSuccess {
                     favouritesRestaurants.postValue(it)
                     requestState.value = RequestState.SUCCESS

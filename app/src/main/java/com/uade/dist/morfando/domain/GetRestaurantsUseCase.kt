@@ -27,4 +27,10 @@ class GetRestaurantsUseCase(auth: String) {
             api.getMenu(code)
         }
     }
+
+    suspend fun getFavourites(): Result<List<RestaurantModel>> {
+        return withContext(Dispatchers.IO) {
+            api.getFavourites()
+        }
+    }
 }
