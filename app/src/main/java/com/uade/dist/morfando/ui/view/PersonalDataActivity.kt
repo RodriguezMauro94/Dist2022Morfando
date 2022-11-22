@@ -1,13 +1,8 @@
 package com.uade.dist.morfando.ui.view
 
-import android.Manifest
-import android.content.ComponentName
 import android.content.Intent
-import android.net.Uri
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
-import android.os.Parcelable
-import android.provider.MediaStore
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
@@ -19,17 +14,6 @@ import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.databinding.ActivityPersonalDataBinding
 import com.uade.dist.morfando.domain.UserPersonalDataUseCase
 import com.uade.dist.morfando.ui.viewmodel.PersonalDataViewModel
-import java.io.File
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-
-import androidx.core.app.ActivityCompat
-
-
-
-
 
 class PersonalDataActivity: AppCompatActivity() {
     private lateinit var binding: ActivityPersonalDataBinding
@@ -91,7 +75,7 @@ class PersonalDataActivity: AppCompatActivity() {
         checkCameraPermission(applicationContext, this)
 
         binding.photosGroup.setOnClickListener {
-            openImageIntent()
+            openImageIntent(this)
         }
     }
 
@@ -108,37 +92,6 @@ class PersonalDataActivity: AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
-    }
-
-
-    private var outputFileUri: Uri? = null
-
-    private fun openImageIntent() {
-        // Determine Uri of camera image to save.
-        val root =
-            File("" + Environment.getExternalStorageDirectory() + File.separator.toString() + "Morfando" + File.separator)
-        root.mkdirs()
-        val fname: String = "img_"+ System.currentTimeMillis() + ".jpg"
-        val sdImageMainDirectory = File(root, fname)
-        outputFileUri = Uri.fromFile(sdImageMainDirectory)
-
-        // Camera.
-        val cameraIntents = listOf(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
-
-        // Filesystem.
-        val galleryIntent = Intent()
-        galleryIntent.type = "image/*"
-        galleryIntent.action = Intent.ACTION_GET_CONTENT
-
-        // Chooser of filesystem options.
-        val chooserIntent = Intent.createChooser(galleryIntent, "Agregar foto")
-
-        // Add the camera options.
-        chooserIntent.putExtra(
-            Intent.EXTRA_INITIAL_INTENTS,
-            cameraIntents.toTypedArray<Parcelable>()
-        )
-        startActivityForResult(chooserIntent, CAMERA_REQUEST)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

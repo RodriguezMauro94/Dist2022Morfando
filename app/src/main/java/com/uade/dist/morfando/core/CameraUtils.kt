@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Environment
+import android.os.Parcelable
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -14,6 +16,7 @@ import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
 import java.io.ByteArrayOutputStream
+import java.io.File
 
 const val CAMERA_REQUEST = 1888
 
@@ -23,6 +26,30 @@ fun checkCameraPermission(context: Context, activity: AppCompatActivity) {
     ) {
         ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), CAMERA_REQUEST)
     }
+}
+
+fun openImageIntent(activity: AppCompatActivity) {
+    val root =
+        File("" + Environment.getExternalStorageDirectory() + File.separator.toString() + "Morfando" + File.separator)
+    root.mkdirs()
+
+    // Camera.
+    val cameraIntents = listOf(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
+
+    // Filesystem.
+    val galleryIntent = Intent()
+    galleryIntent.type = "image/*"
+    galleryIntent.action = Intent.ACTION_GET_CONTENT
+
+    // Chooser of filesystem options.
+    val chooserIntent = Intent.createChooser(galleryIntent, "Agregar foto")
+
+    // Add the camera options.
+    chooserIntent.putExtra(
+        Intent.EXTRA_INITIAL_INTENTS,
+        cameraIntents.toTypedArray<Parcelable>()
+    )
+    activity.startActivityForResult(chooserIntent, CAMERA_REQUEST)
 }
 
 fun handleCameraCallback(context: Context, image: Uri, callback: (photo: Bitmap, pathFile: String) -> Unit) {
