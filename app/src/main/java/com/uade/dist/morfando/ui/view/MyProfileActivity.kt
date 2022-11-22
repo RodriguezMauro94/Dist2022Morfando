@@ -57,7 +57,10 @@ class MyProfileActivity: AppCompatActivity() {
                 is RequestState.SUCCESS -> {
                     sharedPreferences.edit().putString(SHARED_PREFERENCES_TOKEN, null).apply()
                     sharedPreferences.edit().putString(SHARED_PREFERENCES_FAVOURITES, null).apply()
-                    startActivity(Intent(this, SplashActivity::class.java))
+
+                    val intent = Intent(this, SplashActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP or  Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
                     finish()
                 }
                 is RequestState.FAILURE -> {
