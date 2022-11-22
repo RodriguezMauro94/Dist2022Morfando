@@ -6,6 +6,6 @@ import java.io.Serializable
 data class PersonalDataModel(
     @SerializedName("name") var name: String,
     @SerializedName("lastName") val lastName: String,
-    @SerializedName("userName") val userName: String,
-    @SerializedName("icon") var image: String
+    @SerializedName("icon") var image: String,
+    @SerializedName("favourites") val favourites: List<String>
 ): Serializable
