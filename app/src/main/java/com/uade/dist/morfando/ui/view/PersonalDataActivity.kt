@@ -1,7 +1,12 @@
 package com.uade.dist.morfando.ui.view
 
+import android.Manifest
+import android.content.ComponentName
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.os.Parcelable
 import android.provider.MediaStore
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +19,16 @@ import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.databinding.ActivityPersonalDataBinding
 import com.uade.dist.morfando.domain.UserPersonalDataUseCase
 import com.uade.dist.morfando.ui.viewmodel.PersonalDataViewModel
+import java.io.File
+import android.content.pm.PackageManager
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+
+import androidx.core.app.ActivityCompat
+
+
+
+
 
 class PersonalDataActivity: AppCompatActivity() {
     private lateinit var binding: ActivityPersonalDataBinding
@@ -74,13 +89,35 @@ class PersonalDataActivity: AppCompatActivity() {
 
         checkCameraPermission(applicationContext, this)
 
+        val permissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE, permissions) -> {
+                    openImageIntent()
+                }
+                else -> {
+                    // FIXME hacer algo
+                    Toast.makeText(this, "permiso denegado", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
         binding.photosGroup.setOnClickListener {
-            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(cameraIntent, CAMERA_REQUEST)
+            val check =
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (check == PackageManager.PERMISSION_GRANTED) {
+                openImageIntent()
+            } else {
+                permissionRequest.launch(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+            }
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    private fun permissionGranted(permission: String, permissions: Map<String, @JvmSuppressWildcards Boolean>)
+            = permissions.containsKey(permission) && permissions.getValue(permission)
+
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CAMERA_REQUEST) {
             data?.apply {
@@ -92,7 +129,7 @@ class PersonalDataActivity: AppCompatActivity() {
                 }
             }
         }
-    }
+    }*/
 
     private fun updateFields() {
         personalDataViewModel.personalData.value?.apply {
@@ -107,5 +144,79 @@ class PersonalDataActivity: AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+
+    private var outputFileUri: Uri? = null
+
+    private fun openImageIntent() {
+        // Determine Uri of camera image to save.
+        val root =
+            File("" + Environment.getExternalStorageDirectory() + File.separator.toString() + "Morfando" + File.separator)
+        root.mkdirs()
+        val fname: String = "img_"+ System.currentTimeMillis() + ".jpg"
+        val sdImageMainDirectory = File(root, fname)
+        outputFileUri = Uri.fromFile(sdImageMainDirectory)
+
+        // Camera.
+        val cameraIntents: MutableList<Intent> = ArrayList()
+        val captureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val packageManager = packageManager
+        val listCam = packageManager.queryIntentActivities(captureIntent, 0)
+        for (res in listCam) {
+            val packageName = res.activityInfo.packageName
+            val intent = Intent(captureIntent)
+            intent.component = ComponentName(packageName, res.activityInfo.name)
+            intent.setPackage(packageName)
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri)
+            cameraIntents.add(intent)
+        }
+
+        // Filesystem.
+        val galleryIntent = Intent()
+        galleryIntent.type = "image/*"
+        galleryIntent.action = Intent.ACTION_GET_CONTENT
+
+        // Chooser of filesystem options.
+        val chooserIntent = Intent.createChooser(galleryIntent, "Agregar foto")
+
+        // Add the camera options.
+        chooserIntent.putExtra(
+            Intent.EXTRA_INITIAL_INTENTS,
+            cameraIntents.toTypedArray<Parcelable>()
+        )
+        startActivityForResult(chooserIntent, CAMERA_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST) {
+                val isCamera: Boolean = if (data == null) {
+                    true
+                } else {
+                    val action = data.action
+                    if (action == null) {
+                        false
+                    } else {
+                        action == MediaStore.ACTION_IMAGE_CAPTURE
+                    }
+                }
+                val selectedImageUri: Uri? = if (isCamera) {
+                    outputFileUri
+                } else {
+                    data?.data
+                }
+
+                selectedImageUri?.let {
+                    handleCameraCallback(this, it) { photo, pathFile ->
+                        binding.profilePhoto.setImageBitmap(photo)
+                        personalDataViewModel.personalData.value?.apply {
+                            image = pathFile
+                        }
+                    }
+                }
+            }
+        }
     }
 }

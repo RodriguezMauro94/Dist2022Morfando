@@ -2,9 +2,10 @@ package com.uade.dist.morfando.core
 
 import android.Manifest
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -12,6 +13,7 @@ import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
 import java.io.ByteArrayOutputStream
+
 
 const val CAMERA_REQUEST = 1888
 
@@ -21,8 +23,8 @@ fun checkCameraPermission(context: Context, activity: AppCompatActivity) {
     }
 }
 
-fun handleCameraCallback(data: Intent, callback: (photo: Bitmap, pathFile: String) -> Unit) {
-    val photo: Bitmap = data.extras?.get("data") as Bitmap
+fun handleCameraCallback(context: Context, image: Uri, callback: (photo: Bitmap, pathFile: String) -> Unit) {
+    val photo = MediaStore.Images.Media.getBitmap(context.contentResolver, image)
 
     val stream = ByteArrayOutputStream()
     photo.compress(Bitmap.CompressFormat.PNG, 90, stream)
