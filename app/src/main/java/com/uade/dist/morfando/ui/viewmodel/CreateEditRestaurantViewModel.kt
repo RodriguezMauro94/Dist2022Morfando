@@ -34,44 +34,7 @@ class CreateEditRestaurantViewModel: ViewModel() {
                     detailsRequestState.value = RequestState.SUCCESS
                 }
                 .onFailure {
-                    //FIXME dejar esto: detailsRequestState.value = RequestState.FAILURE(it.toString())
-
-                    restaurantDetails.value = RestaurantDetailsModel(
-                        OpenHoursModel(
-                            OpenHoursDayModel("Lunes", null, null, false),
-                            OpenHoursDayModel("Martes", "08:00", "10:00", true),
-                            OpenHoursDayModel("Miercoles", "08:00", "10:00", true),
-                            OpenHoursDayModel("Jueves", "08:00", "10:00", true),
-                            OpenHoursDayModel("Viernes", "08:00", "10:00", true),
-                            OpenHoursDayModel("Sábado", null, null, false),
-                            OpenHoursDayModel("Domingo", "08:00", "12:00", true)
-                        ),
-                        "Lorem ipsum dolor set amet",
-                        listOf(
-                            RatingModel("code",  3.0.toLong(), "Copado", "Lorem ipsum dolor set amet", "https://i.imgur.com/GB7lTPH.jpeg"),
-                            RatingModel("code",  2.0.toLong(), "Horrible", "Lorem ipsum dolor set amet", "https://i.imgur.com/OK1u0FO.jpeg")
-                        ),
-                        listOf(
-                            "https://i.imgur.com/GB7lTPH.jpeg",
-                            "https://i.imgur.com/GB7lTPH.jpeg",
-                            "https://i.imgur.com/GB7lTPH.jpeg",
-                            "https://i.imgur.com/GB7lTPH.jpeg",
-                            "https://i.imgur.com/GB7lTPH.jpeg",
-                            "https://i.imgur.com/GB7lTPH.jpeg",
-                            "https://i.imgur.com/GB7lTPH.jpeg",
-                            "https://i.imgur.com/GB7lTPH.jpeg",
-                            "https://i.imgur.com/GB7lTPH.jpeg",
-                            "https://i.imgur.com/GB7lTPH.jpeg",
-                            "https://i.imgur.com/GB7lTPH.jpeg",
-                        ),
-                        false,
-                        "calle",
-                        "123",
-                        "Buenos aires",
-                        "avellaneda",
-                        "argentina"
-                    )
-                    detailsRequestState.value = RequestState.SUCCESS
+                    detailsRequestState.value = RequestState.FAILURE(it.toString())
                 }
         }
     }
