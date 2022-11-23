@@ -27,6 +27,7 @@ class MenuItemDetailActivity: AppCompatActivity() {
             .placeholder(R.drawable.logo_morfando)
             .into(binding.plateLanding)
         binding.plateName.text = plate.name
+        binding.platePrice.text = "$ ${plate.price}"
         binding.plateDescription.text = plate.description
         binding.plateGroup.visibility = (plate.isCeliac || plate.isVegan).getVisibility()
         binding.veganImage.visibility = plate.isVegan.getVisibility()
