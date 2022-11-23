@@ -196,4 +196,35 @@
         <item>06:00</item>
         <item>05:00</item>
     </string-array>
+
+    <string-array name="states">
+        <item>Buenos Aires</item>
+        <item>C.A.B.A.</item>
+        <item>Catamarca</item>
+        <item>Chaco</item>
+        <item>Chubut</item>
+        <item>Córdoba</item>
+        <item>Corrientes</item>
+        <item>Entre Ríos</item>
+        <item>Formosa</item>
+        <item>Jujuy</item>
+        <item>La Pampa</item>
+        <item>La Rioja</item>
+        <item>Mendoza</item>
+        <item>Misiones</item>
+        <item>Neuquén</item>
+        <item>Río Negro</item>
+        <item>Salta</item>
+        <item>San Juan</item>
+        <item>San Luis</item>
+        <item>Santa Cruz</item>
+        <item>Santa Fe</item>
+        <item>Santiago del Estero</item>
+        <item>Tierra del Fuego</item>
+        <item>Tucumán</item>
+    </string-array>
+
+    <string-array name="countries">
+        <item>Argentina</item>
+    </string-array>
 </resources>

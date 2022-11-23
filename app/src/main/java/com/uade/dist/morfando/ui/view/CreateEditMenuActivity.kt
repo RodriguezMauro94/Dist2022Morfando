@@ -79,9 +79,6 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
         createEditMenuViewModel.menuViewList.observe(this) {
             menuAdapter.setMenu(it)
         }
-        createEditMenuViewModel.getMenuRequestState.observe(this) {
-            // TODO mostrar/ocultar skeleton
-        }
 
         createEditMenuViewModel.saveMenuRequestState.observe(this) {
             when (it) {

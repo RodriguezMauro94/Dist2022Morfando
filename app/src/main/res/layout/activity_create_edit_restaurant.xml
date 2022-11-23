@@ -134,41 +134,31 @@
                     android:hint="@string/town"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/restaurant_state"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginEnd="@dimen/base_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/restaurant_town"
-                style="@style/MorfandoTextInput">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/state_value"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    style="@style/MorfandoTextInputEditText"
-                    android:hint="@string/state"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_gravity="center"
+                android:backgroundTint="#464C58"/>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/restaurant_country"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginEnd="@dimen/base_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/restaurant_state"
-                style="@style/MorfandoTextInput">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/country_value"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    style="@style/MorfandoTextInputEditText"
-                    android:hint="@string/country"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_gravity="center"
+                android:backgroundTint="#464C58"/>
 
             <TextView
                 android:id="@+id/open_hours_title"

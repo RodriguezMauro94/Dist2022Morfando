@@ -69,6 +69,9 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         setHoursAdapter(binding.saturdayCloseHourSpinner, R.array.close_hours_array)
         setHoursAdapter(binding.sundayCloseHourSpinner, R.array.close_hours_array)
 
+        setHoursAdapter(binding.restaurantState, R.array.states)
+        setHoursAdapter(binding.restaurantCountry, R.array.countries)
+
         val categoriesAdapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, categories.map {
                 getString(it.text)
@@ -114,10 +117,10 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
             val name: String = binding.nameValue.text.toString()
             val street = binding.streetValue.text.toString()
             val streetNumber = binding.streetNumberValue.text.toString()
-            val state = binding.stateValue.text.toString()
+            val state = binding.restaurantState.selectedItem as String
             val neighborhood = binding.neighborhoodValue.text.toString()
             val town = binding.townValue.text.toString()
-            val country = binding.countryValue.text.toString()
+            val country = binding.restaurantCountry.selectedItem as String
 
             val mondayOpenHoursFilled = openHourIsFilled(binding.mondayIsOpen, binding.mondayOpenHourSpinner, binding.mondayCloseHourSpinner)
             val tuesdayOpenHoursFilled = openHourIsFilled(binding.tuesdayIsOpen, binding.tuesdayOpenHourSpinner, binding.tuesdayCloseHourSpinner)
@@ -211,10 +214,8 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                             binding.nameValue.setText(restaurant.name)
                             binding.streetValue.setText(details.streetValue)
                             binding.streetNumberValue.setText(details.streetNumberValue)
-                            binding.stateValue.setText(details.stateValue)
                             binding.neighborhoodValue.setText(restaurant.neighborhood)
                             binding.townValue.setText(details.townValue)
-                            binding.countryValue.setText(details.countryValue)
 
                             showOpenHour(details.openHours.monday, binding.mondayIsOpen, binding.mondayOpenHourSpinner, binding.mondayCloseHourSpinner)
                             showOpenHour(details.openHours.tuesday, binding.tuesdayIsOpen, binding.tuesdayOpenHourSpinner, binding.tuesdayCloseHourSpinner)
@@ -223,6 +224,9 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                             showOpenHour(details.openHours.friday, binding.fridayIsOpen, binding.fridayOpenHourSpinner, binding.fridayCloseHourSpinner)
                             showOpenHour(details.openHours.saturday, binding.saturdayIsOpen, binding.saturdayOpenHourSpinner, binding.saturdayCloseHourSpinner)
                             showOpenHour(details.openHours.sunday, binding.sundayIsOpen, binding.sundayOpenHourSpinner, binding.sundayCloseHourSpinner)
+
+                            binding.restaurantState.setSelection(resources.getStringArray(R.array.states).indexOf(details.stateValue))
+                            binding.restaurantCountry.setSelection(resources.getStringArray(R.array.countries).indexOf(details.stateValue))
 
                             binding.cookingTypeSpinner.setSelection(categories.indexOfFirst { category ->
                                 category.id == restaurant.cookingType

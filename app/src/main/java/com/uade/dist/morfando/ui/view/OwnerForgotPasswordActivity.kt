@@ -20,7 +20,7 @@ class OwnerForgotPasswordActivity: AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.retrieve.setOnClickListener {
-            // TODO
+            // TODO forgot password
         }
     }
 
