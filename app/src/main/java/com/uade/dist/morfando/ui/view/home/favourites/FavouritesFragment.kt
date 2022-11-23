@@ -48,17 +48,23 @@ class FavouritesFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         favouritesViewModel.getRestaurants(token)
         favouritesViewModel.favouritesRestaurants.observe(viewLifecycleOwner) {
             restaurantsAdapter.setRestaurants(it)
+            if (it.isEmpty()) {
+                binding.empty.visibility = View.VISIBLE
+            }
         }
         favouritesViewModel.requestState.observe(viewLifecycleOwner) {
             when (it) {
                 is RequestState.LOADING -> {
-                    // TODO mostrar skeleton
+                    binding.loading.visibility = View.VISIBLE
+                    binding.favouritesRestaurants.visibility = View.GONE
                 }
                 is RequestState.SUCCESS -> {
-                    // TODO ocultar skeleton
+                    binding.loading.visibility = View.GONE
+                    binding.favouritesRestaurants.visibility = View.VISIBLE
                 }
                 is RequestState.FAILURE -> {
-                    // TODO ocultar skeleton
+                    binding.loading.visibility = View.VISIBLE
+                    binding.favouritesRestaurants.visibility = View.GONE
                     getString(R.string.generic_error).showToast(requireContext())
                 }
             }

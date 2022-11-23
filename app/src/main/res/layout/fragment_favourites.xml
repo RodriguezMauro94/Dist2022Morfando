@@ -7,13 +7,37 @@
     tools:context=".ui.view.home.favourites.FavouritesFragment"
     android:background="@color/primary">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favourites_restaurants"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/base_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No tenés favoritos!"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:textSize="25sp"
+            style="@style/MorfandoTextInputEditText"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favourites_restaurants"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/base_margin"
+            android:visibility="gone" />
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
