@@ -3,6 +3,7 @@ package com.uade.dist.morfando.ui.view
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.widget.LinearLayout
 import androidx.activity.viewModels
@@ -56,12 +57,16 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
         createEditMenuViewModel.getMenuRequestState.observe(this) {
             when (it) {
                 is RequestState.LOADING -> {
-                    getString(R.string.loading).showToast(this)
+                    binding.loading.visibility = View.VISIBLE
+                    binding.menuMain.visibility = View.GONE
                 }
                 is RequestState.SUCCESS -> {
-                    // TODO ocultar skeleton
+                    binding.loading.visibility = View.GONE
+                    binding.menuMain.visibility = View.VISIBLE
                 }
                 is RequestState.FAILURE -> {
+                    binding.loading.visibility = View.GONE
+                    binding.menuMain.visibility = View.GONE
                     getString(R.string.generic_error).showToast(this)
                 }
             }
