@@ -53,24 +53,24 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
 
         binding.addEditMenuTitle.text = if (restaurant == null) getString(R.string.add_menu) else getString(R.string.edit_menu)
 
-        setHoursAdapter(binding.mondayOpenHourSpinner, R.array.open_hours_array)
-        setHoursAdapter(binding.tuesdayOpenHourSpinner, R.array.open_hours_array)
-        setHoursAdapter(binding.wednesdayOpenHourSpinner, R.array.open_hours_array)
-        setHoursAdapter(binding.thursdayOpenHourSpinner, R.array.open_hours_array)
-        setHoursAdapter(binding.fridayOpenHourSpinner, R.array.open_hours_array)
-        setHoursAdapter(binding.saturdayOpenHourSpinner, R.array.open_hours_array)
-        setHoursAdapter(binding.sundayOpenHourSpinner, R.array.open_hours_array)
+        setSpinnerArray(binding.mondayOpenHourSpinner, R.array.open_hours_array)
+        setSpinnerArray(binding.tuesdayOpenHourSpinner, R.array.open_hours_array)
+        setSpinnerArray(binding.wednesdayOpenHourSpinner, R.array.open_hours_array)
+        setSpinnerArray(binding.thursdayOpenHourSpinner, R.array.open_hours_array)
+        setSpinnerArray(binding.fridayOpenHourSpinner, R.array.open_hours_array)
+        setSpinnerArray(binding.saturdayOpenHourSpinner, R.array.open_hours_array)
+        setSpinnerArray(binding.sundayOpenHourSpinner, R.array.open_hours_array)
 
-        setHoursAdapter(binding.mondayCloseHourSpinner, R.array.close_hours_array)
-        setHoursAdapter(binding.tuesdayCloseHourSpinner, R.array.close_hours_array)
-        setHoursAdapter(binding.wednesdayCloseHourSpinner, R.array.close_hours_array)
-        setHoursAdapter(binding.thursdayCloseHourSpinner, R.array.close_hours_array)
-        setHoursAdapter(binding.fridayCloseHourSpinner, R.array.close_hours_array)
-        setHoursAdapter(binding.saturdayCloseHourSpinner, R.array.close_hours_array)
-        setHoursAdapter(binding.sundayCloseHourSpinner, R.array.close_hours_array)
+        setSpinnerArray(binding.mondayCloseHourSpinner, R.array.close_hours_array)
+        setSpinnerArray(binding.tuesdayCloseHourSpinner, R.array.close_hours_array)
+        setSpinnerArray(binding.wednesdayCloseHourSpinner, R.array.close_hours_array)
+        setSpinnerArray(binding.thursdayCloseHourSpinner, R.array.close_hours_array)
+        setSpinnerArray(binding.fridayCloseHourSpinner, R.array.close_hours_array)
+        setSpinnerArray(binding.saturdayCloseHourSpinner, R.array.close_hours_array)
+        setSpinnerArray(binding.sundayCloseHourSpinner, R.array.close_hours_array)
 
-        setHoursAdapter(binding.restaurantState, R.array.states)
-        setHoursAdapter(binding.restaurantCountry, R.array.countries)
+        setSpinnerArray(binding.restaurantState, R.array.states)
+        setSpinnerArray(binding.restaurantCountry, R.array.countries)
 
         val categoriesAdapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, categories.map {
@@ -364,7 +364,7 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         }
     }
 
-    private fun setHoursAdapter(spinner: Spinner, array: Int) {
+    private fun setSpinnerArray(spinner: Spinner, array: Int) {
         ArrayAdapter.createFromResource(
             this,
             array,
