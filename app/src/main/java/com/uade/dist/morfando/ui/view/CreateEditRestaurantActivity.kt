@@ -89,7 +89,10 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
 
         binding.menuGroup.setOnClickListener {
             val intent = Intent(this, CreateEditMenuActivity::class.java)
-            if (restaurant != null) {
+            val menu = createEditRestaurantViewModel.menu.value
+            if (menu != null && menu.menu.isNotEmpty()) {
+                intent.putExtra("menu", menu)
+            }else if (restaurant != null) {
                 intent.putExtra("restaurant", restaurant)
             }
             startActivityForResult(intent, CREATE_MENU_REQUEST_CODE)

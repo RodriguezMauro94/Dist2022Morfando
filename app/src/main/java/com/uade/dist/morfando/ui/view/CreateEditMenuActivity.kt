@@ -46,9 +46,7 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
         createEditMenuViewModel.token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
 
         val restaurant = intent.extras?.getSerializable("restaurant") as? RestaurantModel?
-        if (restaurant != null) {
-            createEditMenuViewModel.getMenu(restaurant.code)
-        }
+        val menu = intent.extras?.getSerializable("menu") as? MenuModel?
 
         binding.addItem.setOnClickListener {
             startActivityForResult(Intent(this, CreateEditMenuItemActivity::class.java), ADD_MENU_ITEM_REQUEST_CODE)
@@ -78,6 +76,13 @@ class CreateEditMenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener
         binding.menuList.adapter = menuAdapter
         createEditMenuViewModel.menuViewList.observe(this) {
             menuAdapter.setMenu(it)
+        }
+
+        if (menu != null && menu.menu.isNotEmpty()) {
+            createEditMenuViewModel.menuViewList.postValue(menu.menu.toViewList())
+            createEditMenuViewModel.menuLogicList.postValue(menu.menu)
+        } else if (restaurant != null) {
+            createEditMenuViewModel.getMenu(restaurant.code)
         }
 
         createEditMenuViewModel.saveMenuRequestState.observe(this) {
