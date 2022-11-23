@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -63,14 +64,19 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         restaurantDetailsViewModel.requestState.observe(this) {
             when (it) {
                 is RequestState.LOADING -> {
-                    getString(R.string.loading).showToast(this)
+                    binding.loading.visibility = View.VISIBLE
+                    binding.detailsMain.visibility = View.GONE
                 }
                 is RequestState.SUCCESS -> {
+                    binding.loading.visibility = View.GONE
+                    binding.detailsMain.visibility = View.VISIBLE
                     restaurantDetailsViewModel.restaurantDetails.value?.apply {
                         completeData(restaurant, this)
                     }
                 }
                 is RequestState.FAILURE -> {
+                    binding.loading.visibility = View.GONE
+                    binding.detailsMain.visibility = View.GONE
                     getString(R.string.generic_error).showToast(this)
                 }
             }

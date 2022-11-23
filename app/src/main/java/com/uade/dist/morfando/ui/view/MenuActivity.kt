@@ -2,6 +2,7 @@ package com.uade.dist.morfando.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,12 +41,16 @@ class MenuActivity: AppCompatActivity(), MenuAdapter.ItemClickListener {
         menuViewModel.requestState.observe(this) {
             when (it) {
                 is RequestState.LOADING -> {
-                    getString(R.string.loading).showToast(this)
+                    binding.loading.visibility = View.VISIBLE
+                    binding.menuList.visibility = View.GONE
                 }
                 is RequestState.SUCCESS -> {
-                    // TODO ocultar skeleton
+                    binding.loading.visibility = View.GONE
+                    binding.menuList.visibility = View.VISIBLE
                 }
                 is RequestState.FAILURE -> {
+                    binding.loading.visibility = View.GONE
+                    binding.menuList.visibility = View.GONE
                     getString(R.string.generic_error).showToast(this)
                 }
             }

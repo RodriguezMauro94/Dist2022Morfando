@@ -54,7 +54,7 @@ class MyProfileActivity: AppCompatActivity() {
             closeSession(sharedPreferences)
         }
 
-        myProfileViewModel.requestState.observe(this) {
+        myProfileViewModel.deleteAccountRequestState.observe(this) {
             when (it) {
                 is RequestState.LOADING -> {
                     getString(R.string.loading).showToast(this)

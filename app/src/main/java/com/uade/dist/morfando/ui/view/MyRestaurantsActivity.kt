@@ -2,10 +2,13 @@ package com.uade.dist.morfando.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.core.RequestState
+import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RestaurantModel
@@ -44,9 +47,27 @@ class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickLi
         myRestaurantsViewModel.getMyRestaurants(token)
         myRestaurantsViewModel.myRestaurants.observe(this) {
             myRestaurantsAdapter.setRestaurants(it)
+            if (it.isEmpty()) {
+                binding.empty.visibility = View.VISIBLE
+            }
         }
-        myRestaurantsViewModel.myRestaurants.observe(this) {
-            // TODO capturar loading y mostrar/ocultar skeleton o mostrar un error
+
+        myRestaurantsViewModel.requestState.observe(this) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    binding.loading.visibility = View.VISIBLE
+                    binding.myRestaurantsList.visibility = View.GONE
+                }
+                is RequestState.SUCCESS -> {
+                    binding.loading.visibility = View.GONE
+                    binding.myRestaurantsList.visibility = View.VISIBLE
+                }
+                is RequestState.FAILURE -> {
+                    binding.loading.visibility = View.GONE
+                    binding.myRestaurantsList.visibility = View.GONE
+                    getString(R.string.generic_error).showToast(this)
+                }
+            }
         }
     }
 
