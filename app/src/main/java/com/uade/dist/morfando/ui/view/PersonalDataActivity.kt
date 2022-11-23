@@ -82,10 +82,12 @@ class PersonalDataActivity: AppCompatActivity() {
     private fun updateFields() {
         personalDataViewModel.personalData.value?.apply {
             binding.nameValue.setText(name)
-            Picasso.get()
-                .load(image)
-                .placeholder(R.drawable.logo_morfando)
-                .into(binding.profilePhoto)
+            if (image.isNotEmpty()) {
+                Picasso.get()
+                    .load(image)
+                    .placeholder(R.drawable.logo_morfando)
+                    .into(binding.profilePhoto)
+            }
         }
     }
 
