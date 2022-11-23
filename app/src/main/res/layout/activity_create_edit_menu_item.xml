@@ -81,7 +81,7 @@
                 android:id="@+id/name_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 style="@style/MorfandoTextInputEditText"
                 android:hint="@string/name"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -117,7 +117,7 @@
                 android:id="@+id/description_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 style="@style/MorfandoTextInputEditText"
                 android:hint="@string/plate_description"/>
         </com.google.android.material.textfield.TextInputLayout>
