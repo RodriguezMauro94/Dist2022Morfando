@@ -10,47 +10,46 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.uade.dist.morfando.R
 
-
 val categories = listOf(
     Category(
         "meat",
         R.string.cooking_type_meat,
-        "https://i.imgur.com/GB7lTPH.jpeg"
+        "https://res.cloudinary.com/de7zrcqyz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1669240032/meat_ikzonc.jpg"
     ),
     Category(
         "chicken",
         R.string.cooking_type_chicken,
-        "https://i.imgur.com/GB7lTPH.jpeg"
+        "https://res.cloudinary.com/de7zrcqyz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1669240032/chiken_avszxx.jpg"
     ),
     Category(
         "pasta",
         R.string.cooking_type_pasta,
-        "https://i.imgur.com/GB7lTPH.jpeg"
+        "https://res.cloudinary.com/de7zrcqyz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1669240033/pasta_tz6vvo.jpg"
     ),
     Category(
         "pizza",
         R.string.cooking_type_pizza,
-        "https://i.imgur.com/GB7lTPH.jpeg"
+        "https://res.cloudinary.com/de7zrcqyz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1669240032/pizza_em2kcw.jpg"
     ),
     Category(
         "salad",
         R.string.cooking_type_salad,
-        "https://i.imgur.com/GB7lTPH.jpeg"
+        "https://res.cloudinary.com/de7zrcqyz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1669240033/salad_jodw9c.jpg"
     ),
     Category(
         "sushi",
         R.string.cooking_type_sushi,
-        "https://i.imgur.com/GB7lTPH.jpeg"
+        "https://res.cloudinary.com/de7zrcqyz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1669240033/sushi_hufpwy.jpg"
     ),
     Category(
         "empanada",
         R.string.cooking_type_empanada,
-        "https://i.imgur.com/GB7lTPH.jpeg"
+        "https://res.cloudinary.com/de7zrcqyz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1669240032/empanadas_r16cbl.jpg"
     ),
     Category(
         "taco",
         R.string.cooking_type_tacos,
-        "https://i.imgur.com/GB7lTPH.jpeg"
+        "https://res.cloudinary.com/de7zrcqyz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1669240033/tacos_ffxoej.jpg"
     ),
 )
 
