@@ -46,7 +46,7 @@
             android:id="@+id/empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Todavía no tenés restaurantes cargados"
+            android:text="@string/owner_no_restaurants"
             android:visibility="gone"
             android:layout_gravity="top"
             android:textSize="20sp"

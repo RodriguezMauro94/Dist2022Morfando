@@ -38,6 +38,7 @@
                 android:maxLines="1"
                 android:textSize="20sp"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:text="@string/my_restaurants"
                 style="@style/MorfandoTextInputEditText"
                 android:layout_marginEnd="@dimen/base_margin"
@@ -50,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                tools:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/home_my_restaurants_title">
@@ -58,6 +60,17 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/empty_my_restaurants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/owner_no_restaurants"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:layout_gravity="top"
+                    android:textSize="20sp"
+                    style="@style/MorfandoTextInputEditText" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/home_my_restaurants"

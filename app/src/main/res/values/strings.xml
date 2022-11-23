@@ -155,6 +155,7 @@
     <string name="insert_otp_code">Ingresa el código de recuperación</string>
     <string name="validate_otp">Validar código</string>
     <string name="otp_success">La nueva contraseña fue enviada a tu correo electrónico</string>
+    <string name="owner_no_restaurants">Todavía no tenés restaurantes cargados</string>
 
     <string-array name="open_hours_array">
         <item>Apertura</item>
