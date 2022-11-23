@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.uade.dist.morfando.R
-import com.uade.dist.morfando.core.ChipSearchOptionsModel
-import com.uade.dist.morfando.core.addChips
-import com.uade.dist.morfando.core.getLocation
+import com.uade.dist.morfando.core.*
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RestaurantModel
@@ -85,7 +83,21 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             restaurantsNearAdapter.setRestaurants(it)
         }
         homeViewModel.nearRestaurantsState.observe(viewLifecycleOwner) {
-            // TODO capturar loading y mostrar/ocultar skeleton o mostrar un error
+            when (it) {
+                is RequestState.LOADING -> {
+                    binding.loadingNear.visibility = View.VISIBLE
+                    binding.homeNearRestaurants.visibility = View.GONE
+                }
+                is RequestState.SUCCESS -> {
+                    binding.loadingNear.visibility = View.GONE
+                    binding.homeNearRestaurants.visibility = View.VISIBLE
+                }
+                is RequestState.FAILURE -> {
+                    binding.loadingNear.visibility = View.GONE
+                    binding.homeNearRestaurants.visibility = View.GONE
+                    getString(R.string.generic_error).showToast(requireContext())
+                }
+            }
         }
 
         // FIXME deshardcodear
