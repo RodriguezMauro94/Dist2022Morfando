@@ -50,6 +50,9 @@ class FavouritesFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         favouritesViewModel.getRestaurants(token)
         favouritesViewModel.favouritesRestaurants.observe(viewLifecycleOwner) {
             restaurantsAdapter.setRestaurants(it)
+            if (it == null || it.isEmpty()) {
+                binding.noneFavourites.visibility = View.VISIBLE
+            }
         }
 
         val shimmer = binding.root.findViewById<ShimmerLayout>(R.id.skeleton)
@@ -65,9 +68,6 @@ class FavouritesFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
                     shimmer.stopShimmerAnimation()
                     shimmer.visibility = View.GONE
                     binding.favouritesRestaurants.visibility = View.VISIBLE
-                    if (binding.favouritesRestaurants.isEmpty()) {
-                        binding.noneFavourites.visibility = View.VISIBLE
-                    }
                 }
                 is RequestState.FAILURE -> {
                     shimmer.stopShimmerAnimation()
