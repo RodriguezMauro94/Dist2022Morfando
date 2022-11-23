@@ -200,9 +200,12 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         createEditRestaurantViewModel.detailsRequestState.observe(this) {
             when (it) {
                 is RequestState.LOADING -> {
-                    getString(R.string.loading).showToast(this)
+                    binding.loading.visibility = View.VISIBLE
+                    binding.editMain.visibility = View.GONE
                 }
                 is RequestState.SUCCESS -> {
+                    binding.loading.visibility = View.GONE
+                    binding.editMain.visibility = View.VISIBLE
                     restaurant?.let { restaurant ->
                         createEditRestaurantViewModel.restaurantDetails.value?.let { details ->
                             binding.nameValue.setText(restaurant.name)
@@ -234,6 +237,8 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     }
                 }
                 is RequestState.FAILURE -> {
+                    binding.loading.visibility = View.GONE
+                    binding.editMain.visibility = View.GONE
                     getString(R.string.generic_error).showToast(this)
                 }
             }
