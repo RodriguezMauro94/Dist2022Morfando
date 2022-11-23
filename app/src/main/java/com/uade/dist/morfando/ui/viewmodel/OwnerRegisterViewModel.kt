@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.data.model.UserModel
+import com.uade.dist.morfando.domain.AuthenticateUseCase
 import com.uade.dist.morfando.domain.RegisterUseCase
 import kotlinx.coroutines.launch
 
 class OwnerRegisterViewModel: ViewModel() {
     private val registerUseCase = RegisterUseCase()
+    private val authUseCase = AuthenticateUseCase()
     var session: SessionModel? = null
     var requestState = MutableLiveData<RequestState>(RequestState.START)
 
@@ -21,8 +23,12 @@ class OwnerRegisterViewModel: ViewModel() {
             registerUseCase.register(
                 user
             ).onSuccess {
-                session = it
-                requestState.value = RequestState.SUCCESS
+                authUseCase.authenticate(UserModel(email, password, null)).onSuccess {
+                    session = it
+                    requestState.value = RequestState.SUCCESS
+                }.onFailure {
+                    requestState.value = RequestState.FAILURE(it.toString())
+                }
             }.onFailure {
                 requestState.value = RequestState.FAILURE(it.toString())
             }
