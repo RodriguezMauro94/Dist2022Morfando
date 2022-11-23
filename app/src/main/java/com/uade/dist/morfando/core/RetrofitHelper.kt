@@ -10,30 +10,27 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitHelper {
     fun getRetrofit(token: String? = null): Retrofit {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        val logger = HttpLoggingInterceptor()
+        logger.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        token?.apply {
-            val httpClient = OkHttpClient.Builder()
-            httpClient.addInterceptor(Interceptor { chain ->
+        val client = OkHttpClient.Builder().addInterceptor(logger)
+
+        if (token != null) {
+            client.addInterceptor(Interceptor { chain ->
                 val request: Request =
                     chain.request().newBuilder().addHeader(
                         "Authorization",
-                        token
+                        "Bearer $token"
                     ).build()
                 chain.proceed(request)
             })
         }
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .build()
-
         return Retrofit.Builder()
             .baseUrl("https://morfando-app.herokuapp.com/morfando-back/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(ResultCallAdapterFactory())
-            .client(client)
+            .client(client.build())
             .build()
     }
 }

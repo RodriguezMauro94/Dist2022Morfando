@@ -57,7 +57,8 @@ class HomeViewModel : ViewModel() {
             val userPersonalDataUseCase = UserPersonalDataUseCase(token)
             userPersonalDataUseCase.getPersonalData()
                 .onSuccess {
-                    sharedPreferences.edit().putStringSet(SHARED_PREFERENCES_FAVOURITES, it.favourites.toSet()).apply()
+                    val favourites = it.favourites?.toSet() ?: setOf()
+                    sharedPreferences.edit().putStringSet(SHARED_PREFERENCES_FAVOURITES, favourites).apply()
                 }
         }
     }

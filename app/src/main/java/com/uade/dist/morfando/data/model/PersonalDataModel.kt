@@ -7,5 +7,5 @@ data class PersonalDataModel(
     @SerializedName("name") var name: String,
     @SerializedName("lastName") val lastName: String,
     @SerializedName("icon") var image: String,
-    @SerializedName("favourites") val favourites: List<String>
+    @SerializedName("favourites") val favourites: List<String>?
 ): Serializable
