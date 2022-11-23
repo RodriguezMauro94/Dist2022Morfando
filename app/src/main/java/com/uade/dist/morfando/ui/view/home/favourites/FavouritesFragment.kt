@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ import com.uade.dist.morfando.ui.view.RestaurantDetailsActivity
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantViewMode
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
 import com.uade.dist.morfando.ui.viewmodel.home.favourites.FavouritesViewModel
+import io.supercharge.shimmerlayout.ShimmerLayout
 
 class FavouritesFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
     private var _binding: FragmentFavouritesBinding? = null
@@ -49,16 +51,26 @@ class FavouritesFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         favouritesViewModel.favouritesRestaurants.observe(viewLifecycleOwner) {
             restaurantsAdapter.setRestaurants(it)
         }
+
+        val shimmer = binding.root.findViewById<ShimmerLayout>(R.id.skeleton)
         favouritesViewModel.requestState.observe(viewLifecycleOwner) {
             when (it) {
                 is RequestState.LOADING -> {
-                    // TODO mostrar skeleton
+                    shimmer.visibility = View.VISIBLE
+                    binding.favouritesRestaurants.visibility = View.GONE
+                    binding.noneFavourites.visibility = View.GONE
+                    shimmer.startShimmerAnimation()
                 }
                 is RequestState.SUCCESS -> {
-                    // TODO ocultar skeleton
+                    shimmer.stopShimmerAnimation()
+                    shimmer.visibility = View.GONE
+                    binding.favouritesRestaurants.visibility = View.VISIBLE
+                    if (binding.favouritesRestaurants.isEmpty()) {
+                        binding.noneFavourites.visibility = View.VISIBLE
+                    }
                 }
                 is RequestState.FAILURE -> {
-                    // TODO ocultar skeleton
+                    shimmer.stopShimmerAnimation()
                     getString(R.string.generic_error).showToast(requireContext())
                 }
             }

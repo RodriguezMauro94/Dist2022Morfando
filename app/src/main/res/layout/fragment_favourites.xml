@@ -7,13 +7,34 @@
     tools:context=".ui.view.home.favourites.FavouritesFragment"
     android:background="@color/primary">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favourites_restaurants"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/base_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <include layout="@layout/shimmer_restaurants_vertical"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favourites_restaurants"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/none_favourites"
+        android:text="@string/none_favourites"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        style="@style/MorfandoTextInputEditText"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>
