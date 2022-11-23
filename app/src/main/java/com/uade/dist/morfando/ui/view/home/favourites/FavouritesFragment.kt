@@ -73,6 +73,11 @@ class FavouritesFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.empty.visibility = View.GONE
+    }
+
     private fun bindList(recyclerView: RecyclerView, adapter: RestaurantsAdapter) {
         val verticalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = verticalLayoutManager
