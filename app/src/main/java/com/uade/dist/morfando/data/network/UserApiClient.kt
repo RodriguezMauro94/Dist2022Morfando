@@ -26,4 +26,10 @@ interface UserApiClient {
 
     @DELETE("users")
     suspend fun deleteAccount(): Result<SessionModel>
+
+    @GET("users/email/{email}/otp")
+    suspend fun forgotPassword(@Path(value="email") email: String): Result<SessionModel>
+
+    @GET("users/validate/email/{email}/otp/{otpCode}")
+    suspend fun validateOtp(@Path(value="email") email: String, @Path(value="otpCode") otpCode: String): Result<SessionModel>
 }

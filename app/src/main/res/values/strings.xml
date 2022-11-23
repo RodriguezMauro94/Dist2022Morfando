@@ -151,6 +151,10 @@
     <string name="close_session">Cerrar sesión</string>
     <string name="no_favs">No tenés favoritos!</string>
     <string name="no_restaurants">No se encontraron restaurants</string>
+    <string name="otp_code">Código de recuperación</string>
+    <string name="insert_otp_code">Ingresa el código de recuperación</string>
+    <string name="validate_otp">Validar código</string>
+    <string name="otp_success">La nueva contraseña fue enviada a tu correo electrónico</string>
 
     <string-array name="open_hours_array">
         <item>Apertura</item>
