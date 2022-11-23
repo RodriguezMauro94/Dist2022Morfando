@@ -57,13 +57,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/home_near_restaurants_title"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_near_restaurants"
+            <FrameLayout
+                android:id="@+id/home_near_restaurants_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_near_restaurants_subtitle"/>
+                app:layout_constraintTop_toBottomOf="@id/home_near_restaurants_subtitle">
+
+                <include layout="@layout/shimmer_restaurants_horizontal"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_near_restaurants"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
 
             <View
                 android:id="@+id/home_separator_1"
@@ -74,7 +83,7 @@
                 android:layout_marginEnd="@dimen/base_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_near_restaurants" />
+                app:layout_constraintTop_toBottomOf="@id/home_near_restaurants_group" />
 
             <TextView
                 android:id="@+id/home_cheap_restaurants_title"

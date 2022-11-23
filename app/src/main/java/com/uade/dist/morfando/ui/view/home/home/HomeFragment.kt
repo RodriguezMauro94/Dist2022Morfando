@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.uade.dist.morfando.R
-import com.uade.dist.morfando.core.ChipSearchOptionsModel
-import com.uade.dist.morfando.core.addChips
-import com.uade.dist.morfando.core.getLocation
+import com.uade.dist.morfando.core.*
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RestaurantModel
@@ -26,6 +24,7 @@ import com.uade.dist.morfando.ui.view.RestaurantDetailsActivity
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantViewMode
 import com.uade.dist.morfando.ui.view.restaurantList.RestaurantsAdapter
 import com.uade.dist.morfando.ui.viewmodel.home.home.HomeViewModel
+import io.supercharge.shimmerlayout.ShimmerLayout
 
 class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
     private var _binding: FragmentHomeBinding? = null
@@ -78,6 +77,7 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             RestaurantModel("test3", "La parrilla del Tano", "asado", 4, 4.toLong(), "Avellaneda", "https://i.imgur.com/I0jGVwt.jpeg", status = "Abierto")
         )
 
+        val shimmerNear = binding.homeNearRestaurantsGroup.findViewById<ShimmerLayout>(R.id.skeleton)
         restaurantsNearAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
         bindList(binding.homeNearRestaurants, restaurantsNearAdapter)
         homeViewModel.getNearRestaurants(token)
@@ -85,7 +85,22 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             restaurantsNearAdapter.setRestaurants(it)
         }
         homeViewModel.nearRestaurantsState.observe(viewLifecycleOwner) {
-            // TODO capturar loading y mostrar/ocultar skeleton o mostrar un error
+            when (it) {
+                is RequestState.LOADING -> {
+                    shimmerNear.visibility = View.VISIBLE
+                    binding.homeNearRestaurants.visibility = View.GONE
+                    shimmerNear.startShimmerAnimation()
+                }
+                is RequestState.SUCCESS -> {
+                    shimmerNear.stopShimmerAnimation()
+                    shimmerNear.visibility = View.GONE
+                    binding.homeNearRestaurants.visibility = View.VISIBLE
+                }
+                is RequestState.FAILURE -> {
+                    shimmerNear.stopShimmerAnimation()
+                    getString(R.string.generic_error).showToast(requireContext())
+                }
+            }
         }
 
         // FIXME deshardcodear
