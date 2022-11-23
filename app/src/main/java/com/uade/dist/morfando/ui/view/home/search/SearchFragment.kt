@@ -84,18 +84,24 @@ class SearchFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         bindList(binding.searchRestaurants, restaurantsAdapter)
         searchViewModel.searchRestaurants.observe(viewLifecycleOwner) {
             restaurantsAdapter.setRestaurants(it)
+            if (it.isEmpty()) {
+                binding.empty.visibility = View.VISIBLE
+            }
         }
 
         searchViewModel.requestState.observe(viewLifecycleOwner) {
             when (it) {
                 is RequestState.LOADING -> {
-                    // TODO mostrar skeleton
+                    binding.loading.visibility = View.VISIBLE
+                    binding.searchRestaurants.visibility = View.GONE
                 }
                 is RequestState.SUCCESS -> {
-                    // TODO ocultar skeleton
+                    binding.loading.visibility = View.GONE
+                    binding.searchRestaurants.visibility = View.VISIBLE
                 }
                 is RequestState.FAILURE -> {
-                    // TODO ocultar skeleton
+                    binding.loading.visibility = View.GONE
+                    binding.searchRestaurants.visibility = View.GONE
                     getString(R.string.generic_error).showToast(requireContext())
                 }
             }

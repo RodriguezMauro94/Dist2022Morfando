@@ -149,6 +149,8 @@
     <string name="updated_restaurant_status">Estado actualizado correctamente</string>
     <string name="deleted_restaurant_status">Restaurant eliminado correctamente</string>
     <string name="close_session">Cerrar sesión</string>
+    <string name="no_favs">No tenés favoritos!</string>
+    <string name="no_restaurants">No se encontraron restaurants</string>
 
     <string-array name="open_hours_array">
         <item>Apertura</item>

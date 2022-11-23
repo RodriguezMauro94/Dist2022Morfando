@@ -35,13 +35,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/search_text"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_restaurants"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/base_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_text"/>
+        app:layout_constraintTop_toBottomOf="@id/search_text">
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_restaurants"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:textSize="25sp"
+            style="@style/MorfandoTextInputEditText" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_restaurants"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/base_margin" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

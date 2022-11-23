@@ -63,7 +63,7 @@ class FavouritesFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
                     binding.favouritesRestaurants.visibility = View.VISIBLE
                 }
                 is RequestState.FAILURE -> {
-                    binding.loading.visibility = View.VISIBLE
+                    binding.loading.visibility = View.GONE
                     binding.favouritesRestaurants.visibility = View.GONE
                     getString(R.string.generic_error).showToast(requireContext())
                 }

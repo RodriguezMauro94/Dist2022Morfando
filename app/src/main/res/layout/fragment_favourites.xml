@@ -25,12 +25,11 @@
             android:id="@+id/empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No tenés favoritos!"
+            android:text="@string/no_favs"
             android:visibility="gone"
             android:layout_gravity="center"
             android:textSize="25sp"
-            style="@style/MorfandoTextInputEditText"
-            />
+            style="@style/MorfandoTextInputEditText" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favourites_restaurants"
