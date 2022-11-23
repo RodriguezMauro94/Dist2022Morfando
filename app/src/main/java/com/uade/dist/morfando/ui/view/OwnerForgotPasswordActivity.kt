@@ -48,6 +48,7 @@ class OwnerForgotPasswordActivity: AppCompatActivity() {
                 is RequestState.SUCCESS -> {
                     binding.emailValue.isEnabled = false
                     binding.otpCodeValue.isEnabled = true
+                    binding.textInputLayoutOtp.visibility = View.VISIBLE
                     binding.validate.visibility = View.VISIBLE
                     binding.forgotPassword.visibility = View.GONE
                     getString(R.string.insert_otp_code).showToast(this)
@@ -55,6 +56,7 @@ class OwnerForgotPasswordActivity: AppCompatActivity() {
                 is RequestState.FAILURE -> {
                     binding.emailValue.isEnabled = true
                     binding.otpCodeValue.isEnabled = false
+                    binding.textInputLayoutOtp.visibility = View.GONE
                     binding.validate.visibility = View.GONE
                     binding.forgotPassword.visibility = View.VISIBLE
                     getString(R.string.generic_error).showToast(this)

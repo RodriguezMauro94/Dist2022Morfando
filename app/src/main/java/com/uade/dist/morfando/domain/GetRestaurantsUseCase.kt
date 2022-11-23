@@ -33,4 +33,10 @@ class GetRestaurantsUseCase(auth: String) {
             api.getFavourites()
         }
     }
+
+    suspend fun getMyRestaurants(): Result<List<RestaurantModel>> {
+        return withContext(Dispatchers.IO) {
+            api.getMyRestaurants()
+        }
+    }
 }

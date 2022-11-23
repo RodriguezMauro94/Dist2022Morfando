@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.*
+import com.uade.dist.morfando.data.local.SHARED_IS_OWNER
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RestaurantModel
@@ -29,6 +30,7 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var restaurantsNearAdapter: RestaurantsAdapter
+    private lateinit var myRestaurantsAdapter: RestaurantsAdapter
     private lateinit var restaurantsCheapAdapter: RestaurantsAdapter
     private lateinit var restaurantsTrendingAdapter: RestaurantsAdapter
 
@@ -50,6 +52,7 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
 
         val sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE)
         val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+        val isOwner = sharedPreferences.getBoolean(SHARED_IS_OWNER, false)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -70,11 +73,34 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             )
         }
 
-        val restaurants = listOf(
-            RestaurantModel("test1", "Sushi Tushi", "japonesa", 2, 3.toLong(), "Palermo", "https://i.imgur.com/GB7lTPH.jpeg", status = "Abierto"),
-            RestaurantModel("test2", "Burger Tushi", "americana", 3, 1.toLong(), "Recoleta", "https://i.imgur.com/OK1u0FO.jpeg", status = "Abierto"),
-            RestaurantModel("test3", "La parrilla del Tano", "asado", 4, 4.toLong(), "Avellaneda", "https://i.imgur.com/I0jGVwt.jpeg", status = "Abierto")
-        )
+        if (isOwner) {
+            binding.homeMyRestaurants.visibility = View.VISIBLE
+            binding.homeMyRestaurantsGroup.visibility = View.VISIBLE
+
+            myRestaurantsAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
+            bindList(binding.homeMyRestaurants, myRestaurantsAdapter)
+            homeViewModel.getMyRestaurants(token)
+            homeViewModel.myRestaurants.observe(viewLifecycleOwner) {
+                myRestaurantsAdapter.setRestaurants(it)
+            }
+            homeViewModel.myRestaurantsState.observe(viewLifecycleOwner) {
+                when (it) {
+                    is RequestState.LOADING -> {
+                        binding.loadingMyRestaurants.visibility = View.VISIBLE
+                        binding.homeMyRestaurants.visibility = View.GONE
+                    }
+                    is RequestState.SUCCESS -> {
+                        binding.loadingMyRestaurants.visibility = View.GONE
+                        binding.homeMyRestaurants.visibility = View.VISIBLE
+                    }
+                    is RequestState.FAILURE -> {
+                        binding.loadingMyRestaurants.visibility = View.GONE
+                        binding.homeMyRestaurants.visibility = View.GONE
+                        getString(R.string.generic_error).showToast(requireContext())
+                    }
+                }
+            }
+        }
 
         restaurantsNearAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
         bindList(binding.homeNearRestaurants, restaurantsNearAdapter)
@@ -100,15 +126,53 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             }
         }
 
-        // FIXME deshardcodear
         restaurantsCheapAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
         bindList(binding.homeCheapRestaurants, restaurantsCheapAdapter)
-        restaurantsCheapAdapter.setRestaurants(restaurants)
+        homeViewModel.getCheapRestaurants(token)
+        homeViewModel.cheapRestaurants.observe(viewLifecycleOwner) {
+            restaurantsCheapAdapter.setRestaurants(it)
+        }
+        homeViewModel.cheapRestaurantsState.observe(viewLifecycleOwner) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    binding.loadingCheap.visibility = View.VISIBLE
+                    binding.homeCheapRestaurants.visibility = View.GONE
+                }
+                is RequestState.SUCCESS -> {
+                    binding.loadingCheap.visibility = View.GONE
+                    binding.homeCheapRestaurants.visibility = View.VISIBLE
+                }
+                is RequestState.FAILURE -> {
+                    binding.loadingCheap.visibility = View.GONE
+                    binding.homeCheapRestaurants.visibility = View.GONE
+                    getString(R.string.generic_error).showToast(requireContext())
+                }
+            }
+        }
 
-        // FIXME deshardcodear
         restaurantsTrendingAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
         bindList(binding.homeTrendingRestaurants, restaurantsTrendingAdapter)
-        restaurantsTrendingAdapter.setRestaurants(restaurants)
+        homeViewModel.getTrendingRestaurants(token)
+        homeViewModel.trendingRestaurants.observe(viewLifecycleOwner) {
+            restaurantsTrendingAdapter.setRestaurants(it)
+        }
+        homeViewModel.trendingRestaurantsState.observe(viewLifecycleOwner) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    binding.loadingTrending.visibility = View.VISIBLE
+                    binding.homeTrendingRestaurants.visibility = View.GONE
+                }
+                is RequestState.SUCCESS -> {
+                    binding.loadingTrending.visibility = View.GONE
+                    binding.homeTrendingRestaurants.visibility = View.VISIBLE
+                }
+                is RequestState.FAILURE -> {
+                    binding.loadingTrending.visibility = View.GONE
+                    binding.homeTrendingRestaurants.visibility = View.GONE
+                    getString(R.string.generic_error).showToast(requireContext())
+                }
+            }
+        }
 
         return root
     }
