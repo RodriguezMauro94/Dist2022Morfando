@@ -14,8 +14,8 @@ data class RestaurantDetailsModel(
     @SerializedName("images") val images: List<String>?,
     @SerializedName("favourite") val isFavourite: Boolean,
     @SerializedName("street") val streetValue: String,
-    @SerializedName("streetNumber") val streetNumberValue: String,
-    @SerializedName("state") val stateValue: String,
+    @SerializedName("number") val streetNumberValue: String,
+    @SerializedName("province") val stateValue: String,
     @SerializedName("town") val townValue: String,
     @SerializedName("country") val countryValue: String
 ): Serializable

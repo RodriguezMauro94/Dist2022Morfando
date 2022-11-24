@@ -8,7 +8,7 @@ data class RestaurantModel(
     @SerializedName("name") val name: String,
     @SerializedName("cookingType") val cookingType: String,
     @SerializedName("priceRange") val priceRange: Int,
-    @SerializedName("rating") val rating: Long,
+    @SerializedName("ranking") val rating: Long,
     @SerializedName("neighborhood") val neighborhood: String,
     @SerializedName("image") val image: String,
     @SerializedName("latitude") val latitude: Double = 0.0,
