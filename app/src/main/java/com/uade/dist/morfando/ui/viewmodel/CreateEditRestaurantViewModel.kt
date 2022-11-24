@@ -30,7 +30,10 @@ class CreateEditRestaurantViewModel: ViewModel() {
             detailsRequestState.value = RequestState.LOADING
             restaurantUseCase.getRestaurantDetail(code)
                 .onSuccess {
-                    restaurantDetails.postValue(it)
+                    val restaurant = it.find { results ->
+                        results.code == code
+                    }
+                    restaurantDetails.postValue(restaurant)
                     detailsRequestState.value = RequestState.SUCCESS
                 }
                 .onFailure {

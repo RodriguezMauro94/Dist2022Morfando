@@ -7,6 +7,7 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 
 data class RestaurantDetailsModel(
+    @SerializedName("code") val code: String,
     @SerializedName("openHours") val openHours: OpenHoursModel,
     @SerializedName("aboutUs") val aboutUs: String,
     @SerializedName("ratings") val ratings: List<RatingModel>?,

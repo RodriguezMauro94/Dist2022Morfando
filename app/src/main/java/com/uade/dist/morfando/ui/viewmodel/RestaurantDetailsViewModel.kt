@@ -24,8 +24,11 @@ class RestaurantDetailsViewModel: ViewModel() {
             requestState.value = RequestState.LOADING
             getRestaurantsUseCase.getRestaurantDetail(code)
                 .onSuccess {
-                    restaurantDetails.value = it
-                    it.ratings?.apply {
+                    val restaurant = it.find { results ->
+                        results.code == code
+                    }
+                    restaurantDetails.value = restaurant
+                    restaurant?.ratings?.apply {
                         ratingsList.postValue(this)
                     }
                     requestState.value = RequestState.SUCCESS
