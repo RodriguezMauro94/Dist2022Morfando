@@ -82,9 +82,7 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
             homeViewModel.getMyRestaurants(token)
             homeViewModel.myRestaurants.observe(viewLifecycleOwner) {
                 myRestaurantsAdapter.setRestaurants(it)
-                if (it.isEmpty()) {
-                    binding.emptyMyRestaurants.visibility = View.VISIBLE
-                }
+                binding.emptyMyRestaurants.visibility =  if(it.isEmpty()) View.VISIBLE else View.GONE
             }
             homeViewModel.myRestaurantsState.observe(viewLifecycleOwner) {
                 when (it) {
