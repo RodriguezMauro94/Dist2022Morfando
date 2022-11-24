@@ -9,6 +9,6 @@ data class RatingModel(
     @SerializedName("comment") val title: String,
     @SerializedName("userCode") val userCode: String? = null,
     @SerializedName("description") val description: String,
-    @SerializedName("username") val userName: String? = null,
+    @SerializedName("userName") val userName: String? = null,
     @SerializedName("image") val userImage: String? = null
 ): Serializable

@@ -27,8 +27,9 @@ class RatingsAdapter: RecyclerView.Adapter<RatingsAdapter.RatingsViewHolder>() {
             holder.ratingDescription.text = description
             holder.rating.rating = rating.toFloat()
             holder.ratingValue.text = rating.toString()
+            val image = if (userImage == null || userImage.isEmpty()) null else userImage
             Picasso.get()
-                .load(userImage)
+                .load(image)
                 .placeholder(R.drawable.logo_morfando)
                 .into(holder.ratingImage)
         }

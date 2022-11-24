@@ -65,6 +65,7 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         completeData(restaurant)
 
         restaurantDetailsViewModel.getDetails(restaurant.code)
+        restaurantDetailsViewModel.getReviews(restaurant.code)
 
         restaurantDetailsViewModel.requestState.observe(this) {
             when (it) {

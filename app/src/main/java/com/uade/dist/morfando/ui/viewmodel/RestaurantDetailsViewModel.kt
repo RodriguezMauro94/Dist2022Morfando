@@ -51,4 +51,18 @@ class RestaurantDetailsViewModel: ViewModel() {
             }
         }
     }
+
+    fun getReviews(code: String) {
+        val getRestaurantsUseCase = GetRestaurantsUseCase(token)
+        viewModelScope.launch {
+            requestState.value = RequestState.LOADING
+            getRestaurantsUseCase.getReviews(code)
+                .onSuccess {
+                    ratingsList.postValue(it)
+                }
+                .onFailure {
+                    ratingsList.postValue(listOf())
+                }
+        }
+    }
 }
