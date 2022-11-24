@@ -29,7 +29,7 @@ class RatingActivity: AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val restaurant = intent.extras?.getSerializable("restaurant") as RestaurantModel
-        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
         val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
 
         ratingViewModel.getPersonalData(token)
