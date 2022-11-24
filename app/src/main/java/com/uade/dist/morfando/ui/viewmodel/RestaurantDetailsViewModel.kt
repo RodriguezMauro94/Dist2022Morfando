@@ -41,7 +41,11 @@ class RestaurantDetailsViewModel: ViewModel() {
             val useCase = UserPersonalDataUseCase(token)
             viewModelScope.launch {
                 favouritesRequestState.value = RequestState.LOADING
-                useCase.updateFavourites(favourites)
+                val favs = favourites.toMutableList()
+                if (favs.isEmpty()) {
+                    favs.add("")
+                }
+                useCase.updateFavourites(FavoritesUpdateModel(favs))
                     .onSuccess {
                         favouritesRequestState.value = RequestState.SUCCESS
                     }

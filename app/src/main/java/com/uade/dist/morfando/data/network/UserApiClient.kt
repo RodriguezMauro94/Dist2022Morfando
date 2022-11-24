@@ -1,5 +1,6 @@
 package com.uade.dist.morfando.data.network
 
+import com.uade.dist.morfando.data.model.FavoritesUpdateModel
 import com.uade.dist.morfando.data.model.PersonalDataModel
 import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.data.model.UserModel
@@ -19,7 +20,7 @@ interface UserApiClient {
     suspend fun updatePersonalData(@Body personalDataModel: PersonalDataModel): Result<PersonalDataModel>
 
     @PATCH("users")
-    suspend fun updateFavourites(@Query("favourites") favourites: Set<String>): Result<SessionModel>
+    suspend fun updateFavourites(@Body favourites: FavoritesUpdateModel): Result<SessionModel>
 
     @PATCH("users/password")
     suspend fun changePassword(@Body newPassword: String): Result<SessionModel>

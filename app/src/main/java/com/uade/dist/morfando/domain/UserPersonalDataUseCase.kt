@@ -1,6 +1,7 @@
 package com.uade.dist.morfando.domain
 
 import com.uade.dist.morfando.core.RetrofitHelper
+import com.uade.dist.morfando.data.model.FavoritesUpdateModel
 import com.uade.dist.morfando.data.model.PersonalDataModel
 import com.uade.dist.morfando.data.model.SessionModel
 import com.uade.dist.morfando.data.network.UserApiClient
@@ -25,7 +26,7 @@ class UserPersonalDataUseCase(auth: String) {
         }
     }
 
-    suspend fun updateFavourites(favourites: Set<String>): Result<SessionModel> {
+    suspend fun updateFavourites(favourites: FavoritesUpdateModel): Result<SessionModel> {
         return withContext(Dispatchers.IO) {
             val response = api.updateFavourites(favourites)
             response
