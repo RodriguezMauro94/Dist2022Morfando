@@ -10,13 +10,13 @@ class SaveMenuUseCase(auth: String, restaurantCode: String) {
     private val retrofit = RetrofitHelper.getRetrofit(auth, restaurantCode)
     private val api = retrofit.create(RestaurantApiClient::class.java)
 
-    suspend fun updateMenu(menu: MenuModel): Result<MenuModel> {
+    suspend fun updateMenu(menu: MenuModel): Result<List<MenuModel>> {
         return withContext(Dispatchers.IO) {
             api.updateMenu(menu)
         }
     }
 
-    suspend fun saveMenu(menu: MenuModel): Result<MenuModel> {
+    suspend fun saveMenu(menu: MenuModel): Result<List<MenuModel>> {
         return withContext(Dispatchers.IO) {
             api.saveMenu(menu)
         }

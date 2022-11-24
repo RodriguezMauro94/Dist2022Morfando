@@ -26,10 +26,10 @@ interface RestaurantApiClient {
     suspend fun getMenu(@Query("restaurant-code") code: String): Result<MenuModel>
 
     @PATCH("menu")
-    suspend fun updateMenu(@Body menu: MenuModel): Result<MenuModel>
+    suspend fun updateMenu(@Body menu: MenuModel): Result<List<MenuModel>>
 
     @POST("menu")
-    suspend fun saveMenu(@Body menu: MenuModel): Result<MenuModel>
+    suspend fun saveMenu(@Body menu: MenuModel): Result<List<MenuModel>>
 
     @POST("restaurant")
     suspend fun createRestaurant(@Body restaurant: CreateRestaurantModel): Result<RestaurantModel>
