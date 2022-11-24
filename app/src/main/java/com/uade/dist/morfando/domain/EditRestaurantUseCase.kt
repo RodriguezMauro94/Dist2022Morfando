@@ -26,7 +26,7 @@ class EditRestaurantUseCase {
     }
 
     suspend fun updateStatus(auth: String, code: String, status: String): Result<RestaurantModel> {
-        val retrofit = RetrofitHelper.getRetrofit(auth)
+        val retrofit = RetrofitHelper.getRetrofit(auth, code)
         val api = retrofit.create(RestaurantApiClient::class.java)
         return withContext(Dispatchers.IO) {
             api.updateStatus(code, status)

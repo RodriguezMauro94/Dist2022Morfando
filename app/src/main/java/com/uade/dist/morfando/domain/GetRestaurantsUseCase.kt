@@ -6,7 +6,7 @@ import com.uade.dist.morfando.data.network.RestaurantApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class GetRestaurantsUseCase(auth: String) {
+class GetRestaurantsUseCase(private val auth: String) {
     private val retrofit = RetrofitHelper.getRetrofit(auth)
     private val api = retrofit.create(RestaurantApiClient::class.java)
 
@@ -17,12 +17,16 @@ class GetRestaurantsUseCase(auth: String) {
     }
 
     suspend fun getRestaurantDetail(code: String): Result<RestaurantDetailsModel> {
+        val retrofit = RetrofitHelper.getRetrofit(auth, code)
+        val api = retrofit.create(RestaurantApiClient::class.java)
         return withContext(Dispatchers.IO) {
             api.getRestaurantDetails(code)
         }
     }
 
     suspend fun getMenu(code: String): Result<MenuModel> {
+        val retrofit = RetrofitHelper.getRetrofit(auth, code)
+        val api = retrofit.create(RestaurantApiClient::class.java)
         return withContext(Dispatchers.IO) {
             api.getMenu(code)
         }

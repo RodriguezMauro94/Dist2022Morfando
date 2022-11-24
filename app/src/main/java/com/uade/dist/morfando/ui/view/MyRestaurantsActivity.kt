@@ -41,7 +41,7 @@ class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickLi
         }
 
         myRestaurantsAdapter = RestaurantsAdapter(this, RestaurantViewMode.MINIFIED)
-        val horizontalLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val horizontalLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.myRestaurantsList.layoutManager = horizontalLayoutManager
         binding.myRestaurantsList.adapter = myRestaurantsAdapter
         myRestaurantsViewModel.getMyRestaurants(token)

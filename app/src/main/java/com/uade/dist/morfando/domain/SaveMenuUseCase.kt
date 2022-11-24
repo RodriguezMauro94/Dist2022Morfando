@@ -2,7 +2,6 @@ package com.uade.dist.morfando.domain
 
 import com.uade.dist.morfando.core.RetrofitHelper
 import com.uade.dist.morfando.data.model.MenuModel
-import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.data.network.RestaurantApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
