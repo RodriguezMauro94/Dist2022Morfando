@@ -42,7 +42,6 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         if (restaurant != null) {
             binding.delete.visibility = View.VISIBLE
             updateStatusButtons(restaurant)
-            fillRestaurantInfo(restaurant)
         }
 
         val priceRangeAdapter =
@@ -77,6 +76,10 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
             })
         categoriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.cookingTypeSpinner.adapter = categoriesAdapter
+
+        if (restaurant != null) {
+            fillRestaurantInfo(restaurant)
+        }
 
         bindIsOpen(binding.mondayIsOpen, binding.mondayOpenHourSpinner, binding.mondayCloseHourSpinner)
         bindIsOpen(binding.tuesdayIsOpen, binding.tuesdayOpenHourSpinner, binding.tuesdayCloseHourSpinner)
@@ -226,7 +229,8 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     getString(R.string.loading).showToast(this)
                 }
                 is RequestState.SUCCESS -> {
-                    // TODO devolver restaurant as result
+                    getString(R.string.edited_restaurant_status).showToast(this)
+                    finish()
                 }
                 is RequestState.FAILURE -> {
                     getString(R.string.generic_error).showToast(this)
@@ -271,8 +275,9 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         binding.loading.visibility = View.GONE
         binding.editMain.visibility = View.VISIBLE
         binding.nameValue.setText(restaurant.name)
+        binding.aboutUsValue.setText(restaurant.aboutUs)
         binding.streetValue.setText(restaurant.streetValue)
-        binding.streetNumberValue.setText(restaurant.streetNumberValue)
+        binding.streetNumberValue.setText(restaurant.streetNumberValue.toString())
         binding.neighborhoodValue.setText(restaurant.neighborhood)
         binding.townValue.setText(restaurant.townValue)
 
@@ -307,11 +312,14 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
     }
 
     private fun showOpenHour(openHoursModel: OpenHoursDayModel, isOpen: CheckBox, openHourSpinner: Spinner, closeHourSpinner: Spinner) {
+        val open = resources.getStringArray(R.array.open_hours_array)
+        val closed = resources.getStringArray(R.array.close_hours_array)
+
         openHoursModel.openHours?.let {
-            openHourSpinner.setSelection(resources.getStringArray(R.array.open_hours_array).indexOf(it))
+            openHourSpinner.setSelection(open.indexOf(it))
         }
         openHoursModel.closeHours?.let {
-            closeHourSpinner.setSelection(resources.getStringArray(R.array.close_hours_array).indexOf(it))
+            closeHourSpinner.setSelection(closed.indexOf(it))
         }
 
         isOpen.isChecked = openHoursModel.isOpen

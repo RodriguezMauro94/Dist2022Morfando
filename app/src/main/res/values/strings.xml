@@ -163,6 +163,7 @@
     <string name="otp_success">La nueva contraseña fue enviada a tu correo electrónico</string>
     <string name="owner_no_restaurants">Todavía no tenés restaurantes cargados</string>
     <string name="about_us">Sobre nosotros</string>
+    <string name="edited_restaurant_status">Restaurant modificado satisfactoriamente</string>
 
     <string-array name="open_hours_array">
         <item>Apertura</item>
