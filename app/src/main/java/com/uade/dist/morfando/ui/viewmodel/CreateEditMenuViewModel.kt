@@ -25,8 +25,8 @@ class CreateEditMenuViewModel: ViewModel() {
             getMenuRequestState.value = RequestState.LOADING
             getRestaurantsUseCase.getMenu(code)
                 .onSuccess {
-                    menuViewList.postValue(it.menu.toViewList())
-                    menuLogicList.postValue(it.menu)
+                    menuViewList.postValue(it[0].menu.toViewList())
+                    menuLogicList.postValue(it[0].menu)
                     getMenuRequestState.value = RequestState.SUCCESS
                 }
                 .onFailure {

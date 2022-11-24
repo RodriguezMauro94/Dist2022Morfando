@@ -21,7 +21,7 @@ class MenuViewModel: ViewModel() {
             requestState.value = RequestState.LOADING
             getRestaurantsUseCase.getMenu(code)
                 .onSuccess {
-                    menuList.postValue(it.menu.toViewList())
+                    menuList.postValue(it[0].menu.toViewList())
                     requestState.value = RequestState.SUCCESS
                 }
                 .onFailure {

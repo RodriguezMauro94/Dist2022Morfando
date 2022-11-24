@@ -7,7 +7,7 @@ data class CreateRestaurantModel(
     @SerializedName("code") var code: String? = null,
     @SerializedName("name") val name: String,
     @SerializedName("street") val street: String,
-    @SerializedName("number") val streetNumber: String,
+    @SerializedName("number") val streetNumber: Int,
     @SerializedName("province") val state: String,
     @SerializedName("neighborhood") val neighborhood: String,
     @SerializedName("town") val town: String,

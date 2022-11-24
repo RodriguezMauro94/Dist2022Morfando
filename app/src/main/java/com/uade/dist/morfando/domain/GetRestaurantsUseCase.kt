@@ -16,7 +16,7 @@ class GetRestaurantsUseCase(private val auth: String) {
         }
     }
 
-    suspend fun getMenu(code: String): Result<MenuModel> {
+    suspend fun getMenu(code: String): Result<List<MenuModel>> {
         val retrofit = RetrofitHelper.getRetrofit(auth, code)
         val api = retrofit.create(RestaurantApiClient::class.java)
         return withContext(Dispatchers.IO) {

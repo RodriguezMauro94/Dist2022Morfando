@@ -168,7 +168,7 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     null,
                     name,
                     street,
-                    streetNumber,
+                    streetNumber.toInt(),
                     state,
                     neighborhood,
                     town,

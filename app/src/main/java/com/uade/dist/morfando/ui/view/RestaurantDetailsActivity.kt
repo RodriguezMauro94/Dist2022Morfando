@@ -103,10 +103,13 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
             category.id == restaurant.cookingType
         }
 
-        Picasso.get()
-            .load(restaurant.image)
-            .placeholder(R.drawable.logo_morfando)
-            .into(binding.detailLanding)
+        restaurant.images?.get(0)?.apply {
+            Picasso.get()
+                .load(this)
+                .placeholder(R.drawable.logo_morfando)
+                .into(binding.detailLanding)
+        }
+
         binding.restaurantName.text = restaurant.name
         binding.restaurantRating.rating = restaurant.rating.toFloat()
         binding.restaurantRatingValue.text = restaurant.rating.toString()

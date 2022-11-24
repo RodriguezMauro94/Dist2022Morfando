@@ -55,10 +55,12 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.RestaurantsV
                 holder.restaurantRating.rating = rating.toFloat()
                 holder.restaurantRatingValue.text = rating.toString()
                 holder.restaurantNeighborhood.text = neighborhood
-                Picasso.get()
-                    .load(image)
-                    .placeholder(R.drawable.logo_morfando)
-                    .into(holder.restaurantImage)
+                images?.get(0)?.apply {
+                    Picasso.get()
+                        .load(this)
+                        .placeholder(R.drawable.logo_morfando)
+                        .into(holder.restaurantImage)
+                }
             }
         }
     }
