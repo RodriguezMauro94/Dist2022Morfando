@@ -29,6 +29,10 @@ class RatingActivity: AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val restaurant = intent.extras?.getSerializable("restaurant") as RestaurantModel
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE)
+        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+
+        ratingViewModel.getPersonalData(token)
 
         binding.ratingPublish.setOnClickListener {
             val title: String = binding.editTextTitle.text.toString()
@@ -41,14 +45,18 @@ class RatingActivity: AppCompatActivity() {
             if (rating == 0.0.toFloat() || title.isEmpty() || description.isEmpty()) {
                 getString(R.string.error_complete_fields).showToast(this)
             } else {
+                val personalData = ratingViewModel.personalData
                 ratingViewModel.publish(
                     token,
                     RatingModel(
                         restaurant.code,
                         rating.toLong(),
                         title,
-                        description = description
-                    ) // FIXME enviar imagen del user (se usa para callback no para el back)
+                        token,
+                        description,
+                        personalData?.name,
+                        personalData?.image,
+                    )
                 )
             }
         }

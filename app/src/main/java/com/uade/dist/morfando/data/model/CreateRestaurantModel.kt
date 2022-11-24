@@ -6,6 +6,7 @@ import java.io.Serializable
 data class CreateRestaurantModel(
     @SerializedName("code") var code: String? = null,
     @SerializedName("name") val name: String,
+    @SerializedName("aboutUs") val aboutUs: String,
     @SerializedName("street") val street: String,
     @SerializedName("number") val streetNumber: Int,
     @SerializedName("province") val state: String,

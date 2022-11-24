@@ -117,6 +117,7 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
 
         binding.save.setOnClickListener {
             val name: String = binding.nameValue.text.toString()
+            val aboutUs: String = binding.aboutUsValue.text.toString()
             val street = binding.streetValue.text.toString()
             val streetNumber = binding.streetNumberValue.text.toString()
             val state = binding.restaurantState.selectedItem as String
@@ -137,6 +138,7 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
 
             if (
                 name.isNotEmpty() &&
+                aboutUs.isNotEmpty() &&
                 street.isNotEmpty() &&
                 streetNumber.isNotEmpty() &&
                 state.isNotEmpty() &&
@@ -167,6 +169,7 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                 val createRestaurantModel = CreateRestaurantModel(
                     null,
                     name,
+                    aboutUs,
                     street,
                     streetNumber.toInt(),
                     state,
