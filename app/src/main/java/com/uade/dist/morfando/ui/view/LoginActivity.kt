@@ -6,10 +6,13 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.core.RequestState
+import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.data.local.SHARED_IS_OWNER
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.model.SessionModel
@@ -33,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            // TODO .requestIdToken(getString(R.string.server_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
@@ -44,6 +46,20 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginOwner.setOnClickListener {
             ownerLogin()
+        }
+
+        loginViewModel.requestState.observe(this) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    getString(R.string.loading).showToast(this)
+                }
+                is RequestState.SUCCESS -> {
+                    loginSuccess(loginViewModel.id, false)
+                }
+                is RequestState.FAILURE -> {
+                    getString(R.string.generic_error).showToast(this)
+                }
+            }
         }
     }
 
@@ -68,8 +84,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     val result = task.getResult(ApiException::class.java)
                     result?.apply {
-                        // FIXME loginSuccess(this.id!!)
-                        loginSuccess("1234")
+                        googleLoginSuccess(this)
                     }
                 }
             } catch (e: Exception) {
@@ -81,6 +96,10 @@ class LoginActivity : AppCompatActivity() {
                 loginSuccess(result.session, true)
             }
         }
+    }
+
+    private fun googleLoginSuccess(googleSignInAccount: GoogleSignInAccount) {
+        loginViewModel.googleLoginSuccess(googleSignInAccount)
     }
 
     private fun loginSuccess(id: String, isOwner: Boolean = false) {
