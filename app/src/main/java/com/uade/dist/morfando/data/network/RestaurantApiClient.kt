@@ -19,7 +19,7 @@ interface RestaurantApiClient {
     @GET("users/favorites")
     suspend fun getFavourites(): Result<List<RestaurantModel>>
 
-    @GET("plates")
+    @GET("menu")
     suspend fun getMenu(@Query("restaurant-code") code: String): Result<MenuModel>
 
     @PATCH("menu")
