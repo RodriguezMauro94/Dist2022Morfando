@@ -23,6 +23,7 @@ class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickLi
     private lateinit var binding: ActivityMyRestaurantsBinding
     private lateinit var myRestaurantsAdapter: RestaurantsAdapter
     private val myRestaurantsViewModel: MyRestaurantsViewModel by viewModels()
+    var token = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Morfando)
@@ -34,7 +35,7 @@ class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickLi
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
-        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+        token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
 
         binding.addRestaurant.setOnClickListener {
             startActivityForResult(Intent(this, CreateEditRestaurantActivity::class.java), ADD_RESTAURANT_REQUEST_CODE)
@@ -44,7 +45,6 @@ class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickLi
         val horizontalLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.myRestaurantsList.layoutManager = horizontalLayoutManager
         binding.myRestaurantsList.adapter = myRestaurantsAdapter
-        myRestaurantsViewModel.getMyRestaurants(token)
         myRestaurantsViewModel.myRestaurants.observe(this) {
             myRestaurantsAdapter.setRestaurants(it)
             if (it.isEmpty()) {
@@ -69,6 +69,11 @@ class MyRestaurantsActivity: AppCompatActivity(), RestaurantsAdapter.ItemClickLi
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        myRestaurantsViewModel.getMyRestaurants(token)
     }
 
     override fun onItemClick(restaurant: RestaurantModel) {
