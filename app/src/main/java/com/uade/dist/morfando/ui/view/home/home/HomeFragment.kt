@@ -33,14 +33,15 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
     private lateinit var myRestaurantsAdapter: RestaurantsAdapter
     private lateinit var restaurantsCheapAdapter: RestaurantsAdapter
     private lateinit var restaurantsTrendingAdapter: RestaurantsAdapter
+    private lateinit var homeViewModel: HomeViewModel
+    var token = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         setUpActionBar()
         setUpMenu()
@@ -51,7 +52,7 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         }
 
         val sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE)
-        val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
+        token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
         val isOwner = sharedPreferences.getBoolean(SHARED_IS_OWNER, false)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -79,7 +80,6 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
 
             myRestaurantsAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
             bindList(binding.homeMyRestaurants, myRestaurantsAdapter)
-            homeViewModel.getMyRestaurants(token)
             homeViewModel.myRestaurants.observe(viewLifecycleOwner) {
                 myRestaurantsAdapter.setRestaurants(it)
                 binding.emptyMyRestaurants.visibility =  if(it.isEmpty()) View.VISIBLE else View.GONE
@@ -105,7 +105,6 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
 
         restaurantsNearAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
         bindList(binding.homeNearRestaurants, restaurantsNearAdapter)
-        homeViewModel.getNearRestaurants(token)
         homeViewModel.nearRestaurants.observe(viewLifecycleOwner) {
             restaurantsNearAdapter.setRestaurants(it)
         }
@@ -129,7 +128,6 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
 
         restaurantsCheapAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
         bindList(binding.homeCheapRestaurants, restaurantsCheapAdapter)
-        homeViewModel.getCheapRestaurants(token)
         homeViewModel.cheapRestaurants.observe(viewLifecycleOwner) {
             restaurantsCheapAdapter.setRestaurants(it)
         }
@@ -153,7 +151,6 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
 
         restaurantsTrendingAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)
         bindList(binding.homeTrendingRestaurants, restaurantsTrendingAdapter)
-        homeViewModel.getTrendingRestaurants(token)
         homeViewModel.trendingRestaurants.observe(viewLifecycleOwner) {
             restaurantsTrendingAdapter.setRestaurants(it)
         }
@@ -176,6 +173,14 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         }
 
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.getMyRestaurants(token)
+        homeViewModel.getNearRestaurants(token)
+        homeViewModel.getCheapRestaurants(token)
+        homeViewModel.getTrendingRestaurants(token)
     }
 
     private fun setUpActionBar() {
