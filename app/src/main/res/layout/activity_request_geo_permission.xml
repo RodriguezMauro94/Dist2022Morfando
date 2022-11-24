@@ -42,15 +42,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/geo_landing" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/geo_not_now"
-        style="@style/MorfandoButtonTransparentBorderless"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/base_margin"
-        android:text="@string/geo_not_now"
-        app:layout_constraintTop_toBottomOf="@id/geo_request"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
