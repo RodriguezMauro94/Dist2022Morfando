@@ -108,6 +108,12 @@
     <string name="change_password">Cambiar contraseña</string>
     <string name="preferences">Preferencias</string>
     <string name="my_restaurants">Mis restaurantes</string>
+    <string name="feedback">Feedback</string>
+    <string name="contact">Contacto</string>
+    <string name="language">Idioma</string>
+    <string name="terms_conditions">Términos y condiciones</string>
+    <string name="policy">Policy</string>
+    <string name="preference">Preferencias</string>
     <string name="delete_account">Borrar cuenta</string>
     <string name="address">Dirección</string>
     <string name="street">Calle</string>
