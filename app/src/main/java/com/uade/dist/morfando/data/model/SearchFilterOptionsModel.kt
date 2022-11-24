@@ -11,4 +11,5 @@ data class SearchFilterOptionsModel(
     @SerializedName("distance") var distance: Int = 5,
     @SerializedName("latitude") var latitude: Double? = null,
     @SerializedName("longitude") var longitude: Double? = null,
+    @SerializedName("name") var name: String? = "",
 ): Serializable

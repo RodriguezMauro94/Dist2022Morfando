@@ -144,7 +144,6 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         binding.restaurantNeighborhood.text = restaurant.neighborhood
         binding.restaurantRating2.rating = restaurant.rating.toFloat()
         binding.restaurantRatingValue2.text = restaurant.rating.toString()
-        binding.openHoursTitle.text = getString(R.string.open_hours_title, restaurant.status)
         restaurant.ratings?.let {
             binding.restaurantRatingCount.text =getString(R.string.rating_count, it.size.toString())
             binding.restaurantRatingCount2.text =getString(R.string.rating_count, it.size.toString())
@@ -159,10 +158,13 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
             )
         }
 
-        binding.openHoursValue.text = if (restaurant.openHours.getToday().isOpen)
-                getString(R.string.open_hours_template, restaurant.openHours.getToday().openHours, restaurant.openHours.getToday().closeHours)
-            else
-                getString(R.string.open_hours_closed)
+        if (restaurant.openHours.getToday().isOpen) {
+            binding.openHoursValue.text = getString(R.string.open_hours_template, restaurant.openHours.getToday().openHours, restaurant.openHours.getToday().closeHours)
+            binding.openHoursTitle.text = getString(R.string.open_hours_title, "Abierto")
+        } else {
+            binding.openHoursValue.text = getString(R.string.open_hours_closed)
+            binding.openHoursTitle.text = getString(R.string.open_hours)
+        }
         binding.aboutUsDescription.text = restaurant.aboutUs
         binding.placesDescription.text = "${restaurant.streetValue} ${restaurant.streetNumberValue}, ${restaurant.neighborhood}, ${restaurant.townValue}, ${restaurant.stateValue}, ${restaurant.countryValue}"
     }

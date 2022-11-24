@@ -24,6 +24,7 @@ class SearchViewModel : ViewModel() {
         val getRestaurantsUseCase = GetRestaurantsUseCase(token)
         viewModelScope.launch {
             requestState.value = RequestState.LOADING
+            filteredOptions.value!!.name = searchText.value
             filteredOptions.value!!.latitude = latitude
             filteredOptions.value!!.longitude = longitude
 
