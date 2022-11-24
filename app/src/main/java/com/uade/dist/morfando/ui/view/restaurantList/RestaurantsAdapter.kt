@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso
 import com.uade.dist.morfando.R
 import com.uade.dist.morfando.core.toPriceRange
 import com.uade.dist.morfando.data.model.RestaurantModel
+import com.uade.dist.morfando.ui.view.home.categories.categories
 
 class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.RestaurantsViewHolderBase>() {
     private lateinit var clickListener: ItemClickListener
@@ -45,7 +46,11 @@ class RestaurantsAdapter(): RecyclerView.Adapter<RestaurantsAdapter.RestaurantsV
             holder.restaurantName.text = name
 
             if (holder is RestaurantsViewHolder) {
-                holder.restaurantType.text = cookingType
+                val category = categories.find { category ->
+                    category.id == cookingType
+                }
+
+                holder.restaurantType.setText(category!!.text)
                 holder.restaurantPrice.text = priceRange.toPriceRange()
                 holder.restaurantRating.rating = rating.toFloat()
                 holder.restaurantRatingValue.text = rating.toString()

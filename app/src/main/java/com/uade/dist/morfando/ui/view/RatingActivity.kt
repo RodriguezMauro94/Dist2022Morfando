@@ -47,7 +47,7 @@ class RatingActivity: AppCompatActivity() {
                         restaurant.code,
                         rating.toLong(),
                         title,
-                        description
+                        description = description
                     ) // FIXME enviar imagen del user (se usa para callback no para el back)
                 )
             }

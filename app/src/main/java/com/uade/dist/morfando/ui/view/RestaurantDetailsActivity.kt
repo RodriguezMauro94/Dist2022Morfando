@@ -28,6 +28,7 @@ import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RatingModel
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityRestaurantDetailsBinding
+import com.uade.dist.morfando.ui.view.home.categories.categories
 import com.uade.dist.morfando.ui.view.ratingsList.RatingsAdapter
 import com.uade.dist.morfando.ui.viewmodel.RestaurantDetailsViewModel
 
@@ -98,6 +99,10 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun completeData(restaurant: RestaurantModel) {
+        val category = categories.find { category ->
+            category.id == restaurant.cookingType
+        }
+
         Picasso.get()
             .load(restaurant.image)
             .placeholder(R.drawable.logo_morfando)
@@ -106,7 +111,7 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         binding.restaurantRating.rating = restaurant.rating.toFloat()
         binding.restaurantRatingValue.text = restaurant.rating.toString()
         binding.restaurantPrice.text = restaurant.priceRange.toPriceRange()
-        binding.restaurantType.text = restaurant.cookingType
+        binding.restaurantType.text = getString(category!!.text)
         binding.restaurantNeighborhood.text = restaurant.neighborhood
         binding.restaurantRating2.rating = restaurant.rating.toFloat()
         binding.restaurantRatingValue2.text = restaurant.rating.toString()
