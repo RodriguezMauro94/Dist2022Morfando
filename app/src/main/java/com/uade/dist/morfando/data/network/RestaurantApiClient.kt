@@ -26,10 +26,10 @@ interface RestaurantApiClient {
     suspend fun getMenu(@Query("restaurant-code") code: String): Result<MenuModel>
 
     @PATCH("menu")
-    suspend fun updateMenu(@Body saveMenu: SaveMenuModel): Result<RestaurantModel>
+    suspend fun updateMenu(@Body menu: MenuModel): Result<MenuModel>
 
     @POST("menu")
-    suspend fun saveMenu(@Body saveMenu: SaveMenuModel): Result<RestaurantModel>
+    suspend fun saveMenu(@Body menu: MenuModel): Result<MenuModel>
 
     @POST("restaurant")
     suspend fun createRestaurant(@Body restaurant: CreateRestaurantModel): Result<RestaurantModel>
@@ -38,7 +38,7 @@ interface RestaurantApiClient {
     suspend fun editRestaurant(@Body restaurant: CreateRestaurantModel): Result<RestaurantModel>
 
     @DELETE("restaurant")
-    suspend fun deleteRestaurant(@Query("restaurant-code") code: String): Result<SessionModel>
+    suspend fun deleteRestaurant(): Result<SessionModel>
 
     @PATCH("restaurant")
     suspend fun updateStatus(@Query("restaurant-code") code: String, @Query("status") status: String): Result<RestaurantModel>

@@ -4,13 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.core.RequestState
-import com.uade.dist.morfando.data.model.*
+import com.uade.dist.morfando.data.model.MenuItemModel
+import com.uade.dist.morfando.data.model.MenuModel
 import com.uade.dist.morfando.domain.GetRestaurantsUseCase
 import com.uade.dist.morfando.domain.SaveMenuUseCase
 import com.uade.dist.morfando.ui.view.menuList.MenuItemList
 import com.uade.dist.morfando.ui.view.menuList.toViewList
 import kotlinx.coroutines.launch
-import java.util.*
 
 class CreateEditMenuViewModel: ViewModel() {
     val getMenuRequestState = MutableLiveData<RequestState>(RequestState.START)
@@ -36,11 +36,11 @@ class CreateEditMenuViewModel: ViewModel() {
     }
 
     fun saveMenu(restaurantCode: String) {
-        val saveMenuUseCase = SaveMenuUseCase(token)
+        val saveMenuUseCase = SaveMenuUseCase(token, restaurantCode)
         menuLogicList.value?.let {
             viewModelScope.launch {
                 saveMenuRequestState.value = RequestState.LOADING
-                saveMenuUseCase.updateMenu(restaurantCode, MenuModel(it))
+                saveMenuUseCase.updateMenu(MenuModel(it))
                 .onSuccess {
                     saveMenuRequestState.value = RequestState.SUCCESS
                 }

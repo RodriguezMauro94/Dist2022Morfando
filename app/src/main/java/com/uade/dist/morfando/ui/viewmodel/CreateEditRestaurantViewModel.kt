@@ -40,13 +40,11 @@ class CreateEditRestaurantViewModel: ViewModel() {
     }
 
     fun createRestaurant(createRestaurantModel: CreateRestaurantModel) {
-        val saveMenuUseCase = SaveMenuUseCase(token)
-
         viewModelScope.launch {
             createRequestState.value = RequestState.LOADING
             createRestaurantUseCase.createRestaurant(token, createRestaurantModel)
                 .onSuccess {
-                    saveMenuUseCase.saveMenu(it.code, menu.value!!)
+                    SaveMenuUseCase(token, it.code).saveMenu(menu.value!!)
                         .onSuccess {
                             createRequestState.value = RequestState.SUCCESS
                         }

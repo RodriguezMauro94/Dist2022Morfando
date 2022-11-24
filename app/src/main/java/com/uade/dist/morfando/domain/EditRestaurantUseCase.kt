@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 
 class EditRestaurantUseCase {
     suspend fun editRestaurant(auth: String, restaurant: CreateRestaurantModel): Result<RestaurantModel> {
-        val retrofit = RetrofitHelper.getRetrofit(auth)
+        val retrofit = RetrofitHelper.getRetrofit(auth, restaurant.code)
         val api = retrofit.create(RestaurantApiClient::class.java)
         return withContext(Dispatchers.IO) {
             api.editRestaurant(restaurant)
@@ -18,10 +18,10 @@ class EditRestaurantUseCase {
     }
 
     suspend fun deleteRestaurant(auth: String, code: String): Result<SessionModel> {
-        val retrofit = RetrofitHelper.getRetrofit(auth)
+        val retrofit = RetrofitHelper.getRetrofit(auth, code)
         val api = retrofit.create(RestaurantApiClient::class.java)
         return withContext(Dispatchers.IO) {
-            api.deleteRestaurant(code)
+            api.deleteRestaurant()
         }
     }
 
