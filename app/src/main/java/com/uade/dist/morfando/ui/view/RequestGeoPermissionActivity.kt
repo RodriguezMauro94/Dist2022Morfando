@@ -39,7 +39,6 @@ class RequestGeoPermissionActivity: AppCompatActivity() {
                     checkGPS()
                 }
                 else -> {
-                    // FIXME hacer algo
                     Toast.makeText(this, "permiso denegado", Toast.LENGTH_LONG).show()
                 }
             }

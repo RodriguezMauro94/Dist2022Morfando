@@ -33,6 +33,7 @@ class MyProfileActivity: AppCompatActivity() {
         val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
         val isOwner = sharedPreferences.getBoolean(SHARED_IS_OWNER, false)
         binding.profileMyRestaurants.setVisibility(isOwner)
+        binding.profileChangePassword.setVisibility(isOwner)
 
         binding.profilePersonalData.setOnClickListener {
             startActivity(Intent(this, PersonalDataActivity::class.java))

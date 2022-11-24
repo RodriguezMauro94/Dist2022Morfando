@@ -214,7 +214,6 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     getString(R.string.loading).showToast(this)
                 }
                 is RequestState.SUCCESS -> {
-                    // TODO devolver restaurant as result
                     finish()
                 }
                 is RequestState.FAILURE -> {
