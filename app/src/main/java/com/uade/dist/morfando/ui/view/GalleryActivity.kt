@@ -3,7 +3,7 @@ package com.uade.dist.morfando.ui.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.uade.dist.morfando.R
-import com.uade.dist.morfando.data.model.RestaurantDetailsModel
+import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityGalleryBinding
 import com.uade.dist.morfando.ui.view.gallery.GalleryAdapter
 
@@ -19,9 +19,9 @@ class GalleryActivity: AppCompatActivity() {
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val details = intent.extras?.getSerializable("details") as RestaurantDetailsModel
+        val restaurant = intent.extras?.getSerializable("restaurant") as RestaurantModel
 
-        details.images?.let {
+        restaurant.images?.let {
             val adapter = GalleryAdapter(this)
             binding.galleryGrid.adapter = adapter
             adapter.images = it

@@ -40,10 +40,9 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
         val restaurant = intent.extras?.getSerializable("restaurant") as? RestaurantModel?
         createEditRestaurantViewModel.originalRestaurant.postValue(restaurant)
         if (restaurant != null) {
-            createEditRestaurantViewModel.getRestaurantDetails(restaurant.code)
             binding.delete.visibility = View.VISIBLE
-
             updateStatusButtons(restaurant)
+            fillRestaurantInfo(restaurant)
         }
 
         val priceRangeAdapter =
@@ -203,54 +202,6 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
             }
         }
 
-        createEditRestaurantViewModel.detailsRequestState.observe(this) {
-            when (it) {
-                is RequestState.LOADING -> {
-                    binding.loading.visibility = View.VISIBLE
-                    binding.editMain.visibility = View.GONE
-                }
-                is RequestState.SUCCESS -> {
-                    binding.loading.visibility = View.GONE
-                    binding.editMain.visibility = View.VISIBLE
-                    restaurant?.let { restaurant ->
-                        createEditRestaurantViewModel.restaurantDetails.value?.let { details ->
-                            binding.nameValue.setText(restaurant.name)
-                            binding.streetValue.setText(details.streetValue)
-                            binding.streetNumberValue.setText(details.streetNumberValue)
-                            binding.neighborhoodValue.setText(restaurant.neighborhood)
-                            binding.townValue.setText(details.townValue)
-
-                            showOpenHour(details.openHours.monday, binding.mondayIsOpen, binding.mondayOpenHourSpinner, binding.mondayCloseHourSpinner)
-                            showOpenHour(details.openHours.tuesday, binding.tuesdayIsOpen, binding.tuesdayOpenHourSpinner, binding.tuesdayCloseHourSpinner)
-                            showOpenHour(details.openHours.wednesday, binding.wednesdayIsOpen, binding.wednesdayOpenHourSpinner, binding.wednesdayCloseHourSpinner)
-                            showOpenHour(details.openHours.thursday, binding.thursdayIsOpen, binding.thursdayOpenHourSpinner, binding.thursdayCloseHourSpinner)
-                            showOpenHour(details.openHours.friday, binding.fridayIsOpen, binding.fridayOpenHourSpinner, binding.fridayCloseHourSpinner)
-                            showOpenHour(details.openHours.saturday, binding.saturdayIsOpen, binding.saturdayOpenHourSpinner, binding.saturdayCloseHourSpinner)
-                            showOpenHour(details.openHours.sunday, binding.sundayIsOpen, binding.sundayOpenHourSpinner, binding.sundayCloseHourSpinner)
-
-                            binding.restaurantState.setSelection(resources.getStringArray(R.array.states).indexOf(details.stateValue))
-                            binding.restaurantCountry.setSelection(resources.getStringArray(R.array.countries).indexOf(details.stateValue))
-
-                            binding.cookingTypeSpinner.setSelection(categories.indexOfFirst { category ->
-                                category.id == restaurant.cookingType
-                            })
-
-                            binding.priceRangeSpinner.setSelection(restaurant.priceRange - 1)
-
-                            details.images?.let { images ->
-                                photos.addAll(images)
-                            }
-                        }
-                    }
-                }
-                is RequestState.FAILURE -> {
-                    binding.loading.visibility = View.GONE
-                    binding.editMain.visibility = View.GONE
-                    getString(R.string.generic_error).showToast(this)
-                }
-            }
-        }
-
         createEditRestaurantViewModel.createRequestState.observe(this) {
             when (it) {
                 is RequestState.LOADING -> {
@@ -310,6 +261,37 @@ class CreateEditRestaurantActivity: AppCompatActivity() {
                     getString(R.string.generic_error).showToast(this)
                 }
             }
+        }
+    }
+
+    private fun fillRestaurantInfo(restaurant: RestaurantModel) {
+        binding.loading.visibility = View.GONE
+        binding.editMain.visibility = View.VISIBLE
+        binding.nameValue.setText(restaurant.name)
+        binding.streetValue.setText(restaurant.streetValue)
+        binding.streetNumberValue.setText(restaurant.streetNumberValue)
+        binding.neighborhoodValue.setText(restaurant.neighborhood)
+        binding.townValue.setText(restaurant.townValue)
+
+        showOpenHour(restaurant.openHours.monday, binding.mondayIsOpen, binding.mondayOpenHourSpinner, binding.mondayCloseHourSpinner)
+        showOpenHour(restaurant.openHours.tuesday, binding.tuesdayIsOpen, binding.tuesdayOpenHourSpinner, binding.tuesdayCloseHourSpinner)
+        showOpenHour(restaurant.openHours.wednesday, binding.wednesdayIsOpen, binding.wednesdayOpenHourSpinner, binding.wednesdayCloseHourSpinner)
+        showOpenHour(restaurant.openHours.thursday, binding.thursdayIsOpen, binding.thursdayOpenHourSpinner, binding.thursdayCloseHourSpinner)
+        showOpenHour(restaurant.openHours.friday, binding.fridayIsOpen, binding.fridayOpenHourSpinner, binding.fridayCloseHourSpinner)
+        showOpenHour(restaurant.openHours.saturday, binding.saturdayIsOpen, binding.saturdayOpenHourSpinner, binding.saturdayCloseHourSpinner)
+        showOpenHour(restaurant.openHours.sunday, binding.sundayIsOpen, binding.sundayOpenHourSpinner, binding.sundayCloseHourSpinner)
+
+        binding.restaurantState.setSelection(resources.getStringArray(R.array.states).indexOf(restaurant.stateValue))
+        binding.restaurantCountry.setSelection(resources.getStringArray(R.array.countries).indexOf(restaurant.stateValue))
+
+        binding.cookingTypeSpinner.setSelection(categories.indexOfFirst { category ->
+            category.id == restaurant.cookingType
+        })
+
+        binding.priceRangeSpinner.setSelection(restaurant.priceRange - 1)
+
+        restaurant.images?.let { images ->
+            photos.addAll(images)
         }
     }
 

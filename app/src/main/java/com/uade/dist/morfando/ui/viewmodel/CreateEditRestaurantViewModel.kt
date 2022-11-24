@@ -15,32 +15,12 @@ class CreateEditRestaurantViewModel: ViewModel() {
     private val createRestaurantUseCase = CreateRestaurantUseCase()
     private val editRestaurantUseCase = EditRestaurantUseCase()
     val originalRestaurant = MutableLiveData<RestaurantModel?>()
-    val restaurantDetails = MutableLiveData<RestaurantDetailsModel?>()
     val createRequestState = MutableLiveData<RequestState>(RequestState.START)
     val editRequestState = MutableLiveData<RequestState>(RequestState.START)
     val deleteRequestState = MutableLiveData<RequestState>(RequestState.START)
     val updateStatusRequestState = MutableLiveData<RequestState>(RequestState.START)
-    val detailsRequestState = MutableLiveData<RequestState>(RequestState.START)
     val menu = MutableLiveData<MenuModel?>()
     var token = ""
-
-    fun getRestaurantDetails(code: String) {
-        val restaurantUseCase = GetRestaurantsUseCase(token)
-        viewModelScope.launch {
-            detailsRequestState.value = RequestState.LOADING
-            restaurantUseCase.getRestaurantDetail(code)
-                .onSuccess {
-                    val restaurant = it.find { results ->
-                        results.code == code
-                    }
-                    restaurantDetails.postValue(restaurant)
-                    detailsRequestState.value = RequestState.SUCCESS
-                }
-                .onFailure {
-                    detailsRequestState.value = RequestState.FAILURE(it.toString())
-                }
-        }
-    }
 
     fun createRestaurant(createRestaurantModel: CreateRestaurantModel) {
         viewModelScope.launch {

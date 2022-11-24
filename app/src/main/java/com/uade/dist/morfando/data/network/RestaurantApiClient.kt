@@ -19,9 +19,6 @@ interface RestaurantApiClient {
     @GET("users/favorites")
     suspend fun getFavourites(): Result<List<RestaurantModel>>
 
-    @GET("restaurant")
-    suspend fun getRestaurantDetails(@Query("restaurant-code") code: String): Result<List<RestaurantDetailsModel>>
-
     @GET("plates")
     suspend fun getMenu(@Query("restaurant-code") code: String): Result<MenuModel>
 

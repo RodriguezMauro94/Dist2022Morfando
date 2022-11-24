@@ -16,14 +16,6 @@ class GetRestaurantsUseCase(private val auth: String) {
         }
     }
 
-    suspend fun getRestaurantDetail(code: String): Result<List<RestaurantDetailsModel>> {
-        val retrofit = RetrofitHelper.getRetrofit(auth, code)
-        val api = retrofit.create(RestaurantApiClient::class.java)
-        return withContext(Dispatchers.IO) {
-            api.getRestaurantDetails(code)
-        }
-    }
-
     suspend fun getMenu(code: String): Result<MenuModel> {
         val retrofit = RetrofitHelper.getRetrofit(auth, code)
         val api = retrofit.create(RestaurantApiClient::class.java)

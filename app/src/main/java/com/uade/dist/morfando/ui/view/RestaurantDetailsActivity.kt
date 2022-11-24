@@ -21,14 +21,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.squareup.picasso.Picasso
 import com.uade.dist.morfando.R
-import com.uade.dist.morfando.core.RequestState
-import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.core.toPriceRange
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_FAVOURITES
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_TOKEN
 import com.uade.dist.morfando.data.model.RatingModel
-import com.uade.dist.morfando.data.model.RestaurantDetailsModel
 import com.uade.dist.morfando.data.model.RestaurantModel
 import com.uade.dist.morfando.databinding.ActivityRestaurantDetailsBinding
 import com.uade.dist.morfando.ui.view.ratingsList.RatingsAdapter
@@ -59,35 +56,15 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         restaurantDetailsViewModel.favourites = favourites.toMutableSet()
         restaurantDetailsViewModel.token = token
         restaurantDetailsViewModel.restaurant.postValue(restaurant)
-        restaurantDetailsViewModel.getDetails(restaurant.code)
 
-        restaurantDetailsViewModel.requestState.observe(this) {
-            when (it) {
-                is RequestState.LOADING -> {
-                    binding.loading.visibility = View.VISIBLE
-                    binding.detailsMain.visibility = View.GONE
-                }
-                is RequestState.SUCCESS -> {
-                    binding.loading.visibility = View.GONE
-                    binding.detailsMain.visibility = View.VISIBLE
-                    restaurantDetailsViewModel.restaurantDetails.value?.apply {
-                        completeData(restaurant, this)
-                    }
-                }
-                is RequestState.FAILURE -> {
-                    binding.loading.visibility = View.GONE
-                    binding.detailsMain.visibility = View.GONE
-                    getString(R.string.generic_error).showToast(this)
-                }
-            }
-        }
+        binding.loading.visibility = View.GONE
+        binding.detailsMain.visibility = View.VISIBLE
+        completeData(restaurant)
 
         binding.detailLanding.setOnClickListener {
-            restaurantDetailsViewModel.restaurantDetails.value?.let {
-                val intent = Intent(this, GalleryActivity::class.java)
-                intent.putExtra("details", it)
-                startActivity(intent)
-            }
+            val intent = Intent(this, GalleryActivity::class.java)
+            intent.putExtra("restaurant", restaurant)
+            startActivity(intent)
         }
 
         binding.ratingSubmitButton.setOnClickListener {
@@ -97,11 +74,9 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         }
 
         binding.openHoursGroup.setOnClickListener {
-            restaurantDetailsViewModel.restaurantDetails.value?.openHours.let {
-                val intent = Intent(this, OpenHoursActivity::class.java)
-                intent.putExtra("openHours", it)
-                startActivity(intent)
-            }
+            val intent = Intent(this, OpenHoursActivity::class.java)
+            intent.putExtra("openHours", restaurant.openHours)
+            startActivity(intent)
         }
 
         binding.menuGroup.setOnClickListener {
@@ -122,7 +97,7 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun completeData(restaurant: RestaurantModel, details: RestaurantDetailsModel) {
+    private fun completeData(restaurant: RestaurantModel) {
         Picasso.get()
             .load(restaurant.image)
             .placeholder(R.drawable.logo_morfando)
@@ -136,7 +111,7 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         binding.restaurantRating2.rating = restaurant.rating.toFloat()
         binding.restaurantRatingValue2.text = restaurant.rating.toString()
         binding.openHoursTitle.text = getString(R.string.open_hours_title, restaurant.status)
-        details.ratings?.let {
+        restaurant.ratings?.let {
             binding.restaurantRatingCount.text =getString(R.string.rating_count, it.size.toString())
             binding.restaurantRatingCount2.text =getString(R.string.rating_count, it.size.toString())
         }
@@ -150,12 +125,12 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
             )
         }
 
-        binding.openHoursValue.text = if (details.openHours.getToday().isOpen)
-                getString(R.string.open_hours_template, details.openHours.getToday().openHours, details.openHours.getToday().closeHours)
+        binding.openHoursValue.text = if (restaurant.openHours.getToday().isOpen)
+                getString(R.string.open_hours_template, restaurant.openHours.getToday().openHours, restaurant.openHours.getToday().closeHours)
             else
                 getString(R.string.open_hours_closed)
-        binding.aboutUsDescription.text = details.aboutUs
-        binding.placesDescription.text = restaurant.neighborhood // FIXME
+        binding.aboutUsDescription.text = restaurant.aboutUs
+        binding.placesDescription.text = "${restaurant.streetValue} ${restaurant.streetNumberValue}, ${restaurant.neighborhood}, ${restaurant.townValue}, ${restaurant.stateValue}, ${restaurant.countryValue}"
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -224,7 +199,7 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         if (requestCode == RATING_REQUEST_CODE) {
             data?.apply {
                 val result = this.getSerializableExtra("rating") as RatingModel
-                val ratings: MutableList<RatingModel>? = restaurantDetailsViewModel.restaurantDetails.value?.ratings?.toMutableList()
+                val ratings: MutableList<RatingModel>? = restaurantDetailsViewModel.restaurant.value?.ratings?.toMutableList()
 
                 ratings?.apply {
                     add(result)
