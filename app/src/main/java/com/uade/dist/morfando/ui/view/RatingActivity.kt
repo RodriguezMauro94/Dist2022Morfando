@@ -39,9 +39,6 @@ class RatingActivity: AppCompatActivity() {
             val description: String = binding.editTextDescription.text.toString()
             val rating = binding.rating.rating
 
-            val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
-            val token = sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null) ?: ""
-
             if (rating == 0.0.toFloat() || title.isEmpty() || description.isEmpty()) {
                 getString(R.string.error_complete_fields).showToast(this)
             } else {
