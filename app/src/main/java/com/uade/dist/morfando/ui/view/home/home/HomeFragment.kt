@@ -74,7 +74,7 @@ class HomeFragment : Fragment(), RestaurantsAdapter.ItemClickListener {
         }
 
         if (isOwner) {
-            binding.homeMyRestaurants.visibility = View.VISIBLE
+            binding.homeMyRestaurantsTitle.visibility = View.VISIBLE
             binding.homeMyRestaurantsGroup.visibility = View.VISIBLE
 
             myRestaurantsAdapter = RestaurantsAdapter(this, RestaurantViewMode.HORIZONTAL)

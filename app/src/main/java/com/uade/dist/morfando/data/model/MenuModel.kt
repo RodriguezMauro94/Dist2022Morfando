@@ -18,7 +18,7 @@ data class PlateModel(
     @SerializedName("name") val name: String,
     @SerializedName("description") val description: String,
     @SerializedName("price") val price: Double,
-    @SerializedName("image") val image: String,
-    @SerializedName("isVegan") val isVegan: Boolean,
-    @SerializedName("isCeliac") val isCeliac: Boolean
+    @SerializedName("icon") val image: String,
+    @SerializedName("vegan") val isVegan: Boolean,
+    @SerializedName("celiac") val isCeliac: Boolean
 ): Serializable

@@ -5,5 +5,5 @@ import java.io.Serializable
 
 data class SaveMenuModel(
     @SerializedName("code") val restaurantCode: String,
-    @SerializedName("menu") val menu: MenuModel
+    @SerializedName("menu") val menu: List<MenuItemModel>
 ): Serializable

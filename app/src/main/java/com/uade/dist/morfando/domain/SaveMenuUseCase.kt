@@ -14,13 +14,13 @@ class SaveMenuUseCase(private val auth: String) {
 
     suspend fun updateMenu(code: String, menu: MenuModel): Result<RestaurantModel> {
         return withContext(Dispatchers.IO) {
-            api.updateMenu(SaveMenuModel(code, menu))
+            api.updateMenu(SaveMenuModel(code, menu.menu))
         }
     }
 
     suspend fun saveMenu(code: String, menu: MenuModel): Result<RestaurantModel> {
         return withContext(Dispatchers.IO) {
-            api.saveMenu(SaveMenuModel(code, menu))
+            api.saveMenu(SaveMenuModel(code, menu.menu))
         }
     }
 }
