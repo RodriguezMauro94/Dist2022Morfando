@@ -5,16 +5,36 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uade.dist.morfando.core.RequestState
 import com.uade.dist.morfando.data.model.*
+import com.uade.dist.morfando.domain.GetRestaurantsUseCase
 import com.uade.dist.morfando.domain.UserPersonalDataUseCase
 import kotlinx.coroutines.launch
 
 class RestaurantDetailsViewModel: ViewModel() {
+    val restaurantDetails = MutableLiveData<RestaurantModel?>()
     val restaurant = MutableLiveData<RestaurantModel>()
     lateinit var favourites: MutableSet<String>
     var token = ""
     val requestState = MutableLiveData<RequestState>(RequestState.START)
     val favouritesRequestState = MutableLiveData<RequestState>(RequestState.START)
     val ratingsList = MutableLiveData<List<RatingModel>>()
+
+    fun getDetails(code: String) {
+        val getRestaurantsUseCase = GetRestaurantsUseCase(token)
+        viewModelScope.launch {
+            requestState.value = RequestState.LOADING
+            getRestaurantsUseCase.getDetails(code)
+                .onSuccess {
+                    restaurantDetails.value = it
+                    it.ratings?.apply {
+                        ratingsList.postValue(this)
+                    }
+                    requestState.value = RequestState.SUCCESS
+                }
+                .onFailure {
+                    requestState.value = RequestState.FAILURE(it.toString())
+                }
+        }
+    }
 
     fun addRemoveFavourite() {
         restaurant.value?.apply {

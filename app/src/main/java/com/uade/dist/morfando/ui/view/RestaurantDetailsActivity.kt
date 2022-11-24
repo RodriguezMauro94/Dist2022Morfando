@@ -21,6 +21,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.squareup.picasso.Picasso
 import com.uade.dist.morfando.R
+import com.uade.dist.morfando.core.RequestState
+import com.uade.dist.morfando.core.showToast
 import com.uade.dist.morfando.core.toPriceRange
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_FAVOURITES
 import com.uade.dist.morfando.data.local.SHARED_PREFERENCES_NAME
@@ -61,6 +63,29 @@ class RestaurantDetailsActivity: AppCompatActivity(), OnMapReadyCallback {
         binding.loading.visibility = View.GONE
         binding.detailsMain.visibility = View.VISIBLE
         completeData(restaurant)
+
+        restaurantDetailsViewModel.getDetails(restaurant.code)
+
+        restaurantDetailsViewModel.requestState.observe(this) {
+            when (it) {
+                is RequestState.LOADING -> {
+                    binding.loading.visibility = View.VISIBLE
+                    binding.detailsMain.visibility = View.GONE
+                }
+                is RequestState.SUCCESS -> {
+                    binding.loading.visibility = View.GONE
+                    binding.detailsMain.visibility = View.VISIBLE
+                    restaurantDetailsViewModel.restaurantDetails.value?.apply {
+                        completeData(this)
+                    }
+                }
+                is RequestState.FAILURE -> {
+                    binding.loading.visibility = View.GONE
+                    binding.detailsMain.visibility = View.GONE
+                    getString(R.string.generic_error).showToast(this)
+                }
+            }
+        }
 
         binding.detailLanding.setOnClickListener {
             val intent = Intent(this, GalleryActivity::class.java)
